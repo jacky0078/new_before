@@ -3,6 +3,23 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    {
+      path: '/home',
+      name: 'home',
+      component: () => import('@/pages/Siderbar.vue'),
+      children: [
+        {
+          path: 'chat',
+          name: 'home-index',
+          component: () => import('@/pages/Chat.vue')
+        }
+      ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/pages/SignUp.vue')
+    },
     { path: "/", component: () => import("@/pages/Index.vue") },
     { path: "/add-doctor", component: () => import("@/pages/AddDoctor.vue") },
     { path: "/blank-page", component: () => import("@/pages/BlankPage.vue") },

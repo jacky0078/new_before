@@ -1,185 +1,23 @@
 <template>
-<div class="legacy-page">
+<!-- <div class="legacy-page"> -->
 
       <!-- Wrapper Start -->
-      <div class="wrapper">
+      <!-- <div class="wrapper"> -->
          <!-- Sidebar  -->
-         <div class="iq-sidebar">
-            <div class="iq-sidebar-logo d-flex justify-content-between">
-               <a href="#" @click.prevent="$router.push('/')">
-               <img src="/assets/images/logo.png" class="img-fluid" alt="">
-               <span>XRay</span>
-               </a>
-               <div class="iq-menu-bt-sidebar">
-                     <div class="iq-menu-bt align-self-center">
-                        <div class="wrapper-menu">
-                           <div class="main-circle"><i class="ri-more-fill"></i></div>
-                           <div class="hover-circle"><i class="ri-more-2-fill"></i></div>
-                        </div>
-                     </div>
-                  </div>
-            </div>
-            <div id="sidebar-scrollbar">
-               <nav class="iq-sidebar-menu">
-                  <ul class="iq-menu">
-                     <li class="iq-menu-title"><i class="ri-subtract-line"></i><span>Dashboard</span></li>
-                     <li>
-                        <a href="#" @click.prevent="$router.push('/')" class="iq-waves-effect"><i class="ri-hospital-fill"></i><span>Doctor Dashboard</span></a>
-                     </li>                     
-                     <li>
-                        <a href="#" @click.prevent="$router.push('/dashboard-1')" class="iq-waves-effect"><i class="ri-home-8-fill"></i><span>Hospital Dashboard 1 </span></a>
-                     </li>
-                     <li>
-                        <a href="#" @click.prevent="$router.push('/dashboard-2')" class="iq-waves-effect"><i class="ri-briefcase-4-fill"></i><span>Hospital Dashboard 2</span></a>
-                     </li>
-                     <li>
-                        <a href="#" @click.prevent="$router.push('/dashboard-3')" class="iq-waves-effect"><i class="ri-group-fill"></i><span>Patient Dashboard</span></a>
-                     </li>
-                     <li class="iq-menu-title"><i class="ri-subtract-line"></i><span>Apps</span></li>
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-mail-open-fill"></i><span>Email</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#" @click.prevent="$router.push('/')"><i class="ri-inbox-fill"></i>Inbox</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/email-compose')"><i class="ri-edit-2-fill"></i>Email Compose</a></li>
-                        </ul>
-                     </li>
-                     
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-user-3-fill"></i><span>Doctors</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#" @click.prevent="$router.push('/doctor-list')"><i class="ri-file-list-fill"></i>All Doctors</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/add-doctor')"><i class="ri-user-add-fill"></i> Add Doctor</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/profile')"><i class="ri-profile-fill"></i>Doctor Profile</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/profile-edit')"><i class="ri-file-edit-fill"></i> Edit Doctor</a></li>
-                        </ul>
-                     </li>
-                     <li><a href="#" @click.prevent="$router.push('/calendar')" class="iq-waves-effect"><i class="ri-calendar-event-fill"></i><span>Calendar</span></a></li>
-
-                    <li class="active"><a href="#" @click.prevent="$router.push('/chat')" class="iq-waves-effect"><i class="ri-message-fill"></i><span>Chat</span></a></li>
-                     
-                     <li class="iq-menu-title"><i class="ri-subtract-line"></i><span>Components</span></li>
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-apps-fill"></i><span>UI Elements</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#"><i class="ri-font-color"></i>colors</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-typography')"><i class="ri-text"></i>Typography</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-alerts')"><i class="ri-alert-fill"></i>Alerts</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-badges')"><i class="ri-building-3-fill"></i>Badges</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-breadcrumb')"><i class="ri-guide-fill"></i>Breadcrumb</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-buttons')"><i class="ri-checkbox-blank-fill"></i>Buttons</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-cards')"><i class="ri-bank-card-fill"></i>Cards</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-carousel')"><i class="ri-slideshow-4-fill"></i>Carousel</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-embed-video')"><i class="ri-movie-fill"></i>Video</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-grid')"><i class="ri-grid-fill"></i>Grid</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-images')"><i class="ri-image-fill"></i>Images</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-list-group')"><i class="ri-file-list-fill"></i>list Group</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-media-object')"><i class="ri-camera-fill"></i>Media</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-modal')"><i class="ri-checkbox-blank-fill"></i>Modal</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-notifications')"><i class="ri-notification-3-fill"></i>Notifications</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-pagination')"><i class="ri-more-fill"></i>Pagination</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-popovers')"><i class="ri-folder-shield-fill"></i>Popovers</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-progressbars')"><i class="ri-battery-low-fill"></i>Progressbars</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-tabs')"><i class="ri-database-fill"></i>Tabs</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/ui-tooltips')"><i class="ri-record-mail-fill"></i>Tooltips</a></li>
-                        </ul>
-                     </li>
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-device-fill"></i><span>Forms</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#"><i class="ri-tablet-fill"></i>Form Elements</a></li>
-                           <li><a href="#"><i class="ri-device-fill"></i>Form Validation</a></li>
-                           <li><a href="#"><i class="ri-toggle-fill"></i>Form Switch</a></li>
-                           <li><a href="#"><i class="ri-chat-check-fill"></i>Form Checkbox</a></li>
-                           <li><a href="#"><i class="ri-radio-button-fill"></i>Form Radio</a></li>
-                        </ul>
-                     </li>
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-file-word-fill"></i><span>Forms Wizard</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#"><i class="ri-anticlockwise-fill"></i>Simple Wizard</a></li>
-                           <li><a href="#"><i class="ri-anticlockwise-2-fill"></i>Validate Wizard</a></li>
-                           <li><a href="#"><i class="ri-clockwise-fill"></i>Vertical Wizard</a></li>
-                        </ul>
-                     </li>
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-table-fill"></i><span>Table</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#" @click.prevent="$router.push('/tables-basic')"><i class="ri-table-fill"></i>Basic Tables</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/data-table')"><i class="ri-table-2"></i>Data Table</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/table-editable')"><i class="ri-archive-drawer-fill"></i>Editable Table</a></li>
-                        </ul>
-                     </li>
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-bar-chart-2-fill"></i><span>Charts</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#" @click.prevent="$router.push('/chart-morris')"><i class="ri-file-chart-fill"></i>Morris Chart</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/chart-high')"><i class="ri-bar-chart-fill"></i>High Charts</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/chart-am')"><i class="ri-bar-chart-box-fill"></i>Am Charts</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/chart-apex')"><i class="ri-pie-chart-box-fill"></i>Apex Chart</a></li>
-                        </ul>
-                     </li>
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-copper-coin-fill"></i><span>Icons</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#" @click.prevent="$router.push('/icon-dripicons')"><i class="ri-stack-fill"></i>Dripicons</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/icon-fontawesome-5')"><i class="ri-facebook-fill"></i>Font Awesome 5</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/icon-lineawesome')"><i class="ri-keynote-fill"></i>line Awesome</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/icon-remixicon')"><i class="ri-remixicon-fill"></i>Remixicon</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/icon-unicons')"><i class="ri-underline"></i>unicons</a></li>
-                        </ul>
-                     </li>
-                     <li class="iq-menu-title"><i class="ri-subtract-line"></i><span>Pages</span></li>
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-server-fill"></i><span>Authentication</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#" @click.prevent="$router.push('/sign-in')"><i class="ri-login-box-fill"></i>Login</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/sign-up')"><i class="ri-logout-box-fill"></i>Register</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-recoverpw')"><i class="ri-record-mail-fill"></i>Recover Password</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-confirm-mail')"><i class="ri-chat-check-fill"></i>Confirm Mail</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-lock-screen')"><i class="ri-file-lock-fill"></i>Lock Screen</a></li>
-                        </ul>
-                     </li>
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-map-pin-2-fill"></i><span>Maps</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#" @click.prevent="$router.push('/pages-map')"><i class="ri-google-fill"></i>Google Map</a></li>
-                           <li><a href="#"><i class="ri-map-pin-range-line"></i>Vector Map</a></li>
-                        </ul>
-                     </li>
-                     <li>
-                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-folders-fill"></i><span>Extra Pages</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                        <ul class="iq-submenu">
-                           <li><a href="#" @click.prevent="$router.push('/pages-timeline')"><i class="ri-map-pin-time-fill"></i>Timeline</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-invoice')"><i class="ri-question-answer-fill"></i>Invoice</a></li>
-                           <li><a href="#"><i class="ri-checkbox-blank-fill"></i>Blank Page</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-error')"><i class="ri-error-warning-fill"></i>Error 404</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-error-500')"><i class="ri-error-warning-fill"></i>Error 500</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-pricing')"><i class="ri-price-tag-3-fill"></i>Pricing</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-pricing-one')"><i class="ri-price-tag-2-fill"></i>Pricing 1</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-maintenance')"><i class="ri-git-repository-commits-fill"></i>Maintenance</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-comingsoon')"><i class="ri-run-fill"></i>Coming Soon</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/pages-faq')"><i class="ri-compasses-2-fill"></i>Faq</a></li>
-                        </ul>
-                     </li>
-                  </ul>
-               </nav>
-               <div class="p-3"></div>
-            </div>
-         </div>
          
          <!-- Page Content  -->
          <div id="content-page" class="content-page">
             <!-- TOP Nav Bar -->
          <div class="iq-top-navbar header-top-sticky">
             <div class="iq-navbar-custom">
-               <div class="iq-sidebar-logo">
+               <!-- <div class="iq-sidebar-logo">
                   <div class="top-logo">
                      <a href="#" @click.prevent="$router.push('/')" class="logo">
                      <img src="/assets/images/logo.png" class="img-fluid" alt="">
                      <span>XRay</span>
                      </a>
                   </div>
-               </div>
+               </div> -->
                <nav class="navbar navbar-expand-lg navbar-light p-0">
                   <div class="iq-search-bar">
                      <form action="#" class="searchbox">
@@ -190,93 +28,19 @@
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <i class="ri-menu-3-line"></i>
                   </button>
-                  <div class="iq-menu-bt align-self-center">
+                  <!-- <div class="iq-menu-bt align-self-center">
                      <div class="wrapper-menu">
                         <div class="main-circle"><i class="ri-more-fill"></i></div>
                            <div class="hover-circle"><i class="ri-more-2-fill"></i></div>
                      </div>
-                  </div>
+                  </div> -->
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                     <ul class="navbar-nav ml-auto navbar-list">
-                        <li class="nav-item">
-                           <a class="search-toggle iq-waves-effect language-title" href="#"><img src="/assets/images/small/flag-01.png" alt="img-flaf" class="img-fluid mr-1" style="height: 16px; width: 16px;" /> English <i class="ri-arrow-down-s-line"></i></a>
-                           <div class="iq-sub-dropdown">
-                              <a class="iq-sub-card" href="#"><img src="/assets/images/small/flag-02.png" alt="img-flaf" class="img-fluid mr-2" />French</a>
-                              <a class="iq-sub-card" href="#"><img src="/assets/images/small/flag-03.png" alt="img-flaf" class="img-fluid mr-2" />Spanish</a>
-                              <a class="iq-sub-card" href="#"><img src="/assets/images/small/flag-04.png" alt="img-flaf" class="img-fluid mr-2" />Italian</a>
-                              <a class="iq-sub-card" href="#"><img src="/assets/images/small/flag-05.png" alt="img-flaf" class="img-fluid mr-2" />German</a>
-                              <a class="iq-sub-card" href="#"><img src="/assets/images/small/flag-06.png" alt="img-flaf" class="img-fluid mr-2" />Japanese</a>
-
-                           </div>
-                        </li>
+                     <ul class="navbar-nav ml-auto navbar-list">     
                         <li class="nav-item iq-full-screen">
-                           <a href="#" class="iq-waves-effect" id="btnFullscreen"><i class="ri-fullscreen-line"></i></a>
+                           <a href="#" class="iq-waves-effect" id="btnFullscreen" @click="newView"><i class="ri-fullscreen-line"></i></a>
                         </li>
-                        <li class="nav-item">
-                           <a href="#" class="search-toggle iq-waves-effect">
-                                 <i class="ri-notification-3-fill"></i>
-                                 <span class="bg-danger dots"></span>
-                              </a>
-                           <div class="iq-sub-dropdown">
-                              <div class="iq-card shadow-none m-0">
-                                 <div class="iq-card-body p-0 ">
-                                    <div class="bg-primary p-3">
-                                       <h5 class="mb-0 text-white">All Notifications<small class="badge  badge-light float-right pt-1">4</small></h5>
-                                    </div>
-
-                                    <a href="#" class="iq-sub-card" >
-                                       <div class="media align-items-center">
-                                          <div class="">
-                                             <img class="avatar-40 rounded" src="/assets/images/user/01.jpg" alt="">
-                                          </div>
-                                          <div class="media-body ml-3">
-                                             <h6 class="mb-0 ">Emma Watson Bini</h6>
-                                             <small class="float-right font-size-12">Just Now</small>
-                                             <p class="mb-0">95 MB</p>
-                                          </div>
-                                       </div>
-                                    </a>
-                                    <a href="#" class="iq-sub-card" >
-                                       <div class="media align-items-center">
-                                          <div class="">
-                                             <img class="avatar-40 rounded" src="/assets/images/user/02.jpg" alt="">
-                                          </div>
-                                          <div class="media-body ml-3">
-                                             <h6 class="mb-0 ">New customer is join</h6>
-                                             <small class="float-right font-size-12">5 days ago</small>
-                                             <p class="mb-0">Jond Bini</p>
-                                          </div>
-                                       </div>
-                                    </a>
-                                    <a href="#" class="iq-sub-card" >
-                                       <div class="media align-items-center">
-                                          <div class="">
-                                             <img class="avatar-40 rounded" src="/assets/images/user/03.jpg" alt="">
-                                          </div>
-                                          <div class="media-body ml-3">
-                                             <h6 class="mb-0 ">Two customer is left</h6>
-                                             <small class="float-right font-size-12">2 days ago</small>
-                                             <p class="mb-0">Jond Bini</p>
-                                          </div>
-                                       </div>
-                                    </a>
-                                    <a href="#" class="iq-sub-card" >
-                                       <div class="media align-items-center">
-                                          <div class="">
-                                             <img class="avatar-40 rounded" src="/assets/images/user/04.jpg" alt="">
-                                          </div>
-                                          <div class="media-body ml-3">
-                                             <h6 class="mb-0 ">New Mail from Fenny</h6>
-                                             <small class="float-right font-size-12">3 days ago</small>
-                                             <p class="mb-0">Jond Bini</p>
-                                          </div>
-                                       </div>
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                        </li>
-                        <li class="nav-item dropdown">
+                        <!-- 信息图标代码 -->
+                        <!-- <li class="nav-item dropdown">
                            <a href="#" class="search-toggle iq-waves-effect">
                               <i class="ri-mail-open-fill"></i>
                               <span class="bg-primary count-mail"></span>
@@ -345,7 +109,8 @@
                                  </div>
                               </div>
                            </div>
-                        </li>
+                        </li> -->
+                        <!-- 信息图标代码结束 -->
                      </ul>
                   </div>
                   <ul class="navbar-list">
@@ -435,12 +200,8 @@
                                     <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
                                  </div>
                                  <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Team Discussions</h6>
-                                    <span>Lorem Ipsum is</span>
-                                 </div>
-                                 <div class="chat-meta float-right text-center mt-2">
-                                    <div class="chat-msg-counter bg-primary text-white">20</div>
-                                    <span class="text-nowrap">05 min</span>
+                                    <h6 class="mb-0">眼科专家</h6>
+                                    <span>Ophthalmologist</span>
                                  </div>
                               </div>
                           </a>
@@ -453,7 +214,7 @@
                                     <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
                                  </div>
                                  <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Announcement</h6>
+                                    <h6 class="mb-0">心内科专家</h6>
                                     <span>This Sunday we</span>
                                  </div>
                                  <div class="chat-meta float-right text-center mt-2">
@@ -462,125 +223,7 @@
                                  </div>
                               </div>
                           </a>
-                           </li>
-                        </ul>
-                        <h5 class="mt-3">Private Channels</h5>
-                        <ul class="iq-chat-ui nav flex-column nav-pills">
-                          <li>
-                           <a  data-toggle="pill" href="#chatbox3">
-                              <div class="d-flex align-items-center">
-                                 <div class="avatar mr-3">
-                                    <img src="/assets/images/user/07.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-warning"></i></span>
-                                 </div>
-                                 <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Doctors</h6>
-                                    <span>There are many </span>
-                                 </div>
-                              </div>
-                            </a>
-                           </li>
-                           <li>
-                              <a  data-toggle="pill" href="#chatbox4">
-                              <div class="d-flex align-items-center">
-                                 <div class="avatar mr-3">
-                                    <img src="/assets/images/user/08.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                 </div>
-                                 <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Nurses</h6>
-                                    <span>passages of Lorem</span>
-                                 </div>
-                              </div>
-                            </a>
-                           </li>
-                           <li>
-                              <a  data-toggle="pill" href="#chatbox5">
-                              <div class="d-flex align-items-center">
-                                 <div class="avatar mr-3">
-                                    <img src="/assets/images/user/09.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-info"></i></span>
-                                 </div>
-                                 <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">OT Special</h6>
-                                    <span>Lorem Ipsum used</span>
-                                 </div>
-                              </div>
-                            </a>
-                           </li>
-                        </ul>
-                        <h5 class="mt-3">Direct Message</h5>
-                        <ul class="iq-chat-ui nav flex-column nav-pills">
-                           <li>
-                              <a  data-toggle="pill" href="#chatbox6">
-                              <div class="d-flex align-items-center">
-                                 <div class="avatar mr-3">
-                                    <img src="/assets/images/user/10.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-dark"></i></span>
-                                 </div>
-                                 <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Paul Molive</h6>
-                                    <span>translation by</span>
-                                 </div>
-                              </div>
-                            </a>
-                           </li>
-                           <li>
-                              <a  data-toggle="pill" href="#chatbox7">
-                              <div class="d-flex align-items-center">
-                                 <div class="avatar mr-3">
-                                    <img src="/assets/images/user/05.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                 </div>
-                                 <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Paige Turner</h6>
-                                    <span>Lorem Ipsum which</span>
-                                 </div>
-                              </div>
-                            </a>
-                           </li>
-                           <li>
-                              <a  data-toggle="pill" href="#chatbox8">
-                              <div class="d-flex align-items-center">
-                                 <div class="avatar mr-3">
-                                    <img src="/assets/images/user/06.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-primary"></i></span>
-                                 </div>
-                                 <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Barb Ackue</h6>
-                                    <span>simply random text</span>
-                                 </div>
-                              </div>
-                            </a>
-                           </li>
-                           <li>
-                              <a  data-toggle="pill" href="#chatbox9">
-                              <div class="d-flex align-items-center">
-                                 <div class="avatar mr-3">
-                                    <img src="/assets/images/user/07.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-danger"></i></span>
-                                 </div>
-                                 <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Maya Didas</h6>
-                                    <span> but also the leap</span>
-                                 </div>
-                              </div>
-                            </a>
-                           </li>
-                           <li>
-                              <a  data-toggle="pill" href="#chatbox10">
-                              <div class="d-flex align-items-center">
-                                 <div class="avatar mr-3">
-                                    <img src="/assets/images/user/08.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-warning"></i></span>
-                                 </div>
-                                 <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Monty Carlo</h6>
-                                    <span>Contrary to popular</span>
-                                 </div>
-                              </div>
-                            </a>
-                           </li>
+                          </li>
                         </ul>
                      </div>
                   </div>
@@ -602,66 +245,33 @@
                                     <img src="/assets/images/user/05.jpg" alt="avatar" class="avatar-50 rounded">
                                     <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
                                   </div>
-                                  <h5 class="mb-0">Team Discussions</h5>
+                                  <h5 class="mb-0">MDT会诊</h5>
                                 </div>
-                                <div class="chat-user-detail-popup scroller">
-                                    <div class="user-profile text-center">
-                                       <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
-                                       <div class="user mb-4">
-                                        <a class="avatar m-0">
-                                          <img src="/assets/images/user/05.jpg" alt="avatar">
-                                        </a>
-                                      <div class="user-name mt-4"><h4>Bini Jordan</h4></div>
-                                      <div class="user-desc"><p>Cape Town, RSA</p></div>
-                                      </div>
-                                      <hr>
-                                      <div class="chatuser-detail text-left mt-4">
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Bini Name:</div>
-                                             <div class="col-6 col-md-6 text-right">Bini</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Tel:</div>
-                                             <div class="col-6 col-md-6 text-right">072 143 9920</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Date Of Birth:</div>
-                                             <div class="col-6 col-md-6 text-right">July 12, 1989</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Gender:</div>
-                                             <div class="col-6 col-md-6 text-right">Male</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Language:</div>
-                                             <div class="col-6 col-md-6 text-right">Engliah</div>
-                                          </div>
-                                      </div>
-                                   </div>
+                                <div style="width:60%;">
+                                   <span style="position:relative;left:15%;font-size:18px;">Step1</span>
+                                   <el-Tooltip content="请保存病人信息" placement="left" class="box-item" effect="dark">
+                                      <el-button :color="event1?'green':'red'" style="border-radius: 50%;position:relative;left:20%;width: 50px;height: 50px;"></el-button>
+                                   </el-Tooltip>
+                                   <el-icon style="position:relative;left:30%;top:9px;" size="30"><DArrowRight /></el-icon>
+                                   <span style="position:relative;left:40%;font-size:18px;">Step2</span>
+                                    <el-Tooltip content="请选择医生" placement="left" class="box-item" effect="dark">
+                                      <el-button :color="event2?'green':'red'" style="position:relative;left:45%;width:50px;height:50px;" circle></el-button>
+                                   </el-Tooltip>
                                 </div>
                                 <div class="chat-header-icons d-flex">
-                                 <a href="javascript:void();" class="chat-icon-phone iq-bg-primary">
-                                    <i class="ri-phone-line"></i>
-                                  </a>
-                                 <a href="javascript:void();" class="chat-icon-video iq-bg-primary">
-                                    <i class="ri-vidicon-line"></i>
-                                  </a>
-                                  <a href="javascript:void();" class="chat-icon-delete iq-bg-primary">
-                                    <i class="ri-delete-bin-line"></i>
-                                  </a>
-                                  <span class="dropdown iq-bg-primary">
-                                    <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer pr-0" id="dropdownMenuButton02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                    <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton02">
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                    </span>
-                                  </span>
+                                  <a  @click="showDialog()">
+                                    <el-tooltip content="添加病人" placement="left" class="box-item" effect="dark">
+                                         <el-icon size="40"><Document /></el-icon>
+                                    </el-tooltip>
+                                  </a> 
                                 </div>
                               </header>
                             </div>
+                            <!-- 聊天内容 -->
                            <div class="chat-content scroller">
-                              <div class="chat">
+                              <div v-for="value in message" :key="value.id">
+                              <!-- 患者信息 -->
+                              <div class="chat" v-if="value.role=='user'">
                                 <div class="chat-user">
                                   <a class="avatar m-0">
                                     <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
@@ -670,11 +280,12 @@
                                 </div>
                                 <div class="chat-detail">
                                   <div class="chat-message">
-                                    <p>How can we help? We're here for you! 😄</p>
+                                    <p>{{ value.content }}</p>
                                   </div>
                                 </div>
                               </div>
-                              <div class="chat chat-left">
+                              <!-- 医生信息 -->
+                              <div class="chat chat-left" v-if="value.role=='assistant'">
                                 <div class="chat-user">
                                   <a class="avatar m-0">
                                     <img src="/assets/images/user/05.jpg" alt="avatar" class="avatar-35 rounded ">
@@ -683,76 +294,10 @@
                                 </div>
                                 <div class="chat-detail">
                                   <div class="chat-message">
-                                    <p>Hey John, I am looking for the best admin template.</p>
-                                    <p>Could you please help me to find it out? 🤔</p>
+                                    <p>{{ value.content }}</p>
                                   </div>
                                 </div>
                               </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:49</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Absolutely!</p>
-                                    <p>XRay Dashboard is the responsive bootstrap 4 admin template.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/05.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:52</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Looks clean and fresh UI.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:53</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Thanks, from ThemeForest.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/05.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:54</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>I will purchase it for sure. 👍</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:56</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Okay Thanks..</p>
-                                  </div>
-                                </div>
                               </div>
                            </div>
                            <div class="chat-footer p-3 bg-white">
@@ -765,1564 +310,7 @@
                                <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
                              </form>
                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="chatbox2" role="tabpanel">
-                           <div class="chat-head">
-                              <header class="d-flex justify-content-between align-items-center pt-3  pl-3 pr-3 pb-3">
-                                <div class="d-flex align-items-center">
-                                
-                                  <div class="avatar chat-user-profile m-0 mr-3">
-                                    <img src="/assets/images/user/06.jpg" alt="avatar" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                  </div>
-                                  <h5 class="mb-0">Announcement</h5>
-                                </div>
-                                <div class="chat-user-detail-popup scroller">
-                                    <div class="user-profile text-center">
-                                       <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
-                                       <div class="user mb-4">
-                                        <a class="avatar m-0">
-                                          <img src="/assets/images/user/06.jpg" alt="avatar">
-                                        </a>
-                                      <div class="user-name mt-4"><h4>Mark Jordan</h4></div>
-                                      <div class="user-desc"><p>Atlanta, USA</p></div>
-                                      </div>
-                                      <hr>
-                                      <div class="chatuser-detail text-left mt-4">
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Bini Name:</div>
-                                             <div class="col-6 col-md-6 text-right">Mark</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Tel:</div>
-                                             <div class="col-6 col-md-6 text-right">072 143 9920</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Date Of Birth:</div>
-                                             <div class="col-6 col-md-6 text-right">July 12, 1989</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Gender:</div>
-                                             <div class="col-6 col-md-6 text-right">Female</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Language:</div>
-                                             <div class="col-6 col-md-6 text-right">Engliah</div>
-                                          </div>
-                                      </div>
-                                   </div>
-                                </div>
-                                <div class="chat-header-icons d-flex">
-                                  <a href="javascript:void();" class="chat-icon-phone">
-                                    <i class="ri-phone-line"></i>
-                                  </a>
-                                 <a href="javascript:void();" class="chat-icon-video">
-                                    <i class="ri-vidicon-line"></i>
-                                  </a>
-                                  <a href="javascript:void();" class="chat-icon-delete">
-                                    <i class="ri-delete-bin-line"></i>
-                                  </a>
-                                  <span class="dropdown">
-                                    <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer" id="dropdownMenuButton01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                    <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton01">
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                    </span>
-                                  </span>
-                                </div>
-                              </header>
-                            </div>
-                           <div class="chat-content scroller">
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:45</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>How can we help? We're here for you! 😄</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/06.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:48</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Hey John, I am looking for the best admin template.</p>
-                                    <p>Could you please help me to find it out? 🤔</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:49</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Absolutely!</p>
-                                    <p>XRay Dashboard is the responsive bootstrap 4 admin template.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/06.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:52</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Looks clean and fresh UI.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:53</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Thanks, from ThemeForest.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/06.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:54</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>I will purchase it for sure. 👍</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:56</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Okay Thanks..</p>
-                                  </div>
-                                </div>
-                              </div>
-                           </div>
-                           <div class="chat-footer p-3 bg-white">
-                              <form class="d-flex align-items-center" action="javascript:void(0);">
-                              <div class="chat-attagement d-flex">
-                                  <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                                  <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
-                              </div>
-                               <input type="text" class="form-control mr-3" placeholder="Type your message">
-                               <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
-                             </form>
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="chatbox3" role="tabpanel">
-                           <div class="chat-head">
-                              <header class="d-flex justify-content-between align-items-center pt-3 pl-3 pr-3 pb-3">
-                                <div class="d-flex align-items-center">
-                                
-                                  <div class="avatar chat-user-profile m-0 mr-3">
-                                    <img src="/assets/images/user/07.jpg" alt="avatar" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                  </div>
-                                  <h5 class="mb-0">Designer</h5>
-                                </div>
-                                <div class="chat-user-detail-popup scroller">
-                                    <div class="user-profile text-center">
-                                       <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
-                                       <div class="user mb-4">
-                                        <a class="avatar m-0">
-                                          <img src="/assets/images/user/07.jpg" alt="avatar">
-                                        </a>
-                                      <div class="user-name mt-4"><h4>Paige Turner</h4></div>
-                                      <div class="user-desc"><p>Cape Town, RSA</p></div>
-                                      </div>
-                                      <hr>
-                                      <div class="chatuser-detail text-left mt-4">
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Bini Name:</div>
-                                             <div class="col-6 col-md-6 text-right">pai</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Tel:</div>
-                                             <div class="col-6 col-md-6 text-right">072 143 9920</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Date Of Birth:</div>
-                                             <div class="col-6 col-md-6 text-right">July 12, 1989</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Gender:</div>
-                                             <div class="col-6 col-md-6 text-right">Male</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Language:</div>
-                                             <div class="col-6 col-md-6 text-right">Engliah</div>
-                                          </div>
-                                      </div>
-                                   </div>
-                                </div>
-                                <div class="chat-header-icons d-flex">
-                                  <a href="javascript:void();" class="chat-icon-phone">
-                                    <i class="ri-phone-line"></i>
-                                  </a>
-                                 <a href="javascript:void();" class="chat-icon-video">
-                                    <i class="ri-vidicon-line"></i>
-                                  </a>
-                                  <a href="javascript:void();" class="chat-icon-delete">
-                                    <i class="ri-delete-bin-line"></i>
-                                  </a>
-                                  <span class="dropdown">
-                                    <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                    <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                    </span>
-                                  </span>
-                                </div>
-                              </header>
-                            </div>
-                           <div class="chat-content scroller">
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:45</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>How can we help? We're here for you! 😄</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/07.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:48</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Hey John, I am looking for the best admin template.</p>
-                                    <p>Could you please help me to find it out? 🤔</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:49</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Absolutely!</p>
-                                    <p>XRay Dashboard is the responsive bootstrap 4 admin template.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/07.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:52</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Looks clean and fresh UI.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:53</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Thanks, from ThemeForest.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/07.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:54</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>I will purchase it for sure. 👍</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:56</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Okay Thanks..</p>
-                                  </div>
-                                </div>
-                              </div>
-                           </div>
-                           <div class="chat-footer p-3 bg-white">
-                              <form class="d-flex align-items-center" action="javascript:void(0);">
-                               <div class="chat-attagement d-flex">
-                                  <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                                  <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
-                                 </div>
-                               <input type="text" class="form-control mr-3" placeholder="Type your message">
-                               <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
-                             </form>
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="chatbox4" role="tabpanel">
-                           <div class="chat-head">
-                              <header class="d-flex justify-content-between align-items-center pt-3 pl-3 pr-3 pb-3">
-                                <div class="d-flex align-items-center">
-                                
-                                  <div class="avatar chat-user-profile m-0 mr-3">
-                                    <img src="/assets/images/user/08.jpg" alt="avatar" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                  </div>
-                                  <h5 class="mb-0">Developer</h5>
-                                </div>
-                                <div class="chat-user-detail-popup scroller">
-                                    <div class="user-profile text-center">
-                                       <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
-                                       <div class="user mb-4">
-                                        <a class="avatar m-0">
-                                          <img src="/assets/images/user/08.jpg" alt="avatar">
-                                        </a>
-                                      <div class="user-name mt-4"><h4>Barb Ackue</h4></div>
-                                      <div class="user-desc"><p>Cape Town, RSA</p></div>
-                                      </div>
-                                      <hr>
-                                      <div class="chatuser-detail text-left mt-4">
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Bini Name:</div>
-                                             <div class="col-6 col-md-6 text-right">Babe</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Tel:</div>
-                                             <div class="col-6 col-md-6 text-right">072 143 9920</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Date Of Birth:</div>
-                                             <div class="col-6 col-md-6 text-right">July 12, 1989</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Gender:</div>
-                                             <div class="col-6 col-md-6 text-right">Feale</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Language:</div>
-                                             <div class="col-6 col-md-6 text-right">Engliah</div>
-                                          </div>
-                                      </div>
-                                   </div>
-                                </div>
-                                <div class="chat-header-icons d-flex">
-                                  <a href="javascript:void();" class="chat-icon-phone">
-                                    <i class="ri-phone-line"></i>
-                                  </a>
-                                 <a href="javascript:void();" class="chat-icon-video">
-                                    <i class="ri-vidicon-line"></i>
-                                  </a>
-                                  <a href="javascript:void();" class="chat-icon-delete">
-                                    <i class="ri-delete-bin-line"></i>
-                                  </a>
-                                  <span class="dropdown">
-                                    <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                    <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton2">
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                    </span>
-                                  </span>
-                                </div>
-                              </header>
-                            </div>
-                           <div class="chat-content scroller">
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:45</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>How can we help? We're here for you! 😄</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/08.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:48</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Hey John, I am looking for the best admin template.</p>
-                                    <p>Could you please help me to find it out? 🤔</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:49</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Absolutely!</p>
-                                    <p>XRay Dashboard is the responsive bootstrap 4 admin template.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/08.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:52</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Looks clean and fresh UI.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:53</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Thanks, from ThemeForest.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/08.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:54</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>I will purchase it for sure. 👍</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:56</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Okay Thanks..</p>
-                                  </div>
-                                </div>
-                              </div>
-                           </div>
-                           <div class="chat-footer p-3 bg-white">
-                              <form class="d-flex align-items-center" action="javascript:void(0);">
-                               <div class="chat-attagement d-flex">
-                                  <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                                  <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
-                                 </div>
-                               <input type="text" class="form-control mr-3" placeholder="Type your message">
-                               <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
-                             </form>
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="chatbox5" role="tabpanel">
-                           <div class="chat-head">
-                              <header class="d-flex justify-content-between align-items-center pt-3 pl-3 pr-3 pb-3">
-                                <div class="d-flex align-items-center">
-                                
-                                  <div class="avatar chat-user-profile m-0 mr-3">
-                                    <img src="/assets/images/user/09.jpg" alt="avatar" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                  </div>
-                                  <h5 class="mb-0">Testing Team</h5>
-                                </div>
-                                <div class="chat-user-detail-popup scroller">
-                                    <div class="user-profile text-center">
-                                       <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
-                                       <div class="user mb-4">
-                                        <a class="avatar m-0">
-                                          <img src="/assets/images/user/09.jpg" alt="avatar">
-                                        </a>
-                                      <div class="user-name mt-4"><h4>Peta Saireya</h4></div>
-                                      <div class="user-desc"><p>Cape Town, RSA</p></div>
-                                      </div>
-                                      <hr>
-                                      <div class="chatuser-detail text-left mt-4">
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Bini Name:</div>
-                                             <div class="col-6 col-md-6 text-right">Pet</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Tel:</div>
-                                             <div class="col-6 col-md-6 text-right">072 143 9920</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Date Of Birth:</div>
-                                             <div class="col-6 col-md-6 text-right">July 12, 1989</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Gender:</div>
-                                             <div class="col-6 col-md-6 text-right">Female</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Language:</div>
-                                             <div class="col-6 col-md-6 text-right">Engliah</div>
-                                          </div>
-                                      </div>
-                                   </div>
-                                </div>
-                                <div class="chat-header-icons d-flex">
-                                  <a href="javascript:void();" class="chat-icon-phone">
-                                    <i class="ri-phone-line"></i>
-                                  </a>
-                                 <a href="javascript:void();" class="chat-icon-video">
-                                    <i class="ri-vidicon-line"></i>
-                                  </a>
-                                  <a href="javascript:void();" class="chat-icon-delete">
-                                    <i class="ri-delete-bin-line"></i>
-                                  </a>
-                                  <span class="dropdown">
-                                    <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                    <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton3">
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                    </span>
-                                  </span>
-                                </div>
-                              </header>
-                            </div>
-                           <div class="chat-content scroller">
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:45</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>How can we help? We're here for you! 😄</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/09.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:48</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Hey John, I am looking for the best admin template.</p>
-                                    <p>Could you please help me to find it out? 🤔</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:49</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Absolutely!</p>
-                                    <p>XRay Dashboard is the responsive bootstrap 4 admin template.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/09.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:52</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Looks clean and fresh UI.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:53</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Thanks, from ThemeForest.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/09.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:54</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>I will purchase it for sure. 👍</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:56</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Okay Thanks..</p>
-                                  </div>
-                                </div>
-                              </div>
-                           </div>
-                           <div class="chat-footer p-3 bg-white">
-                              <form class="d-flex align-items-center" action="javascript:void(0);">
-                               <div class="chat-attagement d-flex">
-                                  <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                                  <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
-                                 </div>
-                               <input type="text" class="form-control mr-3" placeholder="Type your message">
-                               <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
-                             </form>
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="chatbox6" role="tabpanel">
-                           <div class="chat-head">
-                              <header class="d-flex justify-content-between align-items-center pt-3 pl-3 pr-3 pb-3">
-                                <div class="d-flex align-items-center">
-                                
-                                  <div class="avatar chat-user-profile m-0 mr-3">
-                                    <img src="/assets/images/user/10.jpg" alt="avatar" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                  </div>
-                                  <h5 class="mb-0">Paul Molive</h5>
-                                </div>
-                                <div class="chat-user-detail-popup scroller">
-                                    <div class="user-profile text-center">
-                                       <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
-                                       <div class="user mb-4">
-                                        <a class="avatar m-0">
-                                          <img src="/assets/images/user/10.jpg" alt="avatar">
-                                        </a>
-                                      <div class="user-name mt-4"><h4>Paul Molive</h4></div>
-                                      <div class="user-desc"><p>Cape Town, RSA</p></div>
-                                      </div>
-                                      <hr>
-                                      <div class="chatuser-detail text-left mt-4">
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Bini Name:</div>
-                                             <div class="col-6 col-md-6 text-right">Pau</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Tel:</div>
-                                             <div class="col-6 col-md-6 text-right">072 143 9920</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Date Of Birth:</div>
-                                             <div class="col-6 col-md-6 text-right">July 12, 1989</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Gender:</div>
-                                             <div class="col-6 col-md-6 text-right">Male</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Language:</div>
-                                             <div class="col-6 col-md-6 text-right">Engliah</div>
-                                          </div>
-                                      </div>
-                                   </div>
-                                </div>
-                                <div class="chat-header-icons d-flex">
-                                  <a href="javascript:void();" class="chat-icon-phone">
-                                    <i class="ri-phone-line"></i>
-                                  </a>
-                                 <a href="javascript:void();" class="chat-icon-video">
-                                    <i class="ri-vidicon-line"></i>
-                                  </a>
-                                  <a href="javascript:void();" class="chat-icon-delete">
-                                    <i class="ri-delete-bin-line"></i>
-                                  </a>
-                                  <span class="dropdown">
-                                    <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                    <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton4">
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                    </span>
-                                  </span>
-                                </div>
-                              </header>
-                            </div>
-                           <div class="chat-content scroller">
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:45</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>How can we help? We're here for you! 😄</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/10.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:48</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Hey John, I am looking for the best admin template.</p>
-                                    <p>Could you please help me to find it out? 🤔</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:49</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Absolutely!</p>
-                                    <p>XRay Dashboard is the responsive bootstrap 4 admin template.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/10.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:52</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Looks clean and fresh UI.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:53</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Thanks, from ThemeForest.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/10.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:54</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>I will purchase it for sure. 👍</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:56</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Okay Thanks..</p>
-                                  </div>
-                                </div>
-                              </div>
-                           </div>
-                           <div class="chat-footer p-3 bg-white">
-                              <form class="d-flex align-items-center" action="javascript:void(0);">
-                               <div class="chat-attagement d-flex">
-                                  <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                                  <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
-                                 </div>
-                               <input type="text" class="form-control mr-3" placeholder="Type your message">
-                               <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
-                             </form>
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="chatbox7" role="tabpanel">
-                           <div class="chat-head">
-                              <header class="d-flex justify-content-between align-items-center pt-3 pl-3 pr-3 pb-3">
-                                <div class="d-flex align-items-center">
-                                
-                                  <div class="avatar chat-user-profile m-0 mr-3">
-                                    <img src="/assets/images/user/05.jpg" alt="avatar" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                  </div>
-                                  <h5 class="mb-0">Paige Turner</h5>
-                                </div>
-                                <div class="chat-user-detail-popup scroller">
-                                    <div class="user-profile text-center">
-                                       <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
-                                       <div class="user mb-4">
-                                        <a class="avatar m-0">
-                                          <img src="/assets/images/user/05.jpg" alt="avatar">
-                                        </a>
-                                      <div class="user-name mt-4"><h4>Paige Turner</h4></div>
-                                      <div class="user-desc"><p>Cape Town, RSA</p></div>
-                                      </div>
-                                      <hr>
-                                      <div class="chatuser-detail text-left mt-4">
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Bini Name:</div>
-                                             <div class="col-6 col-md-6 text-right">Pai</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Tel:</div>
-                                             <div class="col-6 col-md-6 text-right">072 143 9920</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Date Of Birth:</div>
-                                             <div class="col-6 col-md-6 text-right">July 12, 1989</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Gender:</div>
-                                             <div class="col-6 col-md-6 text-right">Feale</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Language:</div>
-                                             <div class="col-6 col-md-6 text-right">Engliah</div>
-                                          </div>
-                                      </div>
-                                   </div>
-                                </div>
-                                <div class="chat-header-icons d-flex">
-                                  <a href="javascript:void();" class="chat-icon-phone">
-                                    <i class="ri-phone-line"></i>
-                                  </a>
-                                 <a href="javascript:void();" class="chat-icon-video">
-                                    <i class="ri-vidicon-line"></i>
-                                  </a>
-                                  <a href="javascript:void();" class="chat-icon-delete">
-                                    <i class="ri-delete-bin-line"></i>
-                                  </a>
-                                  <span class="dropdown">
-                                    <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer" id="dropdownMenuButton5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                    <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton5">
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                    </span>
-                                  </span>
-                                </div>
-                              </header>
-                            </div>
-                           <div class="chat-content scroller">
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:45</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>How can we help? We're here for you! 😄</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/05.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:48</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Hey John, I am looking for the best admin template.</p>
-                                    <p>Could you please help me to find it out? 🤔</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:49</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Absolutely!</p>
-                                    <p>XRay Dashboard is the responsive bootstrap 4 admin template.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/05.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:52</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Looks clean and fresh UI.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:53</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Thanks, from ThemeForest.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/05.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:54</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>I will purchase it for sure. 👍</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:56</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Okay Thanks..</p>
-                                  </div>
-                                </div>
-                              </div>
-                           </div>
-                           <div class="chat-footer p-3 bg-white">
-                              <form class="d-flex align-items-center" action="javascript:void(0);">
-                               <div class="chat-attagement d-flex">
-                                  <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                                  <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
-                                 </div>
-                               <input type="text" class="form-control mr-3" placeholder="Type your message">
-                               <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
-                             </form>
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="chatbox8" role="tabpanel">
-                           <div class="chat-head">
-                              <header class="d-flex justify-content-between align-items-center pt-3 pl-3 pr-3 pb-3">
-                                <div class="d-flex align-items-center">
-                                
-                                  <div class="avatar chat-user-profile m-0 mr-3">
-                                    <img src="/assets/images/user/06.jpg" alt="avatar" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                  </div>
-                                  <h5 class="mb-0">Barb Ackue</h5>
-                                </div>
-                                <div class="chat-user-detail-popup scroller">
-                                    <div class="user-profile text-center">
-                                       <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
-                                       <div class="user mb-4">
-                                        <a class="avatar m-0">
-                                          <img src="/assets/images/user/06.jpg" alt="avatar">
-                                        </a>
-                                      <div class="user-name mt-4"><h4>Barb Ackue</h4></div>
-                                      <div class="user-desc"><p>Cape Town, RSA</p></div>
-                                      </div>
-                                      <hr>
-                                      <div class="chatuser-detail text-left mt-4">
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Bini Name:</div>
-                                             <div class="col-6 col-md-6 text-right">Babe</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Tel:</div>
-                                             <div class="col-6 col-md-6 text-right">072 143 9920</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Date Of Birth:</div>
-                                             <div class="col-6 col-md-6 text-right">July 12, 1989</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Gender:</div>
-                                             <div class="col-6 col-md-6 text-right">Female</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Language:</div>
-                                             <div class="col-6 col-md-6 text-right">Engliah</div>
-                                          </div>
-                                      </div>
-                                   </div>
-                                </div>
-                                <div class="chat-header-icons d-flex">
-                                  <a href="javascript:void();" class="chat-icon-phone">
-                                    <i class="ri-phone-line"></i>
-                                  </a>
-                                 <a href="javascript:void();" class="chat-icon-video">
-                                    <i class="ri-vidicon-line"></i>
-                                  </a>
-                                  <a href="javascript:void();" class="chat-icon-delete">
-                                    <i class="ri-delete-bin-line"></i>
-                                  </a>
-                                  <span class="dropdown">
-                                    <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer" id="dropdownMenuButton6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                    <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton6">
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                    </span>
-                                  </span>
-                                </div>
-                              </header>
-                            </div>
-                           <div class="chat-content scroller">
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:45</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>How can we help? We're here for you! 😄</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/06.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:48</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Hey John, I am looking for the best admin template.</p>
-                                    <p>Could you please help me to find it out? 🤔</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:49</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Absolutely!</p>
-                                    <p>XRay Dashboard is the responsive bootstrap 4 admin template.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/06.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:52</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Looks clean and fresh UI.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:53</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Thanks, from ThemeForest.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/06.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:54</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>I will purchase it for sure. 👍</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:56</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Okay Thanks..</p>
-                                  </div>
-                                </div>
-                              </div>
-                           </div>
-                           <div class="chat-footer p-3 bg-white">
-                              <form class="d-flex align-items-center" action="javascript:void(0);">
-                               <div class="chat-attagement d-flex">
-                                  <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                                  <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
-                                 </div>
-                               <input type="text" class="form-control mr-3" placeholder="Type your message">
-                               <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
-                             </form>
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="chatbox9" role="tabpanel">
-                           <div class="chat-head">
-                              <header class="d-flex justify-content-between align-items-center pt-3 pl-3 pr-3 pb-3">
-                                <div class="d-flex align-items-center">
-                                
-                                  <div class="avatar chat-user-profile m-0 mr-3">
-                                    <img src="/assets/images/user/07.jpg" alt="avatar" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                  </div>
-                                  <h5 class="mb-0">Maya Didas</h5>
-                                </div>
-                                <div class="chat-user-detail-popup scroller">
-                                    <div class="user-profile text-center">
-                                       <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
-                                       <div class="user mb-4">
-                                        <a class="avatar m-0">
-                                          <img src="/assets/images/user/07.jpg" alt="avatar">
-                                        </a>
-                                      <div class="user-name mt-4"><h4>Maya Didas</h4></div>
-                                      <div class="user-desc"><p>Cape Town, RSA</p></div>
-                                      </div>
-                                      <hr>
-                                      <div class="chatuser-detail text-left mt-4">
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Bini Name:</div>
-                                             <div class="col-6 col-md-6 text-right">Babe</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Tel:</div>
-                                             <div class="col-6 col-md-6 text-right">072 143 9920</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Date Of Birth:</div>
-                                             <div class="col-6 col-md-6 text-right">July 12, 1989</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Gender:</div>
-                                             <div class="col-6 col-md-6 text-right">Male</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Language:</div>
-                                             <div class="col-6 col-md-6 text-right">Engliah</div>
-                                          </div>
-                                      </div>
-                                   </div>
-                                </div>
-                                <div class="chat-header-icons d-flex">
-                                  <a href="javascript:void();" class="chat-icon-phone">
-                                    <i class="ri-phone-line"></i>
-                                  </a>
-                                 <a href="javascript:void();" class="chat-icon-video">
-                                    <i class="ri-vidicon-line"></i>
-                                  </a>
-                                  <a href="javascript:void();" class="chat-icon-delete">
-                                    <i class="ri-delete-bin-line"></i>
-                                  </a>
-                                  <span class="dropdown">
-                                    <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer" id="dropdownMenuButton7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                    <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton7">
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                    </span>
-                                  </span>
-                                </div>
-                              </header>
-                            </div>
-                           <div class="chat-content scroller">
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:45</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>How can we help? We're here for you! 😄</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/07.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:48</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Hey John, I am looking for the best admin template.</p>
-                                    <p>Could you please help me to find it out? 🤔</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:49</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Absolutely!</p>
-                                    <p>XRay Dashboard is the responsive bootstrap 4 admin template.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/07.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:52</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Looks clean and fresh UI.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:53</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Thanks, from ThemeForest.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/07.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:54</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>I will purchase it for sure. 👍</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:56</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Okay Thanks..</p>
-                                  </div>
-                                </div>
-                              </div>
-                           </div>
-                           <div class="chat-footer p-3 bg-white">
-                              <form class="d-flex align-items-center" action="javascript:void(0);">
-                               <div class="chat-attagement d-flex">
-                                  <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                                  <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
-                                 </div>
-                               <input type="text" class="form-control mr-3" placeholder="Type your message">
-                               <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
-                             </form>
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="chatbox10" role="tabpanel">
-                           <div class="chat-head">
-                              <header class="d-flex justify-content-between align-items-center pt-3 pl-3 pr-3 pb-3">
-                                <div class="d-flex align-items-center">
-                                
-                                  <div class="avatar chat-user-profile m-0 mr-3">
-                                    <img src="/assets/images/user/08.jpg" alt="avatar" class="avatar-50 rounded">
-                                    <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                                  </div>
-                                  <h5 class="mb-0">Monty Carlo</h5>
-                                </div>
-                                <div class="chat-user-detail-popup scroller">
-                                    <div class="user-profile text-center">
-                                       <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
-                                       <div class="user mb-4">
-                                        <a class="avatar m-0">
-                                          <img src="/assets/images/user/08.jpg" alt="avatar">
-                                        </a>
-                                      <div class="user-name mt-4"><h4>Monty Carlo</h4></div>
-                                      <div class="user-desc"><p>Cape Town, RSA</p></div>
-                                      </div>
-                                      <hr>
-                                      <div class="chatuser-detail text-left mt-4">
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Bini Name:</div>
-                                             <div class="col-6 col-md-6 text-right">Babe</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Tel:</div>
-                                             <div class="col-6 col-md-6 text-right">072 143 9920</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Date Of Birth:</div>
-                                             <div class="col-6 col-md-6 text-right">July 12, 1989</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Gender:</div>
-                                             <div class="col-6 col-md-6 text-right">Female</div>
-                                          </div><hr>
-                                          <div class="row">
-                                             <div class="col-6 col-md-6 title">Language:</div>
-                                             <div class="col-6 col-md-6 text-right">Engliah</div>
-                                          </div>
-                                      </div>
-                                   </div>
-                                </div>
-                                <div class="chat-header-icons d-flex">
-                                  <a href="javascript:void();" class="chat-icon-phone">
-                                    <i class="ri-phone-line"></i>
-                                  </a>
-                                 <a href="javascript:void();" class="chat-icon-video">
-                                    <i class="ri-vidicon-line"></i>
-                                  </a>
-                                  <a href="javascript:void();" class="chat-icon-delete">
-                                    <i class="ri-delete-bin-line"></i>
-                                  </a>
-                                  <span class="dropdown">
-                                    <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer" id="dropdownMenuButton8" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                    <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton8">
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                      <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                    </span>
-                                  </span>
-                                </div>
-                              </header>
-                            </div>
-                           <div class="chat-content scroller">
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:45</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>How can we help? We're here for you! 😄</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/08.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:48</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Hey John, I am looking for the best admin template.</p>
-                                    <p>Could you please help me to find it out? 🤔</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:49</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Absolutely!</p>
-                                    <p>XRay Dashboard is the responsive bootstrap 4 admin template.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/08.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:52</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Looks clean and fresh UI.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:53</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Thanks, from ThemeForest.</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat chat-left">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/08.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:54</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>I will purchase it for sure. 👍</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="chat">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="/assets/images/user/1.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">6:56</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                    <p>Okay Thanks..</p>
-                                  </div>
-                                </div>
-                              </div>
-                           </div>
-                           <div class="chat-footer p-3 bg-white">
-                              <form class="d-flex align-items-center" action="javascript:void(0);">
-                               <div class="chat-attagement d-flex">
-                                  <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                                  <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
-                                 </div>
-                               <input type="text" class="form-control mr-3" placeholder="Type your message">
-                               <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
-                             </form>
-                           </div>
-                        </div>
+                        </div>                   
                      </div>
                   </div>
                </div>
@@ -2344,8 +332,8 @@
                </div>
             </footer>
             <!-- Footer END -->
-         </div>
-      </div>
+         <!-- </div> -->
+      <!-- </div> -->
       <!-- Wrapper END -->
      
       
@@ -2381,10 +369,166 @@
       <!-- Custom JavaScript -->
       
   </div>
+  <el-dialog 
+      v-model="dialogVisible"
+      title="填写病人信息"
+  >  
+   <el-form :model="patient" style="margin-top:3%">
+        <el-form-item label="主诉症状:">
+         <el-input v-model="patient.main_complaint" placeholder="例如:左眼红,眼痛,流泪3天" type="textarea"></el-input>
+      </el-form-item>
+      <el-form-item label="持续时间:">
+         <el-select v-model="patient.duration" placeholder="请选择持续时间">
+            <el-option label="3天内" value="三天内"></el-option>
+            <el-option label="3天至7天" value="三天至七天"></el-option>
+            <el-option label="7天以上30天以内" value="七天至三十天"></el-option>
+            <el-option label="30天以上" value="三十天以上"></el-option>
+         </el-select>
+      </el-form-item>
+      <el-form-item label="眼部手术:">
+         <el-input v-model="patient.eye_operation" placeholder="例如:白内障手术,一年前" type="textarea"></el-input>
+      </el-form-item>
+      <el-form-item label="慢性疾病:">
+         <el-checkbox-group v-model="patient.chronic_disease">
+            <el-checkbox label="高血压">高血压</el-checkbox>
+            <el-checkbox label="糖尿病">糖尿病</el-checkbox>
+            <el-checkbox label="心脏病">心脏病</el-checkbox>
+            <el-checkbox label="自身免疫性疾病">自身免疫性疾病</el-checkbox>
+            <el-checkbox label="甲状腺疾病">甲状腺疾病</el-checkbox>
+         </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="药物过敏:">
+         <el-input v-model="patient.drug_allergy" placeholder="例如:青霉素,青霉素类" type="textarea"></el-input>
+      </el-form-item>
+      <el-form-item label="长期用药:">
+         <el-input v-model="patient.long_term_drug" placeholder="例如:阿司匹林,阿司匹林类" type="textarea"></el-input>
+      </el-form-item>
+      <el-form-item style="margin-top:4%">
+         <el-button type="primary" style="position:relative;left:85%" @click="savePatient()">保存病例</el-button>
+      </el-form-item>
+   </el-form>
+  </el-dialog>
 </template>
 
-<script setup lang="ts">
+<script setup>
 // static migration: original JS (if any) loads globally via index.html
+import {io} from 'socket.io-client'
+import {ref,reactive} from 'vue'
+import {onMounted} from 'vue'
+import {Plus,Document,DArrowRight} from '@element-plus/icons-vue'
+const io_url = 'http://127.0.0.1:5000'
+const socket = io(io_url)
+const session_id = ref('')
+const dialogVisible = ref(false)
+const patient = reactive({})
+const event1 = ref(false)
+const event2 = ref(false)
+//用于存储信息
+const message = ref([
+   {   
+       id:1,
+       role:'user',
+       content:'你好'
+   },
+   {  
+       id:2,
+       role:'assistant',
+       content:'你好，我是心内科专家'
+   },
+   {
+      id:3,
+      role:'user',
+      content:'我想知道心跳率的正常范围'
+   },
+   {
+      id:4,
+      role:'assistant',
+      content:'心跳率的正常范围是60次/分至100次/分'
+   },
+   {
+      id:4,
+      role:'assistant',
+      content:'心跳率的正常范围是60次/分至100次/分'
+   },
+   {
+      id:4,
+      role:'assistant',
+      content:'心跳率的正常范围是60次/分至100次/分'
+   },
+   {
+      id:4,
+      role:'assistant',
+      content:'心跳率的正常范围是60次/分至100次/分'
+   }
+   
+])
+onMounted(() => {
+    if(localStorage.getItem('session_id')!=null){
+        session_id.value = localStorage.getItem('session_id')
+    }else{
+      //   请求后端获取session.id      
+    }
+})
+const savePatient = () =>{
+    dialogVisible.value = false
+    event1.value = true
+}
+const newView = () =>{
+    // 清空message
+    message.value = []
+    //获取后端新的的session_id同时写入前端的session_id,移除掉旧的localstorage中的session_id
+    
+}
+const showDialog = () =>{
+    dialogVisible.value = true
+}
+
 </script>
+<style>
+ .box-item {
+  width: 110px;
+  margin-top: 10px;
+}
 
+/* Dialog字体放大全局样式 */
+.el-dialog {
+  font-size: 18px !important;
+}
 
+/* Dialog标题样式 */
+.el-dialog__title {
+  font-size: 22px !important;
+  font-weight: bold !important;
+}
+
+/* 表单标签样式 */
+.el-form-item__label {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+/* 输入框样式 */
+.el-input__inner,
+.el-textarea__inner,
+.el-select__input {
+  font-size: 18px !important;
+  padding: 12px !important;
+}
+
+/* 复选框和选项样式 */
+.el-checkbox__label,
+.el-option__label {
+  font-size: 18px !important;
+}
+
+/* 按钮样式 */
+.el-button {
+  font-size: 18px !important;
+  padding: 12px 24px !important;
+}
+
+/* 确保Dialog内容区域所有文本都被放大 */
+.el-dialog__body * {
+  font-size: inherit !important;
+}
+</style>
