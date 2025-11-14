@@ -900,7 +900,7 @@ Chat
 #chat-search { padding-left: 40px; }
 .form-group.chat-search-data > i { position: absolute; top: 8px; left: 15px; color: #089bab; font-size: 16px; }
 .chat-sidebar-name { width: 100%; }
-.chat-msg-counter { height: 20px; width: 20px; border-radius: 50%; line-height: 22px; margin: 0 auto; font-size: 10px; }
+.chat-msg-counter { height: 20px; width: 20px; border-radius: 50%;}
 .chat-meta span { font-size: 10px; }
 span.avatar-status { position: absolute; bottom: -5px; top: auto; left: auto; right: 0; }
 .iq-chat-ui li a { text-decoration: none; display: block; padding: 20px 15px; border-bottom: 1px solid #f1f2f1; background: rgba(255, 255, 255, 0.6); border-radius: 25px; margin-bottom: 20px; }

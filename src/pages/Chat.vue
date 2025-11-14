@@ -247,7 +247,7 @@
                                   </div>
                                   <h5 class="mb-0">MDT会诊</h5>
                                 </div>
-                                <div style="width:60%;">
+                                <!-- <div style="width:60%;">
                                    <span style="position:relative;left:15%;font-size:18px;">Step1</span>
                                    <el-Tooltip content="请保存病人信息" placement="left" class="box-item" effect="dark">
                                       <el-button :color="event1?'green':'red'" style="border-radius: 50%;position:relative;left:20%;width: 50px;height: 50px;"></el-button>
@@ -257,7 +257,7 @@
                                     <el-Tooltip content="请选择医生" placement="left" class="box-item" effect="dark">
                                       <el-button :color="event2?'green':'red'" style="position:relative;left:45%;width:50px;height:50px;" circle></el-button>
                                    </el-Tooltip>
-                                </div>
+                                </div> -->
                                 <div class="chat-header-icons d-flex">
                                   <a  @click="showDialog()">
                                     <el-tooltip content="添加病人" placement="left" class="box-item" effect="dark">
@@ -269,6 +269,23 @@
                             </div>
                             <!-- 聊天内容 -->
                            <div class="chat-content scroller">
+                              <div style="width: 100%;background-color: #E0F7FA;border-radius: 15px;height:15%;display: flex;align-items: center;margin-bottom: 2%;">
+                                 <span class="chat-msg-counter bg-primary" style="position: relative;left:1.5%"></span>
+                                 <span style="color: #26A69A;position: relative;left:2%">Step 1:</span>
+                                 <span style="position: relative;left:2.5%">请保存病人信息</span>
+                                 <span class="chat-msg-counter bg-primary"  :background-color="event1?'green':'red'" style="position: relative;left:15.5%"></span>
+                                 <span style="position: relative;left:15%">
+                                 <span style="color: #26A69A;position: relative;left:6%">Step 2:</span>
+                                 <span style="position: relative;left:6.5%">请选择医生专家</span>
+                                 </span>
+                                 <!-- <span style="position: relative;left:7%"><el-button circle></el-button></span> -->
+                                   <span class="chat-msg-counter bg-primary" style="position: relative;left:31%"></span>
+                                 <span style="position: relative;left:30%">
+                                 <span class="chat-msg-counter bg-primary" style="position: relative;left:10%"></span>
+                                 <span style="color: #26A69A;position: relative;left:10%">Step 3:</span>
+                                 <span style="position: relative;left:10.5%">启动多智能体会诊</span>
+                                 </span>
+                              </div>
                               <div v-for="value in message" :key="value.id">
                               <!-- 患者信息 -->
                               <div class="chat" v-if="value.role=='user'">
@@ -416,6 +433,7 @@ import {io} from 'socket.io-client'
 import {ref,reactive} from 'vue'
 import {onMounted} from 'vue'
 import {Plus,Document,DArrowRight} from '@element-plus/icons-vue'
+import axios from 'axios'
 const io_url = 'http://127.0.0.1:5000'
 const socket = io(io_url)
 const session_id = ref('')
@@ -423,6 +441,7 @@ const dialogVisible = ref(false)
 const patient = reactive({})
 const event1 = ref(false)
 const event2 = ref(false)
+const event3 = ref(false)
 //用于存储信息
 const message = ref([
    {   
@@ -466,10 +485,14 @@ onMounted(() => {
     if(localStorage.getItem('session_id')!=null){
         session_id.value = localStorage.getItem('session_id')
     }else{
-      //   请求后端获取session.id      
+        axios.get(io_url+'/api/get_session_id',{params:{username:'user1'}}).then(res =>{
+            session_id.value = res.data.session_id
+            localStorage.setItem('session_id',res.data.session_id)
+        })
     }
 })
 const savePatient = () =>{
+    socket.emit
     dialogVisible.value = false
     event1.value = true
 }
