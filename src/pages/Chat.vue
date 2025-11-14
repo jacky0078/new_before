@@ -258,10 +258,17 @@
                                       <el-button :color="event2?'green':'red'" style="position:relative;left:45%;width:50px;height:50px;" circle></el-button>
                                    </el-Tooltip>
                                 </div> -->
+                                 <div class="chat-header-icons d-flex">
+                                  <a  @click="getHistory()" style="position: relative;left:23vw;">
+                                    <el-tooltip content="历史对话" placement="left" class="box-item" effect="dark">
+                                         <el-icon size="40"><Document /></el-icon>
+                                    </el-tooltip>
+                                  </a> 
+                                </div>
                                 <div class="chat-header-icons d-flex">
                                   <a  @click="showDialog()">
                                     <el-tooltip content="添加病人" placement="left" class="box-item" effect="dark">
-                                         <el-icon size="40"><Document /></el-icon>
+                                         <el-icon size="40"><List /></el-icon>
                                     </el-tooltip>
                                   </a> 
                                 </div>
@@ -273,7 +280,7 @@
                                  <span class="chat-msg-counter bg-primary" style="position: relative;left:1.5%"></span>
                                  <span style="color: #26A69A;position: relative;left:2%">Step 1:</span>
                                  <span style="position: relative;left:2.5%">请保存病人信息</span>
-                                 <span class="chat-msg-counter bg-primary"  :background-color="event1?'green':'red'" style="position: relative;left:15.5%"></span>
+                                 <span class="chat-msg-counter bg-primary" style="position: relative;left:15.5%"></span>
                                  <span style="position: relative;left:15%">
                                  <span style="color: #26A69A;position: relative;left:6%">Step 2:</span>
                                  <span style="position: relative;left:6.5%">请选择医生专家</span>
@@ -425,6 +432,23 @@
       </el-form-item>
    </el-form>
   </el-dialog>
+  <el-dialog
+      v-model="dialogVisibleForHistory"
+      title="历史对话" 
+      :fullscreen="false"
+      :before-close="handleClose"
+      width="50%"
+  >
+   <div style="max-height: 500px; overflow-y: auto; padding: 10px;">
+    <div v-for="item in conversation_today" :key="item.id">
+        <div class="conversation-item">
+            <span class="message-role">{{ item.role }}:</span> 
+            <span class="message-content">{{ item.content }}</span>
+        </div>
+    </div>
+   </div>
+
+  </el-dialog>
 </template>
 
 <script setup>
@@ -432,55 +456,70 @@
 import {io} from 'socket.io-client'
 import {ref,reactive} from 'vue'
 import {onMounted} from 'vue'
-import {Plus,Document,DArrowRight} from '@element-plus/icons-vue'
+import {Plus,Document,DArrowRight,List} from '@element-plus/icons-vue'
 import axios from 'axios'
 const io_url = 'http://127.0.0.1:5000'
 const socket = io(io_url)
 const session_id = ref('')
 const dialogVisible = ref(false)
+const dialogVisibleForHistory = ref(false)
 const patient = reactive({})
 const event1 = ref(false)
 const event2 = ref(false)
 const event3 = ref(false)
 //用于存储信息
 const message = ref([
-   {   
-       id:1,
-       role:'user',
-       content:'你好'
-   },
-   {  
-       id:2,
-       role:'assistant',
-       content:'你好，我是心内科专家'
-   },
-   {
-      id:3,
-      role:'user',
-      content:'我想知道心跳率的正常范围'
-   },
-   {
-      id:4,
-      role:'assistant',
-      content:'心跳率的正常范围是60次/分至100次/分'
-   },
-   {
-      id:4,
-      role:'assistant',
-      content:'心跳率的正常范围是60次/分至100次/分'
-   },
-   {
-      id:4,
-      role:'assistant',
-      content:'心跳率的正常范围是60次/分至100次/分'
-   },
-   {
-      id:4,
-      role:'assistant',
-      content:'心跳率的正常范围是60次/分至100次/分'
-   }
+   // {   
+   //     id:1,
+   //     role:'user',
+   //     content:'你好'
+   // },
+   // {  
+   //     id:2,
+   //     role:'assistant',
+   //     content:'你好，我是心内科专家'
+   // },
+   // {
+   //    id:3,
+   //    role:'user',
+   //    content:'我想知道心跳率的正常范围'
+   // },
+   // {
+   //    id:4,
+   //    role:'assistant',
+   //    content:'心跳率的正常范围是60次/分至100次/分'
+   // },
+   // {
+   //    id:4,
+   //    role:'assistant',
+   //    content:'心跳率的正常范围是60次/分至100次/分'
+   // },
+   // {
+   //    id:4,
+   //    role:'assistant',
+   //    content:'心跳率的正常范围是60次/分至100次/分'
+   // },
+   // {
+   //    id:4,
+   //    role:'assistant',
+   //    content:'心跳率的正常范围是60次/分至100次/分'
+   // }
    
 ])
+const conversation_today = ref([
+   {id:1,role:'user',content:'你好'},
+   {id:2,role:'assistant',content:'你好，我是心内科专家'},
+   {id:3,role:'user',content:'我想知道心跳率的正常范围'},
+   {id:4,role:'assistant',content:'心跳率的正常范围是60次/分至100次/分'},
+   {id:5,role:'user',content:'我想知道血压的正常范围'},
+   {id:6,role:'assistant',content:'血压的正常范围是120/80至140/90'},
+   {id:7,role:'user',content:'我想知道心率的正常范围'},
+   {id:8,role:'assistant',content:'心率的正常范围是60次/分至100次/分'},
+   {id:9,role:'assistant',content:'心率的正常范围是60次/分至100次/分'}
+])
+const conversation_last_7_days = ref([])
+const conversation_last_30_days = ref([])
+const conversation_before_30_days = ref([])
 onMounted(() => {
     if(localStorage.getItem('session_id')!=null){
         session_id.value = localStorage.getItem('session_id')
@@ -491,6 +530,20 @@ onMounted(() => {
         })
     }
 })
+const getHistory = () =>{
+      dialogVisibleForHistory.value = true
+      axios.get(io_url+'/api/user_conversation',{params:{username:'user1'}}).then(res =>{
+         conversation_today.value = res.data.conversation_today
+         conversation_last_7_days.value = res.data.conversation_last_7_days
+         conversation_last_30_days.value = res.data.conversation_last_30_days
+         conversation_before_30_days.value = res.data.conversation_before_30_days
+      })
+}
+
+// 对话框关闭前的处理函数
+const handleClose = (done) => {
+  done();
+}
 const savePatient = () =>{
     socket.emit
     dialogVisible.value = false
@@ -555,3 +608,43 @@ const showDialog = () =>{
   font-size: inherit !important;
 }
 </style>
+ <style scoped>
+  .conversation-item {
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .conversation-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .user-message {
+    background-color: #E3F2FD;
+    margin-left: auto;
+    margin-right: 10px;
+    max-width: 80%;
+  }
+  .assistant-message {
+    background-color: #F1F8E9;
+    margin-left: 10px;
+    margin-right: auto;
+    max-width: 80%;
+  }
+  .message-role {
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  .user-message .message-role {
+    color: #1976D2;
+  }
+  .assistant-message .message-role {
+    color: #558B2F;
+  }
+  .message-content {
+    word-break: break-word;
+  }
+  </style>
