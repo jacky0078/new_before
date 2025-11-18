@@ -20,7 +20,18 @@
 
                <!-- Step 1: 填写图标 -->
                <span
-                  style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background-color: #089bab; position: relative; left: 1%; cursor: pointer;"
+                  :style="{
+                     display: 'inline-flex',
+                     alignItems: 'center',
+                     justifyContent: 'center',
+                     width: '30px',
+                     height: '30px',
+                     borderRadius: '50%',
+                     backgroundColor: '#089bab',
+                     position: 'relative',
+                     left: '1%',
+                     cursor: 'pointer'
+                  }"
                   @click="showDialog()" title="请保存病人信息">
                   <i class="fas fa-pen-to-square" style="color: white; font-size: 16px;"></i>
                </span>
@@ -29,16 +40,30 @@
 
                <!-- Step 2: 手指选择图标 -->
                <span
-                  style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background-color: #089bab; position: relative; left: 15%;">
+                  :style="{
+                     display: 'inline-flex',
+                     alignItems: 'center',
+                     justifyContent: 'center',
+                     width: '30px',
+                     height: '30px',
+                     borderRadius: '50%',
+                     backgroundColor: '#089bab',
+                     position: 'relative',
+                     left: '15%',
+                     cursor: 'pointer',
+                     opacity: '1'
+                  }"
+                  @click="showExpertDialog()" 
+                  title="选择医生专家">
                   <i class="fas fa-hand-pointer" style="color: white; font-size: 16px;"></i>
                </span>
                <span style="color: #089bab;position: relative;left:15.5%"> Step 2:</span>
                <span style="position: relative;left:16%">选择医生专家</span>
 
-               <!-- Step 3: 对号图标 -->
+               <!-- Step 3: 加号图标 -->
                <span
-                  style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background-color: #089bab; position: relative; left: 30%;">
-                  <i class="fas fa-check" style="color: white; font-size: 16px;"></i>
+                  style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background-color: #089bab; position: relative; left: 30%; cursor: pointer;">
+                  <i class="fas fa-plus" style="color: white; font-size: 16px;"></i>
                </span>
                <span style="color: #089bab;position: relative;left:30.5%"> Step 3:</span>
                <span style="position: relative;left:31%">开启会诊</span>
@@ -62,18 +87,7 @@
                <ul class="navbar-list">
                   <li>
                      <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
-                        <!-- 历史对话按钮 -->
-                        <span @click="getHistory()"
-                           style="display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; cursor: pointer;">
-                           <el-tooltip content="历史对话" placement="right" class="box-item" effect="dark">
-                              <span
-                                 style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #089bab; cursor: pointer; position: relative;">
-                                 <i class="fas fa-comment" style="color: white; font-size: 18px; z-index: 1;"></i>
-                                 <i class="fas fa-clock"
-                                    style="color: white; font-size: 12px; position: absolute; bottom: 5px; right: 5px; z-index: 2; background-color: #089bab; padding: 2px; border-radius: 50%;"></i>
-                              </span>
-                           </el-tooltip>
-                        </span>
+
                         <img src="/assets/images/user/1.jpg" class="img-fluid rounded mr-3" alt="user">
                         <div class="caption">
                            <h6 class="mb-0 line-height">Bini Jets</h6>
@@ -149,8 +163,9 @@
       <!-- TOP Nav Bar END -->
       <div class="container-fluid">
          <div class="row">
-            <div class="col-lg-3 chat-data-left">
-               <div class="chat-sidebar-channel scroller pl-3 h-100">
+            <!-- 初始状态下隐藏左侧聊天数据区域 -->
+            <div class="col-lg-3 chat-data-left" v-if="conversationStarted" style="min-height: calc(100vh - 250px);">
+               <div class="chat-sidebar-channel scroller pl-3 h-100" style="scrollbar-width: thin; scrollbar-color: #089bab #f1f1f1;">
 
                   <!-- 新建对话按钮 -->
                   <div class="my-4">
@@ -159,96 +174,33 @@
                         <i class="fas fa-plus mr-2"></i>新建对话
                      </button>
                   </div>
-
-                  <ul class="iq-chat-ui nav flex-column nav-pills">
-                     <li class="mb-4">
-                        <div
-                           class="d-flex align-items-center expert-item py-4 px-3 rounded-lg cursor-pointer bg-white hover:bg-gray-100 transition-all duration-200"
-                           @click="selectExpert('ophthalmologist')"
-                           :class="{ 'selected': isExpertSelected('ophthalmologist') }">
-                           <div class="avatar mr-3">
-                              <img src="/assets/images/user/05.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                              <span class="avatar-status"><i
-                                    class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                           </div>
-                           <div class="chat-sidebar-name">
-                              <h6 class="mb-0">眼科专家</h6>
-                              <span>Ophthalmologist</span>
+                  
+                  <!-- 历史对话区域 -->
+                  <div class="p-4 bg-white rounded-lg border border-gray-200 mt-4">
+                     <h5 class="text-center mb-3" style="color: #089bab;">历史对话</h5>
+                     <div v-if="conversation_today.length > 0" class="history-conversation-list">
+                        <div v-for="item in conversation_today.slice(0, 5)" :key="item.id" class="history-item p-2 border-b border-gray-100">
+                           <div class="d-flex justify-content-between items-center">
+                              <span class="message-role text-sm">{{ item.role }}:</span>
+                              <span class="message-content text-sm text-gray-600">{{ item.content.substring(0, 20) }}...</span>
                            </div>
                         </div>
-                     </li>
-                     <li class="mb-4">
-                        <div
-                           class="d-flex align-items-center expert-item py-4 px-3 rounded-lg cursor-pointer bg-white hover:bg-gray-100 transition-all duration-200"
-                           @click="selectExpert('radiology')" :class="{ 'selected': isExpertSelected('radiology') }">
-                           <div class="avatar mr-3">
-                              <img src="/assets/images/user/06.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                              <span class="avatar-status"><i
-                                    class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                           </div>
-                           <div class="chat-sidebar-name">
-                              <h6 class="mb-0">放射科专家</h6>
-                              <span>Radiologist</span>
-                           </div>
-                        </div>
-                     </li>
-                     <li class="mb-4">
-                        <div
-                           class="d-flex align-items-center expert-item py-4 px-3 rounded-lg cursor-pointer bg-white hover:bg-gray-100 transition-all duration-200"
-                           @click="selectExpert('infectious')" :class="{ 'selected': isExpertSelected('infectious') }">
-                           <div class="avatar mr-3">
-                              <img src="/assets/images/user/07.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                              <span class="avatar-status"><i
-                                    class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                           </div>
-                           <div class="chat-sidebar-name">
-                              <h6 class="mb-0">感染科专家</h6>
-                              <span>Infectious Specialist</span>
-                           </div>
-                        </div>
-                     </li>
-                     <li class="mb-4">
-                        <div
-                           class="d-flex align-items-center expert-item py-4 px-3 rounded-lg cursor-pointer bg-white hover:bg-gray-100 transition-all duration-200"
-                           @click="selectExpert('neuroscience')"
-                           :class="{ 'selected': isExpertSelected('neuroscience') }">
-                           <div class="avatar mr-3">
-                              <img src="/assets/images/user/08.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                              <span class="avatar-status"><i
-                                    class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                           </div>
-                           <div class="chat-sidebar-name">
-                              <h6 class="mb-0">神经科专家</h6>
-                              <span>Neurology Specialist</span>
-                           </div>
-                        </div>
-                     </li>
-                     <li class="mb-4">
-                        <div
-                           class="d-flex align-items-center expert-item py-4 px-3 rounded-lg cursor-pointer bg-white hover:bg-gray-100 transition-all duration-200"
-                           @click="selectExpert('endocrinology')"
-                           :class="{ 'selected': isExpertSelected('endocrinology') }">
-                           <div class="avatar mr-3">
-                              <img src="/assets/images/user/09.jpg" alt="chatuserimage" class="avatar-50 rounded">
-                              <span class="avatar-status"><i
-                                    class="ri-checkbox-blank-circle-fill text-success"></i></span>
-                           </div>
-                           <div class="chat-sidebar-name">
-                              <h6 class="mb-0">内分泌科专家</h6>
-                              <span>Endocrinologist</span>
-                           </div>
-                        </div>
-                     </li>
-                  </ul>
+                     </div>
+                     <div v-else class="text-center text-gray-500 text-sm">
+                        暂无历史对话
+                     </div>
+                  </div>
                </div>
             </div>
 
 
-            <div class="col-lg-9 chat-data p-0 chat-data-right d-flex flex-column h-100">
+            <!-- 初始状态下，聊天内容区域占据整个宽度 -->
+            <div :class="['chat-data', 'p-0', 'd-flex', 'flex-column', { 'col-lg-9': conversationStarted, 'col-lg-12': !conversationStarted }]" :style="conversationStarted ? { 'min-height': 'calc(100vh - 250px)', 'position': 'relative' } : { 'min-height': 'calc(100vh - 250px)' }">
                <div class="tab-content">
                   
 
-                  <div class="tab-pane fade active show" id="chatbox1" role="tabpanel">
+                  <div class="tab-pane fade active show" id="chatbox1" role="tabpanel" style="display: flex; flex-direction: column; height: 100%;">
+                     <!-- 上部分：专家选择 -->
                      <div class="chat-head">
                         <header class="d-flex justify-content-between align-items-center pt-3 pr-3 pb-3">
                            <div class="d-flex align-items-center flex-wrap">
@@ -262,20 +214,24 @@
                               </div>
                               <!-- 当没有选中专家时显示默认标题 -->
                            </div>
-
                         </header>
                      </div>
-                     <!-- 聊天内容 -->
-
-
-                     <div class="chat-start">
+                     
+                     <!-- 中间部分：聊天内容区域 -->
+                     <div class="chat-content flex-grow-1 overflow-auto" v-if="conversationStarted">
+                        <!-- 聊天消息将显示在这里 -->
+                     </div>
+                     
+                     <!-- 开始聊天按钮 -->
+                     <div class="chat-start flex-grow-1 d-flex flex-column justify-center items-center" v-if="!conversationStarted">
                         <span class="iq-start-icon text-primary"><i class="ri-message-3-line"></i></span>
-                        <button id="chat-start" class="btn bg-primary mt-3">Start Conversation!</button>
+                        <button id="chat-start" class="btn bg-primary mt-3" @click="startConversation">Start Conversation!</button>
                      </div>
 
 
 
-                     <div class="chat-footer p-3 bg-white">
+                     <!-- 底部：发送消息框架 -->
+                    <div class="chat-footer p-3 bg-white mb-0" v-if="conversationStarted" style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 100; margin-bottom: 0;">
                         <form class="d-flex align-items-center" action="javascript:void(0);">
                            <div class="chat-attagement d-flex">
                               <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
@@ -364,6 +320,42 @@
       </div>
 
    </el-dialog>
+   
+   <!-- 专家选择对话框 -->
+   <el-dialog v-model="dialogVisibleForExperts" title="选择医生专家" :fullscreen="false" width="80%">
+      <div class="expert-selection-container">
+         <h3 style="margin-bottom: 20px; color: #089bab;">请选择您需要咨询的专家</h3>
+         <div class="expert-grid">
+            <div 
+               v-for="expert in experts" 
+               :key="expert.id"
+               class="expert-card"
+               :class="{ 'selected': isExpertSelected(expert.id) }"
+               @click="selectExpert(expert.id)"
+            >
+               <div class="expert-avatar">
+                  <img :src="expert.avatar" :alt="expert.name" class="avatar-80 rounded">
+                  <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
+               </div>
+               <div class="expert-info">
+                  <h4 class="expert-name">{{ expert.name }}</h4>
+                  <p class="expert-english-name">{{ expert.englishName }}</p>
+               </div>
+               <div v-if="isExpertSelected(expert.id)" class="selected-indicator">
+                  <i class="fas fa-check-circle" style="color: #089bab; font-size: 24px;"></i>
+               </div>
+            </div>
+         </div>
+      </div>
+      <template #footer>
+         <span class="dialog-footer">
+            <el-button @click="dialogVisibleForExperts = false">取消</el-button>
+            <el-button type="primary" @click="confirmExpertSelection()" :disabled="selectedExperts.length === 0">
+               确认选择
+            </el-button>
+         </span>
+      </template>
+   </el-dialog>
 </template>
 
 <script setup>
@@ -378,10 +370,12 @@ const socket = io(io_url)
 const session_id = ref('')
 const dialogVisible = ref(false)
 const dialogVisibleForHistory = ref(false)
+const dialogVisibleForExperts = ref(false) // 专家选择对话框
 const patient = reactive({})
 const event1 = ref(false)
 const event2 = ref(false)
 const event3 = ref(false)
+const conversationStarted = ref(false)
 //用于存储信息
 const message = ref([])
 const conversation_today = ref([
@@ -456,6 +450,10 @@ const showDialog = () => {
    dialogVisible.value = true
 }
 
+const showExpertDialog = () => {
+   dialogVisibleForExperts.value = true
+}
+
 // 选择专家函数
 const selectExpert = (expertId) => {
    // 查找专家是否已经被选中
@@ -475,6 +473,21 @@ const selectExpert = (expertId) => {
 
 const isExpertSelected = (expertId) => {
    return selectedExperts.value.some(expert => expert.id === expertId);
+}
+
+const confirmExpertSelection = () => {
+   // 设置步骤2完成
+   event2.value = true;
+   // 关闭对话框
+   dialogVisibleForExperts.value = false;
+   // 可以在这里添加其他逻辑，比如显示选择成功的提示
+}
+
+const startConversation = () => {
+   // 设置对话已开始
+   conversationStarted.value = true;
+   // 直接显示Step 1的病人信息对话框
+   showDialog();
 }
 
 </script>
@@ -616,6 +629,82 @@ const isExpertSelected = (expertId) => {
 
 .cursor-pointer {
    cursor: pointer;
+}
+
+/* 发亮脉冲动画 */
+@keyframes pulse-glow {
+   0% {
+      box-shadow: 0 0 0 0 rgba(226, 43, 10, 0.7);
+   }
+   70% {
+      box-shadow: 0 0 0 10px rgba(8, 155, 171, 0);
+   }
+   100% {
+      box-shadow: 0 0 0 0 rgba(8, 155, 171, 0);
+   }
+}
+
+/* 专家选择对话框样式 */
+.expert-selection-container {
+   padding: 20px;
+}
+
+.expert-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+   gap: 20px;
+   margin-top: 20px;
+}
+
+.expert-card {
+   border: 2px solid #e9ecef;
+   border-radius: 12px;
+   padding: 20px;
+   text-align: center;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   position: relative;
+}
+
+.expert-card:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+   border-color: #089bab;
+}
+
+.expert-card.selected {
+   border-color: #089bab;
+   background-color: rgba(8, 155, 171, 0.05);
+   box-shadow: 0 0 0 3px rgba(8, 155, 171, 0.2);
+}
+
+.expert-avatar {
+   display: inline-block;
+   position: relative;
+   margin-bottom: 15px;
+}
+
+.avatar-80 {
+   width: 80px;
+   height: 80px;
+}
+
+.expert-info h4 {
+   margin: 10px 0 5px 0;
+   font-size: 18px;
+   color: #333;
+}
+
+.expert-info p {
+   margin: 0;
+   color: #6c757d;
+   font-size: 14px;
+}
+
+.selected-indicator {
+   position: absolute;
+   top: 10px;
+   right: 10px;
 }
 </style>
 <style scoped>
