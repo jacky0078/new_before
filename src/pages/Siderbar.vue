@@ -63,7 +63,7 @@
                         </ul>
                      </li>
 
-                     <li class="active"><a href="#" @click.prevent="$router.push('/chat')" class="iq-waves-effect"><i
+                     <li class="active"><a href="#" @click.prevent="$router.push('/home/chat')" class="iq-waves-effect"><i
                               class="ri-message-fill"></i><span>聊天</span></a></li>
 
                   </ul>
