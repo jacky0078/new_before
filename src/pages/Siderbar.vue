@@ -37,13 +37,13 @@
                               class="ri-user-3-fill"></i><span>医生</span><i
                               class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                         <ul class="iq-submenu">
-                           <li><a href="#" @click.prevent="$router.push('/doctor-list')"><i
+                           <li><a href="#" @click.prevent="$router.push('/home/doctor-list')"><i
                                     class="ri-file-list-fill"></i>所有医生</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/add-doctor')"><i class="ri-user-add-fill"></i>
+                           <li><a href="#" @click.prevent="$router.push('/home/add-doctor')"><i class="ri-user-add-fill"></i>
                                  添加医生</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/profile')"><i
+                           <li><a href="#" @click.prevent="$router.push('/home/profile')"><i
                                     class="ri-profile-fill"></i>医生个人资料</a></li>
-                           <li><a href="#" @click.prevent="$router.push('/profile-edit')"><i
+                           <li><a href="#" @click.prevent="$router.push('/home/profile-edit')"><i
                                     class="ri-file-edit-fill"></i> 编辑医生</a></li>
                         </ul>
                      </li>
@@ -63,7 +63,7 @@
                         </ul>
                      </li>
 
-                     <li class="active"><a href="#" @click.prevent="$router.push('/chat')" class="iq-waves-effect"><i
+                     <li class="active"><a href="#" @click.prevent="$router.push('/home/chat')" class="iq-waves-effect"><i
                               class="ri-message-fill"></i><span>聊天</span></a></li>
 
                   </ul>

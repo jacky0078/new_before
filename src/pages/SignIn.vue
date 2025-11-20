@@ -1,79 +1,39 @@
 <template>
     <div class="legacy-page">
-
         <!-- Sign in Start -->
-        <section class="sign-in-page">
-            <div class="container sign-in-page-bg mt-5 p-0">
-                <div class="row no-gutters">
-                    <div class="col-md-6 text-center">
-                        <div class="sign-in-detail text-white">
-                            <a class="sign-in-logo mb-5" href="#"><img src="/assets/images/logo-white.png"
-                                    class="img-fluid" alt="logo"></a>
-                            <div class="owl-carousel" data-autoplay="true" data-loop="true" data-nav="false"
-                                data-dots="true" data-items="1" data-items-laptop="1" data-items-tab="1"
-                                data-items-mobile="1" data-items-mobile-sm="1" data-margin="0">
-                                <div class="item">
-                                    <img src="/assets/images/login/1.png" class="img-fluid mb-4" alt="logo">
-                                    <h4 class="mb-1 text-white">Manage your orders</h4>
-                                    <p>It is a long established fact that a reader will be distracted by the readable
-                                        content.</p>
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/login/2.png" class="img-fluid mb-4" alt="logo">
-                                    <h4 class="mb-1 text-white">Manage your orders</h4>
-                                    <p>It is a long established fact that a reader will be distracted by the readable
-                                        content.</p>
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/login/3.png" class="img-fluid mb-4" alt="logo">
-                                    <h4 class="mb-1 text-white">Manage your orders</h4>
-                                    <p>It is a long established fact that a reader will be distracted by the readable
-                                        content.</p>
-                                </div>
-                            </div>
+        <div class="login-container">
+            <div class="login-register">
+                <div class="form-container"
+                    :class="{ 'register-mode': !isLogin, 'shake': isError, 'success': isSuccess }">
+                    <!-- 动态绑定标题内容 -->
+                    <h2 :class="{ 'error': isError, 'success': isSuccess }">
+                        {{ errorMessage || successMessage || (isLogin ? '欢迎回来' : '创建账户') }}
+                    </h2>
+                    <form @submit.prevent="handleSubmit">
+                        <div class="input-row">
+                            <!-- 用户名输入框 -->
+                            <input type="text" id="username" v-model="username"
+                                @input="filterInput('username')" placeholder="用户名" required />
                         </div>
-                    </div>
-                    <div class="col-md-6 position-relative" style="margin-top: 100px;">
-                        <div class="login-register">
-                            <div class="form-container"
-                                :class="{ 'register-mode': !isLogin, 'shake': isError, 'success': isSuccess }">
-                                <!-- 动态绑定标题内容 -->
-                                <h2 :class="{ 'error': isError, 'success': isSuccess }">
-                                    {{ errorMessage || successMessage || (isLogin ? '欢迎回来' : '创建账户') }}
-                                </h2>
-                                <form @submit.prevent="handleSubmit">
-                                    <div class="input-row">
-                                        <!-- 用户名输入框 -->
-                                        <input type="text" id="username" v-model="username"
-                                            @input="filterInput('username')" placeholder="用户名" required />
-                                    </div>
-                                    <div class="input-row password-container">
-                                        <!-- 密码输入框 -->
-                                        <input :type="showPassword ? 'text' : 'password'" id="password"
-                                            v-model="password" @input="filterInput('password')" placeholder="密码"
-                                            required />
-                                        <i class="password-toggle-icon"
-                                            :class="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"
-                                            @mousedown="showPassword = true" @mouseup="showPassword = false"
-                                            @mouseleave="showPassword = false"></i>
-                                    </div>
-                                    <div class="button-group">
-                                        <button type="submit" class="primary-button">{{ isLogin ? '登录' : '注册'
-                                        }}</button>
-                                        <button v-if="isLogin" type="button" @click="toggleMode"
-                                            class="secondary-button">注册</button>
-                                        <button v-else type="button" @click="toggleMode"
-                                            class="secondary-button full-width-button">返回登录</button>
-                                    </div>
-                                </form>
-                            </div>
+                        <div class="input-row password-container">
+                            <!-- 密码输入框 -->
+                            <input :type="showPassword ? 'text' : 'password'" id="password"
+                                v-model="password" @input="filterInput('password')" placeholder="密码"
+                                required />
+                            
                         </div>
-                    </div>
+                        <div class="button-group">
+                            <button type="submit" class="primary-button">{{ isLogin ? '登录' : '注册'
+                            }}</button>
+                            <button v-if="isLogin" type="button" @click="toggleMode"
+                                class="secondary-button">注册</button>
+                            <button v-else type="button" @click="toggleMode"
+                                class="secondary-button full-width-button">返回登录</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </section>
-
-
+        </div>
     </div>
 </template>
 
@@ -129,7 +89,7 @@ const handleSubmit = () => {
                             localStorage.setItem('loginTime', loginTime)  // 存储登录时间
                             localStorage.setItem('sessionDuration', sessionDuration)  // 存储会话持续时间
                             localStorage.setItem('token', response.data.token)  // 存储 token
-                            router.push({ path: '/home/chat' })
+                            router.push({ path: '/home/chat' })  
                         }, 500)
                     } else {
                         // 注册成功
@@ -186,11 +146,10 @@ const showSuccess = (message) => {
 
 <style scoped>
 /* 登录注册页面的样式 */
-html,
-body {
+.legacy-page {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     box-sizing: border-box;
     background-color: #f5f5f5;
@@ -198,6 +157,17 @@ body {
     color: #333;
     /* 深灰文字 */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .password-container {
