@@ -83,7 +83,7 @@ const handleSubmit = () => {
                         // 登录成功
                         showSuccess('登录成功')
                         setTimeout(() => {
-                            const loginTime = new Date().getTime()
+                            const loginTime = new Date().getTime().toString()
                             const sessionDuration = 3600000  // 会话持续时间为1小时（以毫秒为单位）
                             localStorage.setItem('loggedIn', 'true')
                             localStorage.setItem('loginTime', loginTime)  // 存储登录时间
