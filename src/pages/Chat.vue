@@ -18,55 +18,62 @@
                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
-               <!-- Step 1: 填写图标 -->
-               <span
-                  :style="{
-                     display: 'inline-flex',
-                     alignItems: 'center',
-                     justifyContent: 'center',
-                     width: '30px',
-                     height: '30px',
-                     borderRadius: '50%',
-                     backgroundColor: '#089bab',
-                     position: 'relative',
-                     left: '1%',
-                     cursor: 'pointer'
-                  }"
-                  @click="showDialog()" title="请保存病人信息">
-                  <i class="fas fa-pen-to-square" style="color: white; font-size: 16px;"></i>
+               <!-- Step 1: 对话主题图标 -->
+               <span :style="{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '50%',
+                  backgroundColor: '#089bab',
+                  position: 'relative',
+                  left: '1%',
+                  cursor: 'pointer'
+               }" @click="dialogVisibleForChat = true" title="请填写对话主题">
+                  <i class="fas fa-comment-alt" style="color: white; font-size: 16px;"></i>
                </span>
                <span style="color: #089bab;position: relative;left:1.5%"> Step 1:</span>
-               <span style="position: relative;left:2%">保存病人信息</span>
+               <span style="position: relative;left:2%">填写对话主题</span>
 
-               <!-- Step 2: 手指选择图标 -->
-               <span
-                  :style="{
-                     display: 'inline-flex',
-                     alignItems: 'center',
-                     justifyContent: 'center',
-                     width: '30px',
-                     height: '30px',
-                     borderRadius: '50%',
-                     backgroundColor: '#089bab',
-                     position: 'relative',
-                     left: '15%',
-                     cursor: 'pointer',
-                     opacity: '1'
-                  }"
-                  @click="showExpertDialog()" 
-                  title="选择医生专家">
-                  <i class="fas fa-hand-pointer" style="color: white; font-size: 16px;"></i>
+               <!-- Step 2: 填写图标 -->
+               <span :style="{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '50%',
+                  backgroundColor: '#089bab',
+                  position: 'relative',
+                  left: '15%',
+                  cursor: 'pointer'
+               }" @click="showDialog()" title="请保存病人信息">
+                  <i class="fas fa-pen-to-square" style="color: white; font-size: 16px;"></i>
                </span>
                <span style="color: #089bab;position: relative;left:15.5%"> Step 2:</span>
-               <span style="position: relative;left:16%">选择医生专家</span>
+               <span style="position: relative;left:16%">保存病人信息</span>
 
-               <!-- Step 3: 加号图标 -->
-               <span
-                  style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background-color: #089bab; position: relative; left: 30%; cursor: pointer;">
-                  <i class="fas fa-plus" style="color: white; font-size: 16px;"></i>
+               <!-- Step 3: 手指选择图标 -->
+               <span :style="{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '50%',
+                  backgroundColor: '#089bab',
+                  position: 'relative',
+                  left: '30%',
+                  cursor: 'pointer',
+                  opacity: '1'
+               }" @click="showExpertDialog()" title="选择医生专家">
+                  <i class="fas fa-hand-pointer" style="color: white; font-size: 16px;"></i>
                </span>
                <span style="color: #089bab;position: relative;left:30.5%"> Step 3:</span>
-               <span style="position: relative;left:31%">开启会诊</span>
+               <span style="position: relative;left:31%">选择医生专家</span>
+
+
 
 
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -164,112 +171,44 @@
       <div class="container-fluid">
          <div class="row">
             <!-- 初始状态下隐藏左侧聊天数据区域 -->
-            <div class="col-lg-3 chat-data-left" v-if="conversationStarted" style="min-height: calc(100vh - 250px);">
-               <div class="chat-sidebar-channel scroller pl-3 h-100" style="scrollbar-width: thin; scrollbar-color: #089bab #f1f1f1;">
-
-                  <!-- 新建对话按钮 -->
-                  <!-- <div class="my-4">
-                     <button @click="newConversation" class="btn btn-primary btn-block"
-                        style="background-color: #089bab; border: none; padding: 12px 0;">
-                        <i class="fas fa-plus mr-2"></i>新建对话
-                     </button>
-                  </div> -->
-                  
-                  <!-- 历史对话区域 -->
-                  <div class="p-4 bg-white rounded-lg border border-gray-200 mt-4">
-                     <h5 class="text-center mb-3" style="color: #089bab;">历史对话</h5>
-                     <el-tabs v-model="activeTab" type="card">
-                        <el-tab-pane label="今天" name="today">
-                           <div style="max-height: 400px; overflow-y: auto; padding: 10px;">
-                              <div v-if="conversation_today && conversation_today.length > 0">
-                                 <div v-for="item in conversation_today" :key="item.id" class="history-item p-3 mb-3 bg-gray-50 rounded">
-                                    <div class="d-flex justify-content-between items-center mb-1">
-                                       <span class="message-role text-sm font-medium" :class="item.role === 'user' ? 'text-blue-600' : 'text-green-600'">
-                                         {{ item.role === 'user' ? '用户' : '医生' }}
-                                       </span>
-                                    </div>
-                                    <p class="message-content text-sm text-gray-700">
-                                      {{ item.content }}
-                                    </p>
-                                 </div>
-                              </div>
-                              <div v-else class="text-center text-gray-500 py-4">
-                                暂无今天的对话记录
-                              </div>
-                           </div>
-                        </el-tab-pane>
-                        
-                        <el-tab-pane label="最近7天" name="last7days">
-                           <div style="max-height: 400px; overflow-y: auto; padding: 10px;">
-                              <div v-if="conversation_last_7_days && conversation_last_7_days.length > 0">
-                                 <div v-for="item in conversation_last_7_days" :key="item.id" class="history-item p-3 mb-3 bg-gray-50 rounded">
-                                    <div class="d-flex justify-content-between items-center mb-1">
-                                       <span class="message-role text-sm font-medium" :class="item.role === 'user' ? 'text-blue-600' : 'text-green-600'">
-                                         {{ item.role === 'user' ? '用户' : '医生' }}
-                                       </span>
-                                    </div>
-                                    <p class="message-content text-sm text-gray-700">
-                                      {{ item.content }}
-                                    </p>
-                                 </div>
-                              </div>
-                              <div v-else class="text-center text-gray-500 py-4">
-                                暂无最近7天的对话记录
-                              </div>
-                           </div>
-                        </el-tab-pane>
-                        
-                        <el-tab-pane label="最近30天" name="last30days">
-                           <div style="max-height: 400px; overflow-y: auto; padding: 10px;">
-                              <div v-if="conversation_last_30_days && conversation_last_30_days.length > 0">
-                                 <div v-for="item in conversation_last_30_days" :key="item.id" class="history-item p-3 mb-3 bg-gray-50 rounded">
-                                    <div class="d-flex justify-content-between items-center mb-1">
-                                       <span class="message-role text-sm font-medium" :class="item.role === 'user' ? 'text-blue-600' : 'text-green-600'">
-                                         {{ item.role === 'user' ? '用户' : '医生' }}
-                                       </span>
-                                    </div>
-                                    <p class="message-content text-sm text-gray-700">
-                                      {{ item.content }}
-                                    </p>
-                                 </div>
-                              </div>
-                              <div v-else class="text-center text-gray-500 py-4">
-                                暂无最近30天的对话记录
-                              </div>
-                           </div>
-                        </el-tab-pane>
-                        
-                        <el-tab-pane label="30天前" name="before30days">
-                           <div style="max-height: 400px; overflow-y: auto; padding: 10px;">
-                              <div v-if="conversation_before_30_days && conversation_before_30_days.length > 0">
-                                 <div v-for="item in conversation_before_30_days" :key="item.id" class="history-item p-3 mb-3 bg-gray-50 rounded">
-                                    <div class="d-flex justify-content-between items-center mb-1">
-                                       <span class="message-role text-sm font-medium" :class="item.role === 'user' ? 'text-blue-600' : 'text-green-600'">
-                                         {{ item.role === 'user' ? '用户' : '医生' }}
-                                       </span>
-                                    </div>
-                                    <p class="message-content text-sm text-gray-700">
-                                      {{ item.content }}
-                                    </p>
-                                 </div>
-                              </div>
-                              <div v-else class="text-center text-gray-500 py-4">
-                                暂无30天前的对话记录
-                              </div>
-                           </div>
-                        </el-tab-pane>
-                     </el-tabs>
+            <div class="col-lg-3 chat-data-left" v-if="conversationStarted" style="min-height: calc(100vh - 150px);">
+               <div class="chat-sidebar-channel h-100 bg-white rounded-lg border border-gray-200"
+                  style="scrollbar-width: thin; scrollbar-color: #089bab #f1f1f1; padding: 15px; overflow-y: auto; max-height: calc(100vh - 150px);">
+                  <h5 class="text-center mb-3 p-2" style="color: #089bab;">历史对话</h5>
+                  <div v-if="allConversations.length > 0">
+                     <div v-for="item in allConversations" :key="item.id"
+                        class="doubao-history-item mb-2 p-2 rounded-lg transition-all duration-300 hover:shadow-md cursor-pointer flex items-center gap-3">
+                        <span
+                           class="inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-medium"
+                           :class="item.role === 'user' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'">
+                           {{ item.role === 'user' ? 'U' : 'A' }}
+                        </span>
+                        <span class="text-sm font-medium"
+                           :class="item.role === 'user' ? 'text-blue-600' : 'text-green-600'">
+                           {{ item.role === 'user' ? '用户' : '医生' }}
+                        </span>
+                        <p class="text-sm text-gray-700 line-clamp-1 flex-grow overflow-hidden">
+                           {{ item.content }}
+                        </p>
+                     </div>
+                  </div>
+                  <div v-else class="text-center text-gray-500 py-8">
+                     <i class="fas fa-comments-slash text-3xl mb-2 text-gray-300"></i>
+                     <p>暂无历史对话记录</p>
                   </div>
                </div>
             </div>
 
 
             <!-- 初始状态下，聊天内容区域占据整个宽度 -->
-            <div :class="['chat-data', 'p-0', 'd-flex', 'flex-column', { 'col-lg-9': conversationStarted, 'col-lg-12': !conversationStarted }]" :style="conversationStarted ? { 'min-height': 'calc(100vh - 250px)', 'position': 'relative' } : { 'min-height': 'calc(100vh - 250px)' }">
+            <div
+               :class="['chat-data', 'p-0', 'd-flex', 'flex-column', { 'col-lg-9': conversationStarted, 'col-lg-12': !conversationStarted }]"
+               :style="conversationStarted ? { 'min-height': 'calc(100vh - 150px)', 'position': 'relative' } : { 'min-height': 'calc(100vh - 150px)' }">
                <div class="tab-content">
-                  
 
-                  <div class="tab-pane fade active show" id="chatbox1" role="tabpanel" style="display: flex; flex-direction: column; height: 100%;">
+
+                  <div class="tab-pane fade active show" id="chatbox1" role="tabpanel"
+                     style="display: flex; flex-direction: column; height: 100%;">
                      <!-- 上部分：专家选择 -->
                      <div class="chat-head">
                         <header class="d-flex justify-content-between align-items-center pt-3 pr-3 pb-3">
@@ -284,66 +223,77 @@
                               </div>
                               <!-- 当没有选中专家时显示默认标题 -->
                            </div>
+                           <!-- 加号按钮，点击跳转到专家选择框 -->
+                           <button
+                              class="btn btn-primary rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center"
+                              @click="dialogVisibleForExperts = true" title="选择专家">
+                              <i class="fas fa-plus" style="font-size: 26px; margin: 0;"></i>
+                           </button>
                         </header>
                      </div>
-                     
+
                      <!-- 中间部分：聊天内容区域 -->
                      <div class="chat-content flex-grow-1 overflow-auto" v-if="conversationStarted">
                         <div v-for="msg in messages" :key="msg.id">
                            <div class="chat" v-if="msg.speaker == 'user'">
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="../../public/assets/images/user/01.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">用户</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
+                              <div class="chat-user">
+                                 <a class="avatar m-0">
+                                    <img src="../../public/assets/images/user/01.jpg" alt="avatar"
+                                       class="avatar-35 rounded ">
+                                 </a>
+                                 <span class="chat-time mt-1">用户</span>
+                              </div>
+                              <div class="chat-detail">
+                                 <div class="chat-message">
                                     <p>{{ msg.text }}</p>
-                                  </div>
-                                </div>
+                                 </div>
                               </div>
+                           </div>
                            <div class="chat chat-left" v-else>
-                                <div class="chat-user">
-                                  <a class="avatar m-0">
-                                    <img src="../../public/assets/images/user/08.jpg" alt="avatar" class="avatar-35 rounded ">
-                                  </a>
-                                    <span class="chat-time mt-1">{{ msg.speaker }}</span>
-                                </div>
-                                <div class="chat-detail">
-                                  <div class="chat-message">
-                                     <p>{{ msg.text }}</p>
-                                  </div>
-                                </div>
+                              <div class="chat-user">
+                                 <a class="avatar m-0">
+                                    <img src="../../public/assets/images/user/08.jpg" alt="avatar"
+                                       class="avatar-35 rounded ">
+                                 </a>
+                                 <span class="chat-time mt-1">{{ msg.speaker }}</span>
                               </div>
+                              <div class="chat-detail">
+                                 <div class="chat-message">
+                                    <p>{{ msg.text }}</p>
+                                 </div>
+                              </div>
+                           </div>
 
                         </div>
                         <!-- 聊天消息将显示在这里 -->
                      </div>
-                     
+
                      <!-- 开始聊天按钮 -->
-                     <div class="chat-start flex-grow-1 d-flex flex-column justify-center items-center" v-if="!conversationStarted">
+                     <div class="chat-start flex-grow-1 d-flex flex-column justify-center items-center"
+                        v-if="!conversationStarted">
                         <span class="iq-start-icon text-primary"><i class="ri-message-3-line"></i></span>
-                        <button id="chat-start" class="btn bg-primary mt-3" @click="startConversation">Start Conversation!</button>
+                        <button id="chat-start" class="btn bg-primary mt-3" @click="startConversation"
+                           style="font-size: 20px;"> 开 始 会 话 ! </button>
                      </div>
 
 
 
                      <!-- 底部：发送消息框架 -->
-              
+
                   </div>
                </div>
-                     <div class="chat-footer p-3 bg-white mb-0" v-if="conversationStarted" style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 100; margin-bottom: 0;">
-                        <form class="d-flex align-items-center" action="javascript:void(0);">
-                           <div class="chat-attagement d-flex">
-                              <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
-                           </div>
-                           <input type="text" class="form-control mr-3" placeholder="请添加补充信息" v-model="messageInput">
-                           <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i
-                                 class="fa fa-paper-plane-o" aria-hidden="true"></i><span
-                                 class="d-none d-lg-block ml-1" @click="sendMessage()">Send</span></button>
-                        </form>
+               <div class="chat-footer p-3 bg-white mb-0" v-if="conversationStarted"
+                  style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 100; margin-bottom: 0;">
+                  <form class="d-flex align-items-center" action="javascript:void(0);">
+                     <div class="chat-attagement d-flex">
+                        <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
                      </div>
+                     <input type="text" class="form-control mr-3" placeholder="请添加补充信息" v-model="messageInput">
+                     <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i
+                           class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1"
+                           @click="sendMessage()">Send</span></button>
+                  </form>
+               </div>
             </div>
          </div>
       </div>
@@ -351,24 +301,7 @@
 
 
 
-      <!-- Footer -->
-      <footer class="bg-white iq-footer mt-4">
-         <div class="container-fluid">
-            <div class="row">
-               <div class="col-lg-6">
-                  <ul class="list-inline mb-0">
-                     <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                     <li class="list-inline-item"><a href="#">Terms of Use</a></li>
-                  </ul>
-               </div>
-               <div class="col-lg-6 text-right">
-                  Copyright 2020 更多模板：<a href="https://www.uimaker.com/" target="_blank">uimaker</a> All Rights
-                  Reserved.
-               </div>
-            </div>
-         </div>
-      </footer>
-      <!-- Footer END -->
+
 
    </div>
    <el-dialog v-model="dialogVisible" title="填写病人信息" :show-close="false">
@@ -397,12 +330,8 @@
                <el-checkbox label="其他" value="其他">其他</el-checkbox>
             </el-checkbox-group>
             <!-- 当'其他'被选中时显示输入框 -->
-            <el-input 
-              v-if="patient.chronic_disease && patient.chronic_disease.includes('其他')" 
-              v-model="patient.other_chronic_disease" 
-              placeholder="请输入其他慢性疾病"
-              style="margin-top: 10px;"
-            ></el-input>
+            <el-input v-if="patient.chronic_disease && patient.chronic_disease.includes('其他')"
+               v-model="patient.other_chronic_disease" placeholder="请输入其他慢性疾病" style="margin-top: 10px;"></el-input>
          </el-form-item>
          <el-form-item label="药物过敏:">
             <el-input v-model="patient.drug_allergy" placeholder="例如:青霉素,青霉素类" type="textarea"></el-input>
@@ -428,19 +357,14 @@
       </div>
 
    </el-dialog>
-   
+
    <!-- 专家选择对话框 -->
    <el-dialog v-model="dialogVisibleForExperts" title="选择医生专家" :fullscreen="false" width="80%" :show-close="false">
       <div class="expert-selection-container">
          <h3 style="margin-bottom: 20px; color: #089bab;">请选择您需要咨询的专家</h3>
          <div class="expert-grid">
-            <div 
-               v-for="expert in experts" 
-               :key="expert.id"
-               class="expert-card"
-               :class="{ 'selected': isExpertSelected(expert.id) }"
-               @click="selectExpert(expert.id)"
-            >
+            <div v-for="expert in experts" :key="expert.id" class="expert-card"
+               :class="{ 'selected': isExpertSelected(expert.id) }" @click="selectExpert(expert.id)">
                <div class="expert-avatar">
                   <img :src="expert.avatar" :alt="expert.name" class="avatar-80 rounded">
                   <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
@@ -465,25 +389,25 @@
       </template>
    </el-dialog>
    <el-dialog v-model="dialogVisibleForChat" title="填写对话信息" :show-close="false">
-       <el-form>
-          <el-form-item label="对话主题:">
+      <el-form>
+         <el-form-item label="对话主题:">
             <el-input v-model="patient.chat_content" placeholder="请输入对话主题" type="textarea"></el-input>
-          </el-form-item>
-          <el-form-item label="对话发起:">
+         </el-form-item>
+         <el-form-item label="对话发起:">
             <el-input v-model="patient.chat_supplement" placeholder="请输入对话补充"></el-input>
-          </el-form-item>
-          <el-form-item style="margin-top:4%">
+         </el-form-item>
+         <el-form-item style="margin-top:4%">
             <el-button type="primary" style="position:relative;left:85%" @click="saveChat()">下一步</el-button>
          </el-form-item>
-       </el-form>
+      </el-form>
    </el-dialog>
-   
+
 </template>
 
 <script setup>
 // static migration: original JS (if any) loads globally via index.html
 import { io } from 'socket.io-client'
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { onMounted } from 'vue'
 import { Plus, Document, DArrowRight, List } from '@element-plus/icons-vue'
 import axios from 'axios'
@@ -503,10 +427,10 @@ const conversationStarted = ref(false)
 const dialogVisibleForChat = ref(false)//填写对话信息
 const userInput = ref('')
 const current_session_id = ref('')
-const token  = ref('')
-  //token里面存储的是username
-  const activeTab = ref('today') // 历史对话标签页，默认选中今天
-  //用于存储信息
+const token = ref('')
+//token里面存储的是username
+const activeTab = ref('today') // 历史对话标签页，默认选中今天
+//用于存储信息
 const messages = ref([
    { id: 0, speaker: 'user', content: '你好' },
    { id: 1, speaker: 'assistant', content: '你好，我是心内科专家' },
@@ -528,6 +452,18 @@ const conversation_today = ref([
 const conversation_last_7_days = ref([])
 const conversation_last_30_days = ref([])
 const conversation_before_30_days = ref([])
+
+// 合并所有对话记录为一个数组，按时间倒序排列（最新的在前）
+const allConversations = computed(() => {
+   // 合并所有时间段的对话
+   const all = [...(conversation_today.value || []),
+   ...(conversation_last_7_days.value || []),
+   ...(conversation_last_30_days.value || []),
+   ...(conversation_before_30_days.value || [])]
+
+   // 按ID排序（假设ID越大越新）
+   return all.sort((a, b) => b.id - a.id)
+})
 const messageInput = ref('')
 
 // 专家数据
@@ -541,7 +477,7 @@ const experts = ref([
 const chat = ref({
    chat_content: ''
 })
-const backToCase = () =>{
+const backToCase = () => {
    dialogVisibleForExperts.value = false
    dialogVisible.value = true
 }
@@ -549,46 +485,46 @@ const backToCase = () =>{
 const selectedExperts = ref([])
 onMounted(() => {
    token.value = localStorage.getItem('token')
-   socket.on('response',(data) =>{
-       ElMessage.error(data.content)
+   socket.on('response', (data) => {
+      ElMessage.error(data.content)
    })
    axios.get(io_url + '/api/user_conversations', { params: { username: token.value } }).then(res => {
-      conversation_today = res.data.conversation_today,
-      conversation_last_7_days = res.data.conversation_last_7_days,
-      conversation_last_30_days = res.data.conversation_last_30_days,
-      conversation_before_30_days = res.data.conversation_before_30_days
+      conversation_today.value = res.data.conversation_today,
+         conversation_last_7_days.value = res.data.conversation_last_7_days,
+         conversation_last_30_days.value = res.data.conversation_last_30_days,
+         conversation_before_30_days.value = res.data.conversation_before_30_days
    })
    socket.on('mdt_response', (data) => {
-    messages.value.push({
-          speaker: data.speaker,
-          text: data.content,
-          id: id.value
-        });
-    id.value++
-    console.log(messages.value)
-    // 当收到第一个医生回复时，停止显示等待动画
-    displayWait.value = false
-  });
-//   console.log(localStorage.getItem('token'))
+      messages.value.push({
+         speaker: data.speaker,
+         text: data.content,
+         id: id.value
+      });
+      id.value++
+      console.log(messages.value)
+      // 当收到第一个医生回复时，停止显示等待动画
+      displayWait.value = false
+   });
+   //   console.log(localStorage.getItem('token'))
 })
-const sendMessage = () =>{
+const sendMessage = () => {
    const escapedUserInput = he.encode(messageInput.value.trim()).replace(/ /g, '&nbsp;');
-     messages.value.push({
+   messages.value.push({
       speaker: 'user',
       text: escapedUserInput.replace(/\n/g, '<br>'),
       sender: 'user',
       id: id.value
-    });
-    id.value++
-    var temp = {content:messageInput.value}
-    socket.emit('start_mdt_discussion', {
+   });
+   id.value++
+   var temp = { content: messageInput.value }
+   socket.emit('start_mdt_discussion', {
       Authorization: token.value,
       session_id: current_session_id.value,
-      experts: selectedExperts.value.map(expert => ({name:expert.id,specialty:expert.name})),
+      experts: selectedExperts.value.map(expert => ({ name: expert.id, specialty: expert.name })),
       messages: temp
-    });
-    messageInput.value = ''
-}     
+   });
+   messageInput.value = ''
+}
 const getHistory = () => {
    dialogVisibleForHistory.value = true
    axios.get(io_url + '/api/user_conversation', { params: { username: 'user1' } }).then(res => {
@@ -600,13 +536,10 @@ const getHistory = () => {
 }
 const saveChat = () => {
    dialogVisibleForChat.value = false
-   dialogVisible.value=true
+   dialogVisible.value = true
 }
 // 新建对话，清空聊天框
-const newConversation = () => {
-   message.value = []
-   // 可以添加其他逻辑，比如通知用户对话已重置等
-}
+// 不再使用写死的清除功能，而是通过正常的会话管理来控制
 const backToChat = () => {
    dialogVisible.value = false
    dialogVisibleForChat.value = true
@@ -675,9 +608,9 @@ const isExpertSelected = (expertId) => {
 
 const confirmExpertSelection = () => {
    axios.get(io_url + '/api/create_session', { params: { username: token.value } }).then(res => {
-       current_session_id.value = res.data.session_id
-       localStorage.setItem('session_id', res.data.session_id)
-       console.log(res.data.session_id)
+      current_session_id.value = res.data.session_id
+      localStorage.setItem('session_id', res.data.session_id)
+      console.log(res.data.session_id)
    })
    // 设置步骤2完成
    event2.value = true;
@@ -689,7 +622,7 @@ const confirmExpertSelection = () => {
 const startConversation = () => {
    // 设置对话已开始
    conversationStarted.value = true;
-   // 直接显示Step 1的病人信息对话框
+   // 直接显示Step 2的病人信息对话框`
    dialogVisibleForChat.value = true
 }
 
@@ -839,9 +772,11 @@ const startConversation = () => {
    0% {
       box-shadow: 0 0 0 0 rgba(226, 43, 10, 0.7);
    }
+
    70% {
       box-shadow: 0 0 0 10px rgba(8, 155, 171, 0);
    }
+
    100% {
       box-shadow: 0 0 0 0 rgba(8, 155, 171, 0);
    }
@@ -955,5 +890,47 @@ const startConversation = () => {
 
 .message-content {
    word-break: break-word;
+}
+
+/* 豆包风格历史对话样式 */
+.doubao-history-container {
+   scrollbar-width: thin;
+   scrollbar-color: #ccc #f5f5f5;
+}
+
+.doubao-history-container::-webkit-scrollbar {
+   width: 6px;
+}
+
+.doubao-history-container::-webkit-scrollbar-track {
+   background: #f5f5f5;
+   border-radius: 3px;
+}
+
+.doubao-history-container::-webkit-scrollbar-thumb {
+   background: #ccc;
+   border-radius: 3px;
+}
+
+.doubao-history-container::-webkit-scrollbar-thumb:hover {
+   background: #999;
+}
+
+.doubao-history-item {
+   background-color: #fafafa;
+   border: 1px solid #f0f0f0;
+}
+
+.doubao-history-item:hover {
+   background-color: #f5f5f5;
+   border-color: #e0e0e0;
+}
+
+.line-clamp-2 {
+   display: -webkit-box;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 </style>
