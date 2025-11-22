@@ -97,8 +97,8 @@
 
                         <img src="/assets/images/user/1.jpg" class="img-fluid rounded mr-3" alt="user">
                         <div class="caption">
-                           <h6 class="mb-0 line-height">Bini Jets</h6>
-                           <span class="font-size-12">Available</span>
+                          
+                           
                         </div>
                      </a>
                      <div class="iq-sub-dropdown iq-user-dropdown">
@@ -172,14 +172,13 @@
          <div class="row">
             <!-- 初始状态下隐藏左侧聊天数据区域 -->
             <div class="col-lg-3 chat-data-left" v-if="conversationStarted" style="min-height: calc(100vh - 150px);">
-               <div class="chat-sidebar-channel h-100 bg-white rounded-lg border border-gray-200"
-                  style="scrollbar-width: thin; scrollbar-color: #089bab #f1f1f1; padding: 15px; overflow-y: auto; max-height: calc(100vh - 150px);">
+               <div class="chat-sidebar-channel h-100 bg-white border border-gray-200"
+                  style="scrollbar-width: thin; scrollbar-color: #089bab #f1f1f1; padding: 15px; overflow-y: auto; max-height: calc(100vh - 150px); border-radius: 32px;">
                   <h5 class="text-center mb-3 p-2" style="color: #089bab;">历史对话</h5>
                   <div v-if="allConversations.length > 0">
                      <div v-for="item in allConversations" :key="item.id"
                         class="doubao-history-item mb-2 p-2 rounded-lg transition-all duration-300 hover:shadow-md cursor-pointer flex items-center gap-3">
-                        <span
-                           class="inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-medium"
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-medium"
                            :class="item.role === 'user' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'">
                            {{ item.role === 'user' ? 'U' : 'A' }}
                         </span>
@@ -219,15 +218,16 @@
                                     class="mr-4 h-100 flex items-center">
                                     <img :src="expert.avatar" :alt="expert.name" class="avatar-40 rounded mr-2">
                                     <span class="expert-department">{{ expert.name.replace('专家', '') }}</span>
-                                 </div>
+                                  </div>
                               </div>
                               <!-- 当没有选中专家时显示默认标题 -->
                            </div>
                            <!-- 加号按钮，点击跳转到专家选择框 -->
                            <button
-                              class="btn btn-primary rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center"
+                              class="btn p-2 shadow-sm d-flex align-items-center justify-content-center"
+                              style="background-color: #ceebee; border-radius: 4px; border: 1px solid #91d5ff;"
                               @click="dialogVisibleForExperts = true" title="选择专家">
-                              <i class="fas fa-plus" style="font-size: 26px; margin: 0;"></i>
+                              <i class="fas fa-plus" style="font-size: 26px; margin: 0; color: #089bab;"></i>
                            </button>
                         </header>
                      </div>
@@ -272,8 +272,8 @@
                      <div class="chat-start flex-grow-1 d-flex flex-column justify-center items-center"
                         v-if="!conversationStarted">
                         <span class="iq-start-icon text-primary"><i class="ri-message-3-line"></i></span>
-                        <button id="chat-start" class="btn bg-primary mt-3" @click="startConversation"
-                           style="font-size: 20px;"> 开 始 会 话 ! </button>
+                        <button id="chat-start" class="btn bg-primary mt-3" @click="startConversation">Start
+                           Conversation!</button>
                      </div>
 
 
@@ -340,8 +340,8 @@
             <el-input v-model="patient.long_term_drug" placeholder="例如:阿司匹林,阿司匹林类" type="textarea"></el-input>
          </el-form-item>
          <el-form-item style="margin-top:4%">
-            <el-button type="primary" style="position:relative;left:75%" @click="backToChat()">上一步</el-button>
-            <el-button type="primary" style="position:relative;left:75%" @click="savePatient()">下一步</el-button>
+            <el-button type="primary" style="position:relative;left:75%;background-color: #089bab; border-color: #089bab;" @click="backToChat()">上一步</el-button>
+            <el-button type="primary" style="position:relative;left:75%;background-color: #089bab; border-color: #089bab;" @click="savePatient()">下一步</el-button>
          </el-form-item>
       </el-form>
    </el-dialog>
@@ -381,23 +381,21 @@
       </div>
       <template #footer>
          <span class="dialog-footer">
-            <el-button @click="backToCase()">上一步</el-button>
-            <el-button type="primary" @click="confirmExpertSelection()" :disabled="selectedExperts.length === 0">
+            <el-button @click="backToCase()" style="background-color: #089bab; border-color: #089bab;color: #f1f1f1;">上一步</el-button>
+            <el-button type="primary" @click="confirmExpertSelection()"style="background-color: #089bab; border-color: #089bab;" :disabled="selectedExperts.length === 0">
                确认并开启会诊
             </el-button>
          </span>
       </template>
    </el-dialog>
-   <el-dialog v-model="dialogVisibleForChat" title="填写对话信息" :show-close="false">
+   <el-dialog v-model="dialogVisibleForChat" title="填写对话信息" :show-close="false" width="40%">
       <el-form>
          <el-form-item label="对话主题:">
             <el-input v-model="patient.chat_content" placeholder="请输入对话主题" type="textarea"></el-input>
          </el-form-item>
-         <el-form-item label="对话发起:">
-            <el-input v-model="patient.chat_supplement" placeholder="请输入对话补充"></el-input>
-         </el-form-item>
+        
          <el-form-item style="margin-top:4%">
-            <el-button type="primary" style="position:relative;left:85%" @click="saveChat()">下一步</el-button>
+            <el-button type="primary" style="position:relative;left:85%;background-color: #089bab; border-color: #089bab;" @click="saveChat()">下一步</el-button>
          </el-form-item>
       </el-form>
    </el-dialog>
