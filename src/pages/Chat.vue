@@ -413,7 +413,6 @@ import { ElMessage } from 'element-plus'
 import he from 'he'
 const io_url = 'http://127.0.0.1:5000'
 const socket = io(io_url)
-const session_id = ref('')
 const dialogVisible = ref(false)//填写病人信息
 const dialogVisibleForHistory = ref(false)
 const dialogVisibleForExperts = ref(false) // 专家选择对话框
@@ -587,16 +586,37 @@ const showExpertDialog = () => {
 const selectExpert = (expertId) => {
    // 查找专家是否已经被选中
    const existingIndex = selectedExperts.value.findIndex(expert => expert.id === expertId);
-
+   const tempExpert = experts.value.find(e => e.id === expertId)
    if (existingIndex > -1) {
       // 如果已选中，则移除（退出）
       selectedExperts.value.splice(existingIndex, 1);
+      axios.post(io_url + '/api/remove_expert', {
+         session_id: current_session_id.value,
+         name: tempExpert.id,
+      }).then(res =>{
+         if (res.data.success === true) {
+            ElMessage.success('专家退出成功')
+         }
+      }).catch(err => {
+         ElMessage.error(err.message)
+      })
    } else {
       // 如果未选中，则添加
       const expert = experts.value.find(e => e.id === expertId);
       if (expert) {
          selectedExperts.value.push(expert);
       }
+      axios.post(io_url + '/api/add_expert', {
+         session_id: current_session_id.value,
+         name: tempExpert.id,
+         specialty: tempExpert.name
+      }).then(res => {
+         if (res.data.success === true) {
+            ElMessage.success('专家加入成功')
+         }
+      }).catch(err => {
+         ElMessage.error(err.message)
+      })
    }
 }
 
@@ -618,6 +638,12 @@ const confirmExpertSelection = () => {
 }
 
 const startConversation = () => {
+    axios.get(io_url + '/api/create_session', { params: { username: token.value } }).then(res => {
+        if (res.data.success === true) {
+            current_session_id.value = res.data.session_id
+            ElMessage.success('对话开始成功')
+        }
+    })
    // 设置对话已开始
    conversationStarted.value = true;
    // 直接显示Step 2的病人信息对话框`
