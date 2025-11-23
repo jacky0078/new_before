@@ -1,23 +1,40 @@
 <template>
-   <!-- <div class="legacy-page"> -->
+   <!-- Sidebar 右栏-->
+   <div class="iq-sidebar">
+      <div class="iq-sidebar-logo d-flex justify-content-between">
+         <a href="#" @click.prevent="$router.push('/')">
+            <img src="/assets/images/logo.png" class="img-fluid" alt="">
+            <span>XRay</span>
+         </a>
+        
+      </div>
+      <div id="sidebar-scrollbar">
+         <nav class="iq-sidebar-menu">
+            <ul class="iq-menu">
+               <li>
+                  <a href="javascript:void(0);" class="iq-waves-effect"><i
+                        class="ri-user-3-fill"></i><span>医生</span></a>
+               </li>
+               <li>
+                  <a href="javascript:void(0);" class="iq-waves-effect"><i
+                        class="ri-user-3-fill"></i><span>患者</span></a>
+               </li>
+               <li class="active"><a href="#" @click.prevent="$router.push('/home/chat')" class="iq-waves-effect"><i
+                        class="ri-message-fill"></i><span>聊天</span></a></li>
+            </ul>
+         </nav>
+         <div class="p-3"></div>
+      </div>
+   </div>
 
-   <!-- Wrapper Start -->
-   <!-- <div class="wrapper"> -->
-   <!-- Sidebar  -->
    <!-- 引入Font Awesome图标库 -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <!-- Page Content  -->
+   <!-- Page Content  左边内容-->
    <div id="content-page" class="content-page">
       <!-- TOP Nav Bar -->
       <div class="iq-top-navbar header-top-sticky">
          <div class="iq-navbar-custom">
-
-
             <nav class="navbar navbar-expand-lg navbar-light p-0">
-               <!-- 引入Font Awesome图标库 -->
-               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
                <!-- Step 1: 对话主题图标 -->
                <span :style="{
                   display: 'inline-flex',
@@ -72,10 +89,6 @@
                </span>
                <span style="color: #089bab;position: relative;left:30.5%"> Step 3:</span>
                <span style="position: relative;left:31%">选择医生专家</span>
-
-
-
-
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <i class="ri-menu-3-line"></i>
@@ -97,8 +110,6 @@
 
                         <img src="/assets/images/user/1.jpg" class="img-fluid rounded mr-3" alt="user">
                         <div class="caption">
-                          
-                           
                         </div>
                      </a>
                      <div class="iq-sub-dropdown iq-user-dropdown">
@@ -198,7 +209,6 @@
                </div>
             </div>
 
-
             <!-- 初始状态下，聊天内容区域占据整个宽度 -->
             <div
                :class="['chat-data', 'p-0', 'd-flex', 'flex-column', { 'col-lg-9': conversationStarted, 'col-lg-12': !conversationStarted }]"
@@ -218,13 +228,12 @@
                                     class="mr-4 h-100 flex items-center">
                                     <img :src="expert.avatar" :alt="expert.name" class="avatar-40 rounded mr-2">
                                     <span class="expert-department">{{ expert.name.replace('专家', '') }}</span>
-                                  </div>
+                                 </div>
                               </div>
                               <!-- 当没有选中专家时显示默认标题 -->
                            </div>
                            <!-- 加号按钮，点击跳转到专家选择框 -->
-                           <button
-                              class="btn p-2 shadow-sm d-flex align-items-center justify-content-center"
+                           <button class="btn p-2 shadow-sm d-flex align-items-center justify-content-center"
                               style="background-color: #ceebee; border-radius: 4px; border: 1px solid #91d5ff;"
                               @click="dialogVisibleForExperts = true" title="选择专家">
                               <i class="fas fa-plus" style="font-size: 26px; margin: 0; color: #089bab;"></i>
@@ -275,9 +284,6 @@
                         <button id="chat-start" class="btn bg-primary mt-3" @click="startConversation">Start
                            Conversation!</button>
                      </div>
-
-
-
                      <!-- 底部：发送消息框架 -->
 
                   </div>
@@ -289,19 +295,21 @@
                         <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
                      </div>
                      <input type="text" class="form-control mr-3" placeholder="请添加补充信息" v-model="messageInput">
-                     <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i
-                           class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1"
-                           @click="sendMessage()">Send</span></button>
+                     <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-3" 
+                             style="min-width: 48px; height: 48px; font-size: 18px;"
+                             @click="handleButtonClick" 
+                             :disabled="!messageInput && !hasStarted">
+                           <i :class="{
+                               'fa fa-paper-plane-o': !hasStarted,
+                               'fa fa-pause': hasStarted && !isPaused,
+                               'fa fa-play': hasStarted && isPaused
+                           }" style="font-size: 20px;" aria-hidden="true"></i>
+                     </button>
                   </form>
                </div>
             </div>
          </div>
       </div>
-
-
-
-
-
 
    </div>
    <el-dialog v-model="dialogVisible" title="填写病人信息" :show-close="false">
@@ -340,8 +348,12 @@
             <el-input v-model="patient.long_term_drug" placeholder="例如:阿司匹林,阿司匹林类" type="textarea"></el-input>
          </el-form-item>
          <el-form-item style="margin-top:4%">
-            <el-button type="primary" style="position:relative;left:75%;background-color: #089bab; border-color: #089bab;" @click="backToChat()">上一步</el-button>
-            <el-button type="primary" style="position:relative;left:75%;background-color: #089bab; border-color: #089bab;" @click="savePatient()">下一步</el-button>
+            <el-button type="primary"
+               style="position:relative;left:75%;background-color: #089bab; border-color: #089bab;"
+               @click="backToChat()">上一步</el-button>
+            <el-button type="primary"
+               style="position:relative;left:75%;background-color: #089bab; border-color: #089bab;"
+               @click="savePatient()">下一步</el-button>
          </el-form-item>
       </el-form>
    </el-dialog>
@@ -381,8 +393,10 @@
       </div>
       <template #footer>
          <span class="dialog-footer">
-            <el-button @click="backToCase()" style="background-color: #089bab; border-color: #089bab;color: #f1f1f1;">上一步</el-button>
-            <el-button type="primary" @click="confirmExpertSelection()"style="background-color: #089bab; border-color: #089bab;" :disabled="selectedExperts.length === 0">
+            <el-button @click="backToCase()"
+               style="background-color: #089bab; border-color: #089bab;color: #f1f1f1;">上一步</el-button>
+            <el-button type="primary" @click="confirmExpertSelection()"
+               style="background-color: #089bab; border-color: #089bab;" :disabled="selectedExperts.length === 0">
                确认并开启会诊
             </el-button>
          </span>
@@ -393,9 +407,11 @@
          <el-form-item label="对话主题:">
             <el-input v-model="patient.chat_content" placeholder="请输入对话主题" type="textarea"></el-input>
          </el-form-item>
-        
+
          <el-form-item style="margin-top:4%">
-            <el-button type="primary" style="position:relative;left:85%;background-color: #089bab; border-color: #089bab;" @click="saveChat()">下一步</el-button>
+            <el-button type="primary"
+               style="position:relative;left:85%;background-color: #089bab; border-color: #089bab;"
+               @click="saveChat()">下一步</el-button>
          </el-form-item>
       </el-form>
    </el-dialog>
@@ -462,6 +478,7 @@ const allConversations = computed(() => {
    return all.sort((a, b) => b.id - a.id)
 })
 const messageInput = ref('')
+const isPaused = ref(false)
 
 // 专家数据
 const experts = ref([
@@ -504,22 +521,66 @@ onMounted(() => {
    });
    //   console.log(localStorage.getItem('token'))
 })
+// 是否已开始会话
+const hasStarted = ref(false);
+
+// 处理按钮点击事件（发送、暂停、恢复）
+const handleButtonClick = () => {
+    if (!hasStarted.value) {
+        // 发送消息
+        if (messageInput.value && messageInput.value.trim()) {
+            sendMessage();
+        } else {
+            ElMessage.warning('请输入消息内容');
+        }
+    } else if (!isPaused.value) {
+        // 暂停会话
+        if (current_session_id.value) {
+            socket.emit("pause_reply", { session_id: current_session_id.value });
+            isPaused.value = true;
+            ElMessage.success('会话已暂停');
+        } else {
+            ElMessage.warning('请先开始对话');
+        }
+    } else {
+        // 恢复会话
+        if (current_session_id.value) {
+            const data = {
+                "Authorization": token.value,
+                "session id": current_session_id.value
+            };
+            socket.emit("resume_reply", data);
+            isPaused.value = false;
+            ElMessage.success('会话已恢复');
+        } else {
+            ElMessage.warning('请先开始对话');
+        }
+    }
+}
+
 const sendMessage = () => {
-   const escapedUserInput = he.encode(messageInput.value.trim()).replace(/ /g, '&nbsp;');
-   messages.value.push({
+     const escapedUserInput = he.encode(messageInput.value.trim()).replace(/ /g, '&nbsp;');
+     messages.value.push({
       speaker: 'user',
       text: escapedUserInput.replace(/\n/g, '<br>'),
       sender: 'user',
       id: id.value
    });
    id.value++
-   var temp = { content: messageInput.value }
-   socket.emit('start_mdt_discussion', {
-      Authorization: token.value,
-      session_id: current_session_id.value,
-      experts: selectedExperts.value.map(expert => ({ name: expert.id, specialty: expert.name })),
-      messages: temp
-   });
+   
+   // 标记已开始会话
+   hasStarted.value = true;
+   
+   // 按照需求的格式构建data对象
+   const data = {
+      "Authorization": token.value,
+      "session id": current_session_id.value,
+      "messages": {
+         "content": messageInput.value.trim()
+      }
+   };
+   
+   socket.emit("start mdt discussion", data);
    messageInput.value = ''
 }
 const getHistory = () => {
@@ -593,7 +654,7 @@ const selectExpert = (expertId) => {
       axios.post(io_url + '/api/remove_expert', {
          session_id: current_session_id.value,
          name: tempExpert.id,
-      }).then(res =>{
+      }).then(res => {
          if (res.data.success === true) {
             ElMessage.success('专家退出成功')
          }
@@ -638,14 +699,16 @@ const confirmExpertSelection = () => {
 }
 
 const startConversation = () => {
-    axios.get(io_url + '/api/create_session', { params: { username: token.value } }).then(res => {
-        if (res.data.success === true) {
-            current_session_id.value = res.data.session_id
-            ElMessage.success('对话开始成功')
-        }
-    })
+   axios.get(io_url + '/api/create_session', { params: { username: token.value } }).then(res => {
+      if (res.data.success === true) {
+         current_session_id.value = res.data.session_id
+         ElMessage.success('对话开始成功')
+      }
+   })
    // 设置对话已开始
    conversationStarted.value = true;
+   // 重置暂停状态
+   isPaused.value = false;
    // 直接显示Step 2的病人信息对话框`
    dialogVisibleForChat.value = true
 }
