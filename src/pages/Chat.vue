@@ -1,12 +1,11 @@
 <template>
-   <!-- Sidebar 右栏-->
+   <!-- Sidebar 左栏-->
    <div class="iq-sidebar">
       <div class="iq-sidebar-logo d-flex justify-content-between">
          <a href="#" @click.prevent="$router.push('/')">
             <img src="/assets/images/logo.png" class="img-fluid" alt="">
             <span>XRay</span>
          </a>
-        
       </div>
       <div id="sidebar-scrollbar">
          <nav class="iq-sidebar-menu">
@@ -19,8 +18,9 @@
                   <a href="javascript:void(0);" class="iq-waves-effect"><i
                         class="ri-user-3-fill"></i><span>患者</span></a>
                </li>
-               <li class="active"><a href="#" @click.prevent="$router.push('/home/chat')" class="iq-waves-effect"><i
-                        class="ri-message-fill"></i><span>聊天</span></a></li>
+               <li class="active"><a href="#" @click.prevent="$router.push('/chat')" class="iq-waves-effect"><i
+                        class="ri-message-fill"></i><span>聊天</span></a>
+               </li>
             </ul>
          </nav>
          <div class="p-3"></div>
@@ -29,7 +29,7 @@
 
    <!-- 引入Font Awesome图标库 -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <!-- Page Content  左边内容-->
+   <!-- Page Content  即sidebar右边内容-->
    <div id="content-page" class="content-page">
       <!-- TOP Nav Bar -->
       <div class="iq-top-navbar header-top-sticky">
@@ -89,118 +89,41 @@
                </span>
                <span style="color: #089bab;position: relative;left:30.5%"> Step 3:</span>
                <span style="position: relative;left:31%">选择医生专家</span>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <i class="ri-menu-3-line"></i>
-               </button>
 
+               <!-- 全屏图标 -->
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav ml-auto navbar-list">
                      <li class="nav-item iq-full-screen">
-                        <a href="#" class="iq-waves-effect" id="btnFullscreen" @click="newView"><i
-                              class="ri-fullscreen-line"></i></a>
+                        <a href="#" class="iq-waves-effect" id="btnFullscreen"><i class="ri-fullscreen-line"></i></a>
                      </li>
-
-                     <!-- 信息图标代码结束 -->
                   </ul>
                </div>
-               <ul class="navbar-list">
-                  <li>
-                     <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
-
-                        <img src="/assets/images/user/1.jpg" class="img-fluid rounded mr-3" alt="user">
-                        <div class="caption">
-                        </div>
+               <!-- 退出登录 -->
+               <div class="dropdown">
+                  <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center" data-toggle="dropdown">
+                     <img src="/assets/images/user/1.jpg" class="img-fluid rounded mr-3 align-items-center" alt="user"
+                        style="width: 52px; height: 52px;  margin: auto;">
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                     <a class="dropdown-item text-gray" href="#" @click.prevent="$router.push('/')">
+                        退出<i class="ri-login-box-line ml-2"></i>
                      </a>
-                     <div class="iq-sub-dropdown iq-user-dropdown">
-                        <div class="iq-card shadow-none m-0">
-                           <div class="iq-card-body p-0 ">
-                              <div class="bg-primary p-3">
-                                 <h5 class="mb-0 text-white line-height">Hello Bini Jets</h5>
-                                 <span class="text-white font-size-12">Available</span>
-                              </div>
-                              <a href="#" @click.prevent="$router.push('/profile')"
-                                 class="iq-sub-card iq-bg-primary-hover">
-                                 <div class="media align-items-center">
-                                    <div class="rounded iq-card-icon iq-bg-primary">
-                                       <i class="ri-file-user-line"></i>
-                                    </div>
-                                    <div class="media-body ml-3">
-                                       <h6 class="mb-0 ">My Profile</h6>
-                                       <p class="mb-0 font-size-12">View personal profile details.</p>
-                                    </div>
-                                 </div>
-                              </a>
-                              <a href="#" @click.prevent="$router.push('/profile-edit')"
-                                 class="iq-sub-card iq-bg-primary-hover">
-                                 <div class="media align-items-center">
-                                    <div class="rounded iq-card-icon iq-bg-primary">
-                                       <i class="ri-profile-line"></i>
-                                    </div>
-                                    <div class="media-body ml-3">
-                                       <h6 class="mb-0 ">Edit Profile</h6>
-                                       <p class="mb-0 font-size-12">Modify your personal details.</p>
-                                    </div>
-                                 </div>
-                              </a>
-                              <a href="#" class="iq-sub-card iq-bg-primary-hover">
-                                 <div class="media align-items-center">
-                                    <div class="rounded iq-card-icon iq-bg-primary">
-                                       <i class="ri-account-box-line"></i>
-                                    </div>
-                                    <div class="media-body ml-3">
-                                       <h6 class="mb-0 ">Account settings</h6>
-                                       <p class="mb-0 font-size-12">Manage your account parameters.</p>
-                                    </div>
-                                 </div>
-                              </a>
-                              <a href="#" class="iq-sub-card iq-bg-primary-hover">
-                                 <div class="media align-items-center">
-                                    <div class="rounded iq-card-icon iq-bg-primary">
-                                       <i class="ri-lock-line"></i>
-                                    </div>
-                                    <div class="media-body ml-3">
-                                       <h6 class="mb-0 ">Privacy Settings</h6>
-                                       <p class="mb-0 font-size-12">Control your privacy parameters.</p>
-                                    </div>
-                                 </div>
-                              </a>
-                              <div class="d-inline-block w-100 text-center p-3">
-                                 <a class="bg-primary iq-sign-btn" href="#" @click.prevent="$router.push('/sign-in')"
-                                    role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </li>
-               </ul>
-            </nav>
+                  </div>
+               </div>
 
+            </nav>
          </div>
       </div>
       <!-- TOP Nav Bar END -->
       <div class="container-fluid">
          <div class="row">
-            <!-- 初始状态下隐藏左侧聊天数据区域 -->
-            <div class="col-lg-3 chat-data-left" v-if="conversationStarted" style="min-height: calc(100vh - 150px);">
+            <div class="col-lg-3 chat-data-left" style="min-height: calc(100vh - 150px);">
+               <!-- 历史对话区域 -->
                <div class="chat-sidebar-channel h-100 bg-white border border-gray-200"
                   style="scrollbar-width: thin; scrollbar-color: #089bab #f1f1f1; padding: 15px; overflow-y: auto; max-height: calc(100vh - 150px); border-radius: 32px;">
                   <h5 class="text-center mb-3 p-2" style="color: #089bab;">历史对话</h5>
                   <div v-if="allConversations.length > 0">
-                     <div v-for="item in allConversations" :key="item.id"
-                        class="doubao-history-item mb-2 p-2 rounded-lg transition-all duration-300 hover:shadow-md cursor-pointer flex items-center gap-3">
-                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-medium"
-                           :class="item.role === 'user' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'">
-                           {{ item.role === 'user' ? 'U' : 'A' }}
-                        </span>
-                        <span class="text-sm font-medium"
-                           :class="item.role === 'user' ? 'text-blue-600' : 'text-green-600'">
-                           {{ item.role === 'user' ? '用户' : '医生' }}
-                        </span>
-                        <p class="text-sm text-gray-700 line-clamp-1 flex-grow overflow-hidden">
-                           {{ item.content }}
-                        </p>
-                     </div>
+
                   </div>
                   <div v-else class="text-center text-gray-500 py-8">
                      <i class="fas fa-comments-slash text-3xl mb-2 text-gray-300"></i>
@@ -209,9 +132,8 @@
                </div>
             </div>
 
-            <!-- 初始状态下，聊天内容区域占据整个宽度 -->
-            <div
-               :class="['chat-data', 'p-0', 'd-flex', 'flex-column', { 'col-lg-9': conversationStarted, 'col-lg-12': !conversationStarted }]"
+            <!-- 初始状态下，聊天内容区域只占据聊天内容区域 -->
+            <div :class="['chat-data', 'p-0', 'd-flex', 'flex-column', 'col-lg-9']"
                :style="conversationStarted ? { 'min-height': 'calc(100vh - 150px)', 'position': 'relative' } : { 'min-height': 'calc(100vh - 150px)' }">
                <div class="tab-content">
 
@@ -241,40 +163,10 @@
                         </header>
                      </div>
 
-                     <!-- 中间部分：聊天内容区域 -->
+                     <!--聊天内容区域  聊天内容显示-->
                      <div class="chat-content flex-grow-1 overflow-auto" v-if="conversationStarted">
-                        <div v-for="msg in messages" :key="msg.id">
-                           <div class="chat" v-if="msg.speaker == 'user'">
-                              <div class="chat-user">
-                                 <a class="avatar m-0">
-                                    <img src="../../public/assets/images/user/01.jpg" alt="avatar"
-                                       class="avatar-35 rounded ">
-                                 </a>
-                                 <span class="chat-time mt-1">用户</span>
-                              </div>
-                              <div class="chat-detail">
-                                 <div class="chat-message">
-                                    <p>{{ msg.text }}</p>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="chat chat-left" v-else>
-                              <div class="chat-user">
-                                 <a class="avatar m-0">
-                                    <img src="../../public/assets/images/user/08.jpg" alt="avatar"
-                                       class="avatar-35 rounded ">
-                                 </a>
-                                 <span class="chat-time mt-1">{{ msg.speaker }}</span>
-                              </div>
-                              <div class="chat-detail">
-                                 <div class="chat-message">
-                                    <p>{{ msg.text }}</p>
-                                 </div>
-                              </div>
-                           </div>
 
-                        </div>
-                        <!-- 聊天消息将显示在这里 -->
+
                      </div>
 
                      <!-- 开始聊天按钮 -->
@@ -295,15 +187,14 @@
                         <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
                      </div>
                      <input type="text" class="form-control mr-3" placeholder="请添加补充信息" v-model="messageInput">
-                     <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-3" 
-                             style="min-width: 48px; height: 48px; font-size: 18px;"
-                             @click="handleButtonClick" 
-                             :disabled="!messageInput && !hasStarted">
-                           <i :class="{
-                               'fa fa-paper-plane-o': !hasStarted,
-                               'fa fa-pause': hasStarted && !isPaused,
-                               'fa fa-play': hasStarted && isPaused
-                           }" style="font-size: 20px;" aria-hidden="true"></i>
+                     <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-3"
+                        style="min-width: 48px; height: 48px; font-size: 18px;" @click="handleButtonClick"
+                        :disabled="!messageInput && !hasStarted">
+                        <i :class="{
+                           'fa fa-paper-plane-o': !hasStarted,
+                           'fa fa-pause': hasStarted && !isPaused,
+                           'fa fa-play': hasStarted && isPaused
+                        }" style="font-size: 20px;" aria-hidden="true"></i>
                      </button>
                   </form>
                </div>
@@ -526,51 +417,51 @@ const hasStarted = ref(false);
 
 // 处理按钮点击事件（发送、暂停、恢复）
 const handleButtonClick = () => {
-    if (!hasStarted.value) {
-        // 发送消息
-        if (messageInput.value && messageInput.value.trim()) {
-            sendMessage();
-        } else {
-            ElMessage.warning('请输入消息内容');
-        }
-    } else if (!isPaused.value) {
-        // 暂停会话
-        if (current_session_id.value) {
-            socket.emit("pause_reply", { session_id: current_session_id.value });
-            isPaused.value = true;
-            ElMessage.success('会话已暂停');
-        } else {
-            ElMessage.warning('请先开始对话');
-        }
-    } else {
-        // 恢复会话
-        if (current_session_id.value) {
-            const data = {
-                "Authorization": token.value,
-                "session id": current_session_id.value
-            };
-            socket.emit("resume_reply", data);
-            isPaused.value = false;
-            ElMessage.success('会话已恢复');
-        } else {
-            ElMessage.warning('请先开始对话');
-        }
-    }
+   if (!hasStarted.value) {
+      // 发送消息
+      if (messageInput.value && messageInput.value.trim()) {
+         sendMessage();
+      } else {
+         ElMessage.warning('请输入消息内容');
+      }
+   } else if (!isPaused.value) {
+      // 暂停会话
+      if (current_session_id.value) {
+         socket.emit("pause_reply", { session_id: current_session_id.value });
+         isPaused.value = true;
+         ElMessage.success('会话已暂停');
+      } else {
+         ElMessage.warning('请先开始对话');
+      }
+   } else {
+      // 恢复会话
+      if (current_session_id.value) {
+         const data = {
+            "Authorization": token.value,
+            "session id": current_session_id.value
+         };
+         socket.emit("resume_reply", data);
+         isPaused.value = false;
+         ElMessage.success('会话已恢复');
+      } else {
+         ElMessage.warning('请先开始对话');
+      }
+   }
 }
 
 const sendMessage = () => {
-     const escapedUserInput = he.encode(messageInput.value.trim()).replace(/ /g, '&nbsp;');
-     messages.value.push({
+   const escapedUserInput = he.encode(messageInput.value.trim()).replace(/ /g, '&nbsp;');
+   messages.value.push({
       speaker: 'user',
       text: escapedUserInput.replace(/\n/g, '<br>'),
       sender: 'user',
       id: id.value
    });
    id.value++
-   
+
    // 标记已开始会话
    hasStarted.value = true;
-   
+
    // 按照需求的格式构建data对象
    const data = {
       "Authorization": token.value,
@@ -579,7 +470,7 @@ const sendMessage = () => {
          "content": messageInput.value.trim()
       }
    };
-   
+
    socket.emit("start mdt discussion", data);
    messageInput.value = ''
 }
