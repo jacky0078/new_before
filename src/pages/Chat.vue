@@ -250,12 +250,9 @@
                            :class="['message-item', message.speaker === 'user' ? 'user-message' : 'expert-message']">
                            <!-- 用户消息 -->
                            <div v-if="message.speaker === 'user'" class="message-wrapper user-wrapper">
-                              <div class="message-content-container">
-                                 <div class="message-header"> <span class="message-role">{{ message.speaker === 'user' ?
-                                       '您' : message.speaker }}</span> </div>
-                                 <div class="message-body" v-html="message.content"></div>
-                              </div> <img src="/assets/images/user/1.jpg" alt="用户头像" class="message-avatar user-avatar">
-                           </div> <!-- 专家消息 -->
+                              
+                           </div> 
+                           <!-- 专家消息 -->
                            <div v-else class="message-wrapper expert-wrapper"> <img
                                  :src="getExpertAvatar(message.speaker)" alt="专家头像"
                                  class="message-avatar expert-avatar">
@@ -433,7 +430,7 @@ import { ref, reactive, computed } from 'vue'
 import { onMounted } from 'vue'
 import { Plus, Document, DArrowRight, List } from '@element-plus/icons-vue'
 import axios from 'axios'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import he from 'he'
 const io_url = 'http://127.0.0.1:5000'
 const socket = io(io_url)
@@ -674,23 +671,20 @@ const loadConversationDetail = async (item) => {
 
 // 删除会话
 const deleteConversation = async (session_id) => {
+  
    try {
       // 显示确认对话框
+      console.log('准备显示确认对话框');
       ElMessageBox.confirm('确定要删除这个会话吗？此操作不可恢复。', '确认删除', {
          confirmButtonText: '确定',
          cancelButtonText: '取消',
          type: 'warning'
       }).then(async () => {
          // 显示加载中状态
-         ElMessage.loading({
-           message: '删除中...',
-           duration: 0
-         })
-         
          const res = await axios.get(io_url + '/api/del_conversation', {
             params: { session_id: session_id }
          })
-         
+         console.log('删除了接口');
          // 关闭加载提示
          ElMessage.closeAll()
          
