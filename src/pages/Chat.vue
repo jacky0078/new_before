@@ -245,7 +245,7 @@
                      </div>
 
                      <!--聊天内容区域  聊天内容显示-->
-                     <div class="chat-content flex-grow-1 overflow-auto" v-if="conversationStarted">
+                     <div class="chat-content flex-grow-1 overflow-auto" style="height: 69vh;" v-if="conversationStarted">
                         <div v-for="message in messages" :key="message.id"
                            :class="['message-item', message.speaker === 'user' ? 'user-message' : 'expert-message']">
                            <!-- 用户消息 -->
@@ -287,7 +287,8 @@
                      </div>
                      <input type="text" class="form-control mr-3" placeholder="请添加补充信息" v-model="messageInput">
                      <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-3"
-                        style="min-width: 48px; height: 48px; font-size: 18px;" @click="handleButtonClick"
+                        style="min-width: 48px; height: 48px; font-size: 18px;" 
+                        @click="hasStarted ? handleButtonClick() : sendMessage()"
                         :disabled="!messageInput && !hasStarted">
                         <i :class="{
                            'fa fa-paper-plane-o': !hasStarted,
@@ -526,9 +527,7 @@ onMounted(() => {
    socket.on('mdt_response', (data) => {
       // 对内容进行HTML转义，防止XSS攻击，同时保留换行
       const escapedContent = he.encode(data.content).replace(/\n/g, '<br>');
-
       messages.value.push({
-
          speaker: data.speaker,
          content: escapedContent,
          id: id.value
@@ -553,36 +552,17 @@ const hasStarted = ref(false);
 
 // 处理按钮点击事件（发送、暂停、恢复）
 const handleButtonClick = () => {
-   if (!hasStarted.value) {
-      // 发送消息
-      if (messageInput.value && messageInput.value.trim()) {
-         sendMessage();
-      } else {
-         ElMessage.warning('请输入消息内容');
-      }
-   } else if (!isPaused.value) {
-      // 暂停会话
-      if (current_session_id.value) {
-         socket.emit("pause_reply", { session_id: current_session_id.value });
-         isPaused.value = true;
-         ElMessage.success('会话已暂停');
-      } else {
-         ElMessage.warning('请先开始对话');
-      }
-   } else {
-      // 恢复会话
-      if (current_session_id.value) {
-         const data = {
-            "Authorization": token.value,
-            "session id": current_session_id.value
-         };
-         socket.emit("resume_reply", data);
-         isPaused.value = false;
-         ElMessage.success('会话已恢复');
-      } else {
-         ElMessage.warning('请先开始对话');
-      }
-   }
+    if(!isPaused.value){ 
+      isPaused.value = true;
+      ElMessage.success("已暂停");
+      const data =  {"session_id":current_session_id.value}
+      socket.emit("pause_reply", data)
+    }else{
+      isPaused.value = false;
+      ElMessage.success("已恢复");
+      const data =  {"session_id":current_session_id.value,"Authorization":token.value}
+      socket.emit("resume_reply", data)
+    }
 }
 
 const sendMessage = () => {
@@ -897,7 +877,7 @@ const selectExpert = (expertId) => {
 const isExpertSelected = (expertId) => {
    return selectedExperts.value.some(expert => expert.id === expertId);
 }
-//直接开始对话，展开交流，无需再传递专家列表
+//直接开始对话，展开交流，无需再传递专列家表
 const confirmExpertSelection = () => {
    // 标记已开始会话
    hasStarted.value = true;
