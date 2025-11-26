@@ -1,6 +1,6 @@
 <template>
    <!-- Sidebar 左栏-->
-   <div class="iq-sidebar">
+   <!-- <div class="iq-sidebar">
       <div class="iq-sidebar-logo d-flex justify-content-between">
          <a href="#" @click.prevent="$router.push('/')">
             <img src="/assets/images/logo.png" class="img-fluid" alt="">
@@ -25,7 +25,7 @@
          </nav>
          <div class="p-3"></div>
       </div>
-   </div>
+   </div> -->
 
    <!-- 引入Font Awesome图标库 -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -250,7 +250,11 @@
                            :class="['message-item', message.speaker === 'user' ? 'user-message' : 'expert-message']">
                            <!-- 用户消息 -->
                            <div v-if="message.speaker === 'user'" class="message-wrapper user-wrapper">
-                              
+                               <div class="message-content-container">
+                                 <div class="message-header"> <span class="message-role">用户</span>
+                                 </div>
+                                 <div class="message-body" v-html="message.content"></div>
+                              </div>
                            </div> 
                            <!-- 专家消息 -->
                            <div v-else class="message-wrapper expert-wrapper"> <img
@@ -572,6 +576,7 @@ const sendMessage = () => {
       content: escapedUserInput.replace(/\n/g, '<br>'),
       id: id.value
    });
+   messageInput.value = ''
    id.value++
 
    // 滚动到底部
@@ -671,14 +676,6 @@ const deleteConversation = async (session_id) => {
          if (res.data.success) {
             ElMessage.success(res.data.message || '会话删除成功')
             
-            // 从对应时间分组中移除会话项（提高用户体验，避免整页刷新）
-            [conversation_today, conversation_last_7_days, conversation_last_30_days, conversation_before_30_days].forEach(conversations => {
-               const index = conversations.value.findIndex(item => item.session_id === session_id)
-               if (index > -1) {
-                  conversations.value.splice(index, 1)
-               }
-            })
-            
             // 如果删除的是当前会话，清空当前聊天
             if (current_session_id.value === session_id) {
                messages.value = []
@@ -686,6 +683,9 @@ const deleteConversation = async (session_id) => {
                hasStarted.value = false
                current_session_id.value = null
             }
+            
+            // 调用refreshConversations函数重新从服务器加载最新的对话列表，确保数据一致性和正确渲染
+            await refreshConversations()
          } else {
             ElMessage.error(res.data.message || '删除会话失败')
          }
@@ -1343,6 +1343,7 @@ const startConversation = () => {
    }
 
    .user-wrapper {
+      
       flex-direction: row-reverse;
       margin-left: auto;
       margin-right: 10px;

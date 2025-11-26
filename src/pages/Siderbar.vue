@@ -19,19 +19,16 @@
             <div id="sidebar-scrollbar">
                <nav class="iq-sidebar-menu">
                   <ul class="iq-menu">
-                     <li class="iq-menu-title"><i class="ri-subtract-line"></i><span>Dashboard</span></li>
+                     <!-- <li class="iq-menu-title"><i class="ri-subtract-line"></i><span>Dashboard</span></li> -->
                      <li>
                         <a href="#" @click.prevent="$router.push('/')" class="iq-waves-effect"><i
                               class="ri-hospital-fill"></i><span>医生仪表板</span></a>
                      </li>
-
+<!-- 
                      <li>
                         <a href="#" @click.prevent="$router.push('/dashboard-3')" class="iq-waves-effect"><i
                               class="ri-group-fill"></i><span>患者仪表板</span></a>
-                     </li>
-
-
-
+                     </li> -->
                      <li>
                         <a href="javascript:void(0);" class="iq-waves-effect"><i
                               class="ri-user-3-fill"></i><span>医生</span><i
@@ -65,7 +62,6 @@
 
                      <li class="active"><a href="#" @click.prevent="$router.push('/home/chat')" class="iq-waves-effect"><i
                               class="ri-message-fill"></i><span>聊天</span></a></li>
-
                   </ul>
                </nav>
                <div class="p-3"></div>
