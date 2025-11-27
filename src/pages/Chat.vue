@@ -46,8 +46,8 @@
                   backgroundColor: '#089bab',
                   position: 'relative',
                   left: '1%',
-                  cursor: 'pointer'
-               }" @click="dialogVisibleForChat = true" title="请填写对话主题">
+                  cursor: 'default'
+               }" title="请填写对话主题">
                   <i class="fas fa-comment-alt" style="color: white; font-size: 16px;"></i>
                </span>
                <span style="color: #089bab;position: relative;left:1.5%"> Step 1:</span>
@@ -64,8 +64,8 @@
                   backgroundColor: '#089bab',
                   position: 'relative',
                   left: '15%',
-                  cursor: 'pointer'
-               }" @click="showDialog()" title="请保存病人信息">
+                  cursor: 'default'
+               }" title="请保存病人信息">
                   <i class="fas fa-pen-to-square" style="color: white; font-size: 16px;"></i>
                </span>
                <span style="color: #089bab;position: relative;left:15.5%"> Step 2:</span>
@@ -82,9 +82,9 @@
                   backgroundColor: '#089bab',
                   position: 'relative',
                   left: '30%',
-                  cursor: 'pointer',
+                  cursor: 'default',
                   opacity: '1'
-               }" @click="showExpertDialog()" title="选择医生专家">
+               }" title="选择医生专家">
                   <i class="fas fa-hand-pointer" style="color: white; font-size: 16px;"></i>
                </span>
                <span style="color: #089bab;position: relative;left:30.5%"> Step 3:</span>
@@ -123,89 +123,90 @@
                   style="scrollbar-width: thin; scrollbar-color: #089bab #f1f1f1; padding: 15px; overflow-y: auto; max-height: calc(100vh - 150px); border-radius: 32px;">
                   <h5 class="text-center mb-3 p-2" style="color: #089bab; position: relative;">
                      历史对话
-                     <i class="fas fa-sync-alt ml-2" @click="refreshConversations" 
+                     <i class="fas fa-sync-alt ml-2" @click="refreshConversations"
                         style="cursor: pointer; font-size: 14px;" title="刷新会话列表"></i>
                   </h5>
-                  <div v-loading="loadingConversation" class="doubao-history-container" 
-                       element-loading-text="加载中..." element-loading-spinner="el-icon-loading">
+                  <div v-loading="loadingConversation" class="doubao-history-container" element-loading-text="加载中..."
+                     element-loading-spinner="el-icon-loading">
                      <!-- 今天的对话 -->
                      <div v-if="conversation_today.length > 0" class="history-group">
                         <h6 class="history-group-title">
                            <i class="fas fa-clock mr-2"></i>
                            今天 <span class="conversation-count">({{ conversation_today.length }})</span>
                         </h6>
-                        <div v-for="(item, index) in conversation_today" :key="`today-${index}`" 
-                             class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
-                             @click="loadConversationDetail(item)">
+                        <div v-for="(item, index) in conversation_today" :key="`today-${index}`"
+                           class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
+                           @click="loadConversationDetail(item)">
                            <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
                            <div class="conversation-actions">
-                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)" 
+                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)"
                                  title="重命名会话"></i>
-                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)" 
+                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
                                  title="删除会话"></i>
                            </div>
                         </div>
                      </div>
-                     
+
                      <!-- 最近7天的对话 -->
                      <div v-if="conversation_last_7_days.length > 0" class="history-group">
                         <h6 class="history-group-title">
                            <i class="fas fa-calendar-alt mr-2"></i>
                            最近7天 <span class="conversation-count">({{ conversation_last_7_days.length }})</span>
                         </h6>
-                        <div v-for="(item, index) in conversation_last_7_days" :key="`week-${index}`" 
-                             class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
-                             @click="loadConversationDetail(item)">
+                        <div v-for="(item, index) in conversation_last_7_days" :key="`week-${index}`"
+                           class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
+                           @click="loadConversationDetail(item)">
                            <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
                            <div class="conversation-actions">
-                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)" 
+                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)"
                                  title="重命名会话"></i>
-                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)" 
+                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
                                  title="删除会话"></i>
                            </div>
                         </div>
                      </div>
-                     
+
                      <!-- 最近30天的对话 -->
                      <div v-if="conversation_last_30_days.length > 0" class="history-group">
                         <h6 class="history-group-title">
                            <i class="fas fa-calendar-check mr-2"></i>
                            最近30天 <span class="conversation-count">({{ conversation_last_30_days.length }})</span>
                         </h6>
-                        <div v-for="(item, index) in conversation_last_30_days" :key="`month-${index}`" 
-                             class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
-                             @click="loadConversationDetail(item)">
+                        <div v-for="(item, index) in conversation_last_30_days" :key="`month-${index}`"
+                           class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
+                           @click="loadConversationDetail(item)">
                            <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
                            <div class="conversation-actions">
-                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)" 
+                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)"
                                  title="重命名会话"></i>
-                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)" 
+                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
                                  title="删除会话"></i>
                            </div>
                         </div>
                      </div>
-                     
+
                      <!-- 30天前的对话 -->
                      <div v-if="conversation_before_30_days.length > 0" class="history-group">
                         <h6 class="history-group-title">
                            <i class="fas fa-archive mr-2"></i>
                            30天前 <span class="conversation-count">({{ conversation_before_30_days.length }})</span>
                         </h6>
-                        <div v-for="(item, index) in conversation_before_30_days" :key="`older-${index}`" 
-                             class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
-                             @click="loadConversationDetail(item)">
+                        <div v-for="(item, index) in conversation_before_30_days" :key="`older-${index}`"
+                           class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
+                           @click="loadConversationDetail(item)">
                            <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
                            <div class="conversation-actions">
-                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)" 
+                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)"
                                  title="重命名会话"></i>
-                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)" 
+                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
                                  title="删除会话"></i>
                            </div>
                         </div>
                      </div>
                   </div>
-                  <div v-if="!loadingConversation && conversation_today.length === 0 && conversation_last_7_days.length === 0 && conversation_last_30_days.length === 0 && conversation_before_30_days.length === 0" 
-                       class="text-center text-gray-500 py-10">
+                  <div
+                     v-if="!loadingConversation && conversation_today.length === 0 && conversation_last_7_days.length === 0 && conversation_last_30_days.length === 0 && conversation_before_30_days.length === 0"
+                     class="text-center text-gray-500 py-10">
                      <i class="fas fa-comments-slash text-4xl mb-3 text-gray-300"></i>
                      <p>暂无历史对话记录</p>
                      <p class="text-gray-400 text-sm mt-2">开始新的对话，与专家交流您的健康问题</p>
@@ -245,31 +246,32 @@
                      </div>
 
                      <!--聊天内容区域  聊天内容显示-->
-                     <div class="chat-content flex-grow-1 overflow-auto" style="height: 69vh;" v-if="conversationStarted">
+                     <div class="chat-content flex-grow-1 overflow-auto" style="height: 69vh;"
+                        v-if="conversationStarted">
                         <div v-for="message in messages" :key="message.id"
                            :class="['message-item', message.speaker === 'user' ? 'user-message' : 'expert-message']">
                            <!-- 用户消息 -->
                            <div v-if="message.speaker === 'user'" class="message-wrapper user-wrapper">
-                               <div class="message-content-container">
-                                 <div class="message-header"> <span class="message-role">用户</span>
+                              <img src="/assets/images/user/1.jpg" alt="用户头像" class="message-avatar user-avatar">
+                              <div class="message-content-container">
+                                 <div class="message-header1"> <span class="message-role">用户</span>
                                  </div>
                                  <div class="message-body" v-html="message.content"></div>
                               </div>
-                           </div> 
+                           </div>
                            <!-- 专家消息 -->
                            <div v-else class="message-wrapper expert-wrapper"> <img
                                  :src="getExpertAvatar(message.speaker)" alt="专家头像"
                                  class="message-avatar expert-avatar">
                               <div class="message-content-container">
-                                 <div class="message-header"> <span class="message-role">{{ getExpertName(message.speaker) }}</span>
+                                 <div class="message-header"> <span class="message-role">{{
+                                    getExpertName(message.speaker) }}</span>
                                  </div>
                                  <div class="message-body" v-html="message.content"></div>
                               </div>
                            </div>
-                        </div> <!-- 等待专家回复的提示 -->
-                        <div
-                           v-if="hasStarted && !isPaused && messages.length > 0 && messages[messages.length - 1].speaker === 'user'"
-                           class="waiting-indicator"> <span>专家正在思考中...</span> </div>
+                        </div>
+
                      </div>
 
                      <!-- 开始聊天按钮 -->
@@ -291,7 +293,7 @@
                      </div>
                      <input type="text" class="form-control mr-3" placeholder="请添加补充信息" v-model="messageInput">
                      <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-3"
-                        style="min-width: 48px; height: 48px; font-size: 18px;" 
+                        style="min-width: 48px; height: 48px; font-size: 18px;"
                         @click="hasStarted ? handleButtonClick() : sendMessage()"
                         :disabled="!messageInput && !hasStarted">
                         <i :class="{
@@ -391,7 +393,7 @@
             <el-button @click="backToCase()" v-if="!visibility"
                style="background-color: #089bab; border-color: #089bab;color: #f1f1f1;">上一步</el-button>
             <el-button type="primary" @click="confirmExpertSelection()"
-               style="background-color: #089bab; border-color: #089bab;" :disabled="selectedExperts.length === 0" >
+               style="background-color: #089bab; border-color: #089bab;" :disabled="selectedExperts.length === 0">
                {{ visibility ? '确认' : '确认开启会诊' }}
             </el-button>
          </span>
@@ -410,7 +412,7 @@
          </el-form-item>
       </el-form>
    </el-dialog>
-   
+
    <!-- 重命名会话对话框 -->
    <el-dialog v-model="renameDialogVisible" title="重命名会话" width="40%">
       <el-form>
@@ -421,7 +423,8 @@
       <template #footer>
          <span class="dialog-footer">
             <el-button @click="renameDialogVisible = false">取消</el-button>
-            <el-button type="primary" style="background-color: #089bab; border-color: #089bab;" @click="saveRename">确认</el-button>
+            <el-button type="primary" style="background-color: #089bab; border-color: #089bab;"
+               @click="saveRename">确认</el-button>
          </span>
       </template>
    </el-dialog>
@@ -431,12 +434,12 @@
 <script setup>
 // static migration: original JS (if any) loads globally via index.html
 import { io } from 'socket.io-client'
-import { ref, reactive, computed } from 'vue'
-import { onMounted } from 'vue'
+import { ref, reactive, computed, onMounted, nextTick } from 'vue'
 import { Plus, Document, DArrowRight, List } from '@element-plus/icons-vue'
 import axios from 'axios'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import he from 'he'
+import lottie from 'lottie-web'
 const io_url = 'http://127.0.0.1:5000'
 const socket = io(io_url)
 const dialogVisible = ref(false)//填写病人信息
@@ -483,8 +486,8 @@ const allConversations = computed(() => {
 })
 const messageInput = ref('')
 const isPaused = ref(false)
-const displayWait = ref(false)
 const visibility = ref(false)
+let lottieInstance = null
 
 // 专家数据
 const experts = ref([
@@ -511,7 +514,7 @@ const getExpertName = (speakerName) => {
    // 如果找到专家，返回其中文名称，否则返回原始名称
    return expert ? expert.name : speakerName;
 }
-const show = () =>{
+const show = () => {
    visibility.value = true
    dialogVisibleForExperts.value = true
 }
@@ -533,6 +536,11 @@ onMounted(() => {
    if (token.value) {
       refreshConversations() // 复用刷新会话列表函数
    }
+
+
+
+  
+
    socket.on('mdt_response', (data) => {
       // 对内容进行HTML转义，防止XSS攻击，同时保留换行
       const escapedContent = he.encode(data.content).replace(/\n/g, '<br>');
@@ -542,9 +550,6 @@ onMounted(() => {
          id: id.value
       });
       id.value++
-      console.log(messages.value)
-      // 当收到第一个专家回复时，停止显示等待动画
-      displayWait.value = false
 
       // 滚动到底部
       setTimeout(() => {
@@ -561,17 +566,18 @@ const hasStarted = ref(false);
 
 // 处理按钮点击事件（发送、暂停、恢复）
 const handleButtonClick = () => {
-    if(!isPaused.value){ 
+   if (!isPaused.value) {
       isPaused.value = true;
       ElMessage.success("已暂停");
-      const data =  {"session_id":current_session_id.value}
+      const data = { "session_id": current_session_id.value }
       socket.emit("pause_reply", data)
-    }else{
+   } else {
       isPaused.value = false;
       ElMessage.success("已恢复");
-      const data =  {"session_id":current_session_id.value,"Authorization":token.value}
+      const data = { "session_id": current_session_id.value, "Authorization": token.value }
       socket.emit("resume_reply", data)
-    }
+      
+   }
 }
 
 const sendMessage = () => {
@@ -617,15 +623,15 @@ const loadConversationDetail = async (item) => {
       const res = await axios.get(io_url + '/api/conversation_detail', {
          params: { session_id: session_id }
       })
-      
+
       if (res.data.success) {
          // 清空当前消息
          messages.value = []
          id.value = 0
-          
+
          // 设置当前会话ID
          current_session_id.value = session_id
-          
+
          // 加载消息详情
          res.data.detail_list.forEach(msg => {
             const escapedContent = he.encode(msg.content).replace(/\n/g, '<br>')
@@ -636,11 +642,11 @@ const loadConversationDetail = async (item) => {
             })
             id.value++
          })
-          
+
          // 设置对话已开始
          conversationStarted.value = true
          hasStarted.value = true
-          
+
          // 滚动到底部
          setTimeout(() => {
             const chatContent = document.querySelector('.chat-content')
@@ -661,7 +667,7 @@ const loadConversationDetail = async (item) => {
 
 // 删除会话
 const deleteConversation = async (session_id) => {
-  
+
    try {
       // 显示确认对话框
       console.log('准备显示确认对话框');
@@ -677,10 +683,10 @@ const deleteConversation = async (session_id) => {
          console.log('删除了接口');
          // 关闭加载提示
          ElMessage.closeAll()
-         
+
          if (res.data.success) {
             ElMessage.success(res.data.message || '会话删除成功')
-            
+
             // 如果删除的是当前会话，清空当前聊天
             if (current_session_id.value === session_id) {
                messages.value = []
@@ -688,7 +694,7 @@ const deleteConversation = async (session_id) => {
                hasStarted.value = false
                current_session_id.value = null
             }
-            
+
             // 调用refreshConversations函数重新从服务器加载最新的对话列表，确保数据一致性和正确渲染
             await refreshConversations()
          } else {
@@ -718,7 +724,7 @@ const saveRename = async () => {
          return
       }
 
-      
+
       const res = await axios.get(io_url + '/api/rename_conversation', {
          params: {
             session_id: currentRenameItem.value.session_id,
@@ -727,12 +733,12 @@ const saveRename = async () => {
       })
       if (res.data.success) {
          ElMessage.success(res.data.message || '会话标题已更新')
-         
+
          // 重置表单状态
          renameDialogVisible.value = false
          currentRenameItem.value = null
          newOverview.value = ''
-         
+
          // 直接刷新会话列表
          await refreshConversations()
       } else {
@@ -752,7 +758,7 @@ const refreshConversations = async () => {
       const res = await axios.get(io_url + '/api/user_conversations', {
          params: { username: token.value }
       })
-      
+
       if (res.data.success) {
          conversation_today.value = res.data.conversations_today || []
          conversation_last_7_days.value = res.data.conversations_last_7_days || []
@@ -835,7 +841,7 @@ const selectExpert = (expertId) => {
       axios.post(io_url + '/api/remove_expert', {
          session_id: current_session_id.value,
          name: tempExpert.id,
-      }).then(res =>{
+      }).then(res => {
          if (res.data.success === true) {
             ElMessage.success('专家退出成功')
          }
@@ -1052,20 +1058,6 @@ const startConversation = () => {
    cursor: pointer;
 }
 
-/* 发亮脉冲动画 */
-@keyframes pulse-glow {
-   0% {
-      box-shadow: 0 0 0 0 rgba(226, 43, 10, 0.7);
-   }
-
-   70% {
-      box-shadow: 0 0 0 10px rgba(8, 155, 171, 0);
-   }
-
-   100% {
-      box-shadow: 0 0 0 0 rgba(8, 155, 171, 0);
-   }
-}
 
 /* 专家选择对话框样式 */
 .expert-selection-container {
@@ -1181,7 +1173,7 @@ const startConversation = () => {
 }
 
 .user-message {
-   background-color: #E3F2FD;
+
    margin-left: auto;
    margin-right: 10px;
    max-width: 80%;
@@ -1319,85 +1311,90 @@ const startConversation = () => {
 }
 
 .message-role {
-      font-weight: bold;
-      font-size: 14px;
-   }
+   font-weight: bold;
+   font-size: 14px;
+}
 
-   /* 消息容器样式 */
-   .message-wrapper {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 15px;
-      max-width: 80%;
-   }
+/* 消息容器样式 */
+.message-wrapper {
+   display: flex;
+   align-items: flex-start;
+   margin-bottom: 15px;
+   max-width: 80%;
+}
 
-   .user-wrapper {
-      
-      flex-direction: row-reverse;
-      margin-left: auto;
-      margin-right: 10px;
-      justify-content: flex-start;
-   }
+.user-wrapper {
 
-   .expert-wrapper {
-      margin-left: 10px;
-      margin-right: auto;
-   }
+   flex-direction: row-reverse;
+   margin-left: auto;
+   margin-right: 10px;
+   justify-content: flex-start;
+}
 
-   /* 头像样式 */
-   .message-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-   }
+.expert-wrapper {
+   margin-left: 10px;
+   margin-right: auto;
+}
 
-   .user-avatar {
-      margin-left: 10px;
-   }
+/* 头像样式 */
+.message-avatar {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   object-fit: cover;
+}
 
-   .expert-avatar {
-      margin-right: 10px;
-   }
+.user-avatar {
+   margin-left: 10px;
+}
 
-   /* 消息内容容器 */
-   .message-content-container {
-      display: flex;
-      flex-direction: column;
-      align-self: flex-start;
-   }
+.expert-avatar {
+   margin-right: 10px;
+}
 
-   /* 消息头部样式 */
-   .message-header {
-      margin-bottom: 5px;
-      text-align: left;
-   }
+/* 消息内容容器 */
+.message-content-container {
+   display: flex;
+   flex-direction: column;
+   align-self: flex-start;
+}
 
-   .user-message .message-role {
-      color: #1976D2;
-      text-align: left;
-      font-weight: bold;
-      font-size: 14px;
-   }
+/* 消息头部样式 */
+.message-header {
+   margin-bottom: 5px;
+   text-align: left;
+}
 
-   .expert-message .message-role {
-      color: #089bab;
-      text-align: left;
-      font-weight: bold;
-      font-size: 14px;
-   }
+.message-header1 {
+   margin-bottom: 5px;
+   text-align: right;
+}
+
+.user-message .message-role {
+   color: #1976D2;
+   text-align: left;
+   font-weight: bold;
+   font-size: 14px;
+}
+
+.expert-message .message-role {
+   color: #089bab;
+   text-align: left;
+   font-weight: bold;
+   font-size: 14px;
+}
 
 /* 消息体样式 */
-   .message-body {
-      padding: 12px 16px;
-      border-radius: 18px;
-      font-size: 15px;
-      line-height: 1.5;
-      word-break: break-word;
-      text-align: left;
-      align-self: flex-start;
-      width: 100%;
-   }
+.message-body {
+   padding: 12px 16px;
+   border-radius: 18px;
+   font-size: 15px;
+   line-height: 1.5;
+   word-break: break-word;
+   text-align: left;
+   align-self: flex-start;
+   width: 100%;
+}
 
 /* 确保用户消息右对齐内容 */
 .user-wrapper .message-body {

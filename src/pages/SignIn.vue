@@ -89,7 +89,8 @@ const handleSubmit = () => {
                             localStorage.setItem('loginTime', loginTime)  // 存储登录时间
                             localStorage.setItem('sessionDuration', sessionDuration)  // 存储会话持续时间
                             localStorage.setItem('token', response.data.token)  // 存储 token
-                            router.push({ path: '/home/chat' })  
+                            router.push({ path: '/chat' })  
+                            console.log('登录成功，跳转到聊天页面')
                         }, 500)
                     } else {
                         // 注册成功
