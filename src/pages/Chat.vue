@@ -1,6 +1,6 @@
 <template>
    <!-- Sidebar 左栏-->
-   <!-- <div class="iq-sidebar">
+   <div class="iq-sidebar">
       <div class="iq-sidebar-logo d-flex justify-content-between">
          <a href="#" @click.prevent="$router.push('/')">
             <img src="/assets/images/logo.png" class="img-fluid" alt="">
@@ -25,7 +25,7 @@
          </nav>
          <div class="p-3"></div>
       </div>
-   </div> -->
+   </div>
 
    <!-- 引入Font Awesome图标库 -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -712,12 +712,7 @@ const saveRename = async () => {
          ElMessage.warning('新标题不能为空')
          return
       }
-      
-      // 显示加载状态
-      ElMessage.loading({
-        message: '重命名中...',
-        duration: 0
-      })
+
       
       const res = await axios.get(io_url + '/api/rename_conversation', {
          params: {
@@ -725,27 +720,16 @@ const saveRename = async () => {
             overview: newOverview.value.trim()
          }
       })
-      
-      // 关闭加载提示
-      ElMessage.closeAll()
-      
       if (res.data.success) {
          ElMessage.success(res.data.message || '会话标题已更新')
          
-         // 直接更新本地会话列表中的标题
-         const sessionId = currentRenameItem.value.session_id
-         const newTitle = newOverview.value.trim()
-         
-         [conversation_today, conversation_last_7_days, conversation_last_30_days, conversation_before_30_days].forEach(conversations => {
-            const item = conversations.value.find(conv => conv.session_id === sessionId)
-            if (item) {
-               item.overview = newTitle
-            }
-         })
-         
+         // 重置表单状态
          renameDialogVisible.value = false
          currentRenameItem.value = null
          newOverview.value = ''
+         
+         // 直接刷新会话列表
+         await refreshConversations()
       } else {
          ElMessage.error(res.data.message || '更新会话标题失败')
       }
