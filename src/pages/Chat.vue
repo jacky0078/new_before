@@ -238,7 +238,7 @@
                            <!-- 加号按钮，点击跳转到专家选择框 -->
                            <button class="btn p-2 shadow-sm d-flex align-items-center justify-content-center"
                               style="background-color: #ceebee; border-radius: 4px; border: 1px solid #91d5ff;"
-                              @click="dialogVisibleForExperts = true" title="选择专家">
+                              @click="show()" title="选择专家">
                               <i class="fas fa-plus" style="font-size: 26px; margin: 0; color: #089bab;"></i>
                            </button>
                         </header>
@@ -388,11 +388,11 @@
       </div>
       <template #footer>
          <span class="dialog-footer">
-            <el-button @click="backToCase()"
+            <el-button @click="backToCase()" v-if="!visibility"
                style="background-color: #089bab; border-color: #089bab;color: #f1f1f1;">上一步</el-button>
             <el-button type="primary" @click="confirmExpertSelection()"
-               style="background-color: #089bab; border-color: #089bab;" :disabled="selectedExperts.length === 0">
-               确认并开启会诊
+               style="background-color: #089bab; border-color: #089bab;" :disabled="selectedExperts.length === 0" >
+               {{ visibility ? '确认' : '确认开启会诊' }}
             </el-button>
          </span>
       </template>
@@ -484,6 +484,7 @@ const allConversations = computed(() => {
 const messageInput = ref('')
 const isPaused = ref(false)
 const displayWait = ref(false)
+const visibility = ref(false)
 
 // 专家数据
 const experts = ref([
@@ -509,6 +510,10 @@ const getExpertName = (speakerName) => {
    const expert = experts.value.find(e => e.name === speakerName || e.englishName === speakerName);
    // 如果找到专家，返回其中文名称，否则返回原始名称
    return expert ? expert.name : speakerName;
+}
+const show = () =>{
+   visibility.value = true
+   dialogVisibleForExperts.value = true
 }
 const chat = ref({
    chat_content: ''
