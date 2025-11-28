@@ -3,9 +3,8 @@
    <!-- Sidebar  -->
    <div class="iq-sidebar">
       <div class="iq-sidebar-logo d-flex justify-content-between">
-         <a href="#" @click.prevent="$router.push('/')">
+         <a href="#" >
             <img src="/assets/images/logo.png" class="img-fluid" alt="">
-            <span>XRay</span>
          </a>
       </div>
       <div id="sidebar-scrollbar">
@@ -37,7 +36,6 @@
                <div class="top-logo">
                   <a href="#" @click.prevent="$router.push('/')" class="logo">
                      <img src="/assets/images/logo.png" class="img-fluid" alt="">
-                     <span>XRay</span>
                   </a>
                </div>
             </div>

@@ -2,9 +2,8 @@
    <!-- Sidebar 左栏-->
    <div class="iq-sidebar">
       <div class="iq-sidebar-logo d-flex justify-content-between">
-         <a href="#" @click.prevent="$router.push('/')">
+         <a href="#" >
             <img src="/assets/images/logo.png" class="img-fluid" alt="">
-            <span>XRay</span>
          </a>
       </div>
       <div id="sidebar-scrollbar">
@@ -26,7 +25,6 @@
          <div class="p-3"></div>
       </div>
    </div>
-
    <!-- 引入Font Awesome图标库 -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <!-- Page Content  即sidebar右边内容-->
@@ -52,7 +50,6 @@
                </span>
                <span style="color: #089bab;position: relative;left:1.5%"> Step 1:</span>
                <span style="position: relative;left:2%">填写对话主题</span>
-
                <!-- Step 2: 填写图标 -->
                <span :style="{
                   display: 'inline-flex',
@@ -70,7 +67,6 @@
                </span>
                <span style="color: #089bab;position: relative;left:15.5%"> Step 2:</span>
                <span style="position: relative;left:16%">保存病人信息</span>
-
                <!-- Step 3: 手指选择图标 -->
                <span :style="{
                   display: 'inline-flex',
@@ -89,7 +85,6 @@
                </span>
                <span style="color: #089bab;position: relative;left:30.5%"> Step 3:</span>
                <span style="position: relative;left:31%">选择医生专家</span>
-
                <!-- 全屏图标 -->
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav ml-auto navbar-list">
@@ -146,7 +141,6 @@
                            </div>
                         </div>
                      </div>
-
                      <!-- 最近7天的对话 -->
                      <div v-if="conversation_last_7_days.length > 0" class="history-group">
                         <h6 class="history-group-title">
@@ -165,7 +159,6 @@
                            </div>
                         </div>
                      </div>
-
                      <!-- 最近30天的对话 -->
                      <div v-if="conversation_last_30_days.length > 0" class="history-group">
                         <h6 class="history-group-title">
@@ -184,7 +177,6 @@
                            </div>
                         </div>
                      </div>
-
                      <!-- 30天前的对话 -->
                      <div v-if="conversation_before_30_days.length > 0" class="history-group">
                         <h6 class="history-group-title">
@@ -213,13 +205,10 @@
                   </div>
                </div>
             </div>
-
             <!-- 初始状态下，聊天内容区域只占据聊天内容区域 -->
             <div :class="['chat-data', 'p-0', 'd-flex', 'flex-column', 'col-lg-9']"
                :style="conversationStarted ? { 'min-height': 'calc(100vh - 150px)', 'position': 'relative' } : { 'min-height': 'calc(100vh - 150px)' }">
                <div class="tab-content">
-
-
                   <div class="tab-pane fade active show" id="chatbox1" role="tabpanel"
                      style="display: flex; flex-direction: column; height: 100%;">
                      <!-- 上部分：专家选择 -->
@@ -244,10 +233,12 @@
                            </button>
                         </header>
                      </div>
-
                      <!--聊天内容区域  聊天内容显示-->
-                     <div class="chat-content flex-grow-1 overflow-auto" style="height: 69vh;"
-                        v-if="conversationStarted">
+                     <div class="chat-content flex-grow-1 overflow-auto" style="height: 69vh;" v-if="conversationStarted">
+                        <!-- 等待专家回答的动画 -->
+                        <div v-if="showWaitingAnimation" class="waiting-animation-wrapper" style="display: flex; justify-content: center; align-items: center; padding: 20px;">
+                          <div id="waiting-animation-container" style="width: 200px; height: 200px;"></div>
+                        </div>
                         <div v-for="message in messages" :key="message.id"
                            :class="['message-item', message.speaker === 'user' ? 'user-message' : 'expert-message']">
                            <!-- 用户消息 -->
@@ -271,9 +262,7 @@
                               </div>
                            </div>
                         </div>
-
                      </div>
-
                      <!-- 开始聊天按钮 -->
                      <div class="chat-start flex-grow-1 d-flex flex-column justify-center items-center"
                         v-if="!conversationStarted">
@@ -282,7 +271,6 @@
                            Conversation!</button>
                      </div>
                      <!-- 底部：发送消息框架 -->
-
                   </div>
                </div>
                <div class="chat-footer p-3 bg-white mb-0" v-if="conversationStarted"
@@ -364,7 +352,6 @@
             </div>
          </div>
       </div>
-
    </el-dialog>
 
    <!-- 专家选择对话框 -->
@@ -464,6 +451,8 @@ const conversation_today = ref([])
 const conversation_last_7_days = ref([])
 const conversation_last_30_days = ref([])
 const conversation_before_30_days = ref([])
+// 等待动画显示状态
+const showWaitingAnimation = ref(false)
 
 // 重命名会话相关状态
 const renameDialogVisible = ref(false)
@@ -542,6 +531,13 @@ onMounted(() => {
   
 
    socket.on('mdt_response', (data) => {
+      // 隐藏等待动画
+      showWaitingAnimation.value = false;
+      if (lottieInstance) {
+         lottieInstance.destroy();
+         lottieInstance = null;
+      }
+      
       // 对内容进行HTML转义，防止XSS攻击，同时保留换行
       const escapedContent = he.encode(data.content).replace(/\n/g, '<br>');
       messages.value.push({
@@ -900,6 +896,13 @@ const confirmExpertSelection = () => {
 
    // 显示正在讨论的提示
    ElMessage.success('MDT讨论已开始，专家正在分析病例...');
+   
+   // 显示等待动画
+   showWaitingAnimation.value = true;
+   // 延迟一点时间初始化动画，确保DOM已更新
+   setTimeout(() => {
+      initWaitingAnimation();
+   }, 100);
 }
 
 const startConversation = () => {
@@ -917,6 +920,20 @@ const startConversation = () => {
    dialogVisibleForChat.value = true
 }
 
+// 初始化等待动画
+const initWaitingAnimation = () => {
+  const container = document.getElementById('waiting-animation-container');
+  if (container && !lottieInstance) {
+    lottieInstance = lottie.loadAnimation({
+      container: container,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: '/assets/images/lottie/Search Doctor.json' // 使用相对路径指向静态资源
+    });
+  }
+};
+
 // 重置聊天页面到初始状态
 const resetChatPage = () => {
 // 重置会话状态
@@ -924,6 +941,13 @@ conversationStarted.value = false;
 hasStarted.value = false;
 isPaused.value = false;
 visibility.value = false;
+showWaitingAnimation.value = false;
+
+// 销毁动画实例
+if (lottieInstance) {
+  lottieInstance.destroy();
+  lottieInstance = null;
+}
 
 // 清空消息列表
 messages.value = [];
