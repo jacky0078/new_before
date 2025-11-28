@@ -11,14 +11,14 @@
          <nav class="iq-sidebar-menu">
             <ul class="iq-menu">
                <li>
-                  <a href="javascript:void(0);" class="iq-waves-effect"><i
+                  <a href="#" @click.prevent="$router.push('/DoctorList')"class="iq-waves-effect"><i
                         class="ri-user-3-fill"></i><span>医生</span></a>
                </li>
                <li>
                   <a href="javascript:void(0);" class="iq-waves-effect"><i
                         class="ri-user-3-fill"></i><span>患者</span></a>
                </li>
-               <li class="active"><a href="#" @click.prevent="$router.push('/chat')" class="iq-waves-effect"><i
+               <li class="active"><a href="#" @click.prevent="resetChatPage" class="iq-waves-effect"><i
                         class="ri-message-fill"></i><span>聊天</span></a>
                </li>
             </ul>
@@ -764,7 +764,7 @@ const refreshConversations = async () => {
          conversation_last_7_days.value = res.data.conversations_last_7_days || []
          conversation_last_30_days.value = res.data.conversations_last_30_days || []
          conversation_before_30_days.value = res.data.conversations_before_30_days || []
-         ElMessage.success('会话列表已刷新')
+        
       } else {
          ElMessage.error(res.data.message || '加载会话列表失败')
       }
@@ -915,6 +915,42 @@ const startConversation = () => {
    isPaused.value = false;
    // 直接显示Step 2的病人信息对话框`
    dialogVisibleForChat.value = true
+}
+
+// 重置聊天页面到初始状态
+const resetChatPage = () => {
+// 重置会话状态
+conversationStarted.value = false;
+hasStarted.value = false;
+isPaused.value = false;
+visibility.value = false;
+
+// 清空消息列表
+messages.value = [];
+id.value = 0;
+messageInput.value = '';
+
+// 清空当前会话ID
+current_session_id.value = '';
+
+// 清空选中的专家
+selectedExperts.value = [];
+
+// 清空患者信息
+Object.keys(patient).forEach(key => {
+delete patient[key];
+});
+
+// 隐藏所有对话框
+dialogVisible.value = false;
+dialogVisibleForChat.value = false;
+dialogVisibleForExperts.value = false;
+renameDialogVisible.value = false;
+
+// 刷新会话列表，确保显示最新数据
+refreshConversations();
+
+ElMessage.success('聊天页面已重置');
 }
 
 </script>
