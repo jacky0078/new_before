@@ -1,28 +1,110 @@
 <template>
    <!-- Sidebar 左栏-->
-   <div class="iq-sidebar">
-      <div class="iq-sidebar-logo d-flex justify-content-between">
-         <a href="#" >
+   <div class="iq-sidebar" style="display: flex; flex-direction: column; height: 100vh;background-color: #fafafa;">
+      <!-- 最上面：Logo图片 -->
+      <div class="iq-sidebar-logo d-flex justify-content-center p-4">
+         <a href="#">
             <img src="/assets/images/logo.png" class="img-fluid" alt="">
          </a>
       </div>
-      <div id="sidebar-scrollbar">
-         <nav class="iq-sidebar-menu">
-            <ul class="iq-menu">
-               <li>
-                  <a href="#" @click.prevent="$router.push('/DoctorList')"class="iq-waves-effect"><i
-                        class="ri-user-3-fill"></i><span>医生</span></a>
-               </li>
-               <li>
-                  <a href="javascript:void(0);" class="iq-waves-effect"><i
-                        class="ri-user-3-fill"></i><span>患者</span></a>
-               </li>
-               <li class="active"><a href="#" @click.prevent="resetChatPage" class="iq-waves-effect"><i
-                        class="ri-message-fill"></i><span>聊天</span></a>
-               </li>
-            </ul>
-         </nav>
-         <div class="p-3"></div>
+      
+      <!-- 中间：新对话按钮 -->
+      <div class="p-3">
+         <button class="btn w-100 py-3 rounded-lg iq-waves-effect" style="background-color: white; color: #089bab; border: 1px solid #089bab;" @click="resetChatPage">
+            <i class="ri-message-fill mr-2"></i>新对话
+         </button>
+      </div>
+      
+      <!-- 下面：历史对话（占据剩余空间） -->
+      <div class="chat-sidebar-channel flex-grow-1" style="scrollbar-width: thin; scrollbar-color: #089bab #f1f1f1; padding: 10px; overflow-y: auto;">
+         <h5 class="text-center mb-2 p-1" style="color: black; font-size: 14px;">
+            历史对话
+            <i class="fas fa-sync-alt ml-1" @click="refreshConversations"
+               style="cursor: pointer; font-size: 12px;" title="刷新会话列表"></i>
+         </h5>
+         <div v-loading="loadingConversation" element-loading-text="加载中..."
+            element-loading-spinner="el-icon-loading">
+            <!-- 今天的对话 -->
+            <div v-if="conversation_today.length > 0" class="history-group">
+               <h6 class="history-group-title" style="font-size: 12px;">
+                  <i class="fas fa-clock mr-1"></i>
+                  今天 <span class="conversation-count">({{ conversation_today.length }})</span>
+               </h6>
+               <div v-for="(item, index) in conversation_today" :key="`today-${index}`"
+                  class="doubao-history-item conversation-item p-2 mb-1 rounded-lg" style="font-size: 12px;"
+                  @click="loadConversationDetail(item)">
+                  <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
+                  <div class="conversation-actions" style="font-size: 10px;">
+                     <i class="fas fa-edit text-blue-500 mr-2" @click.stop="renameConversation(item)"
+                        title="重命名会话"></i>
+                     <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
+                        title="删除会话"></i>
+                  </div>
+               </div>
+            </div>
+            <!-- 最近7天的对话 -->
+            <div v-if="conversation_last_7_days.length > 0" class="history-group">
+               <h6 class="history-group-title" style="font-size: 12px;">
+                  <i class="fas fa-calendar-alt mr-1"></i>
+                  最近7天 <span class="conversation-count">({{ conversation_last_7_days.length }})</span>
+               </h6>
+               <div v-for="(item, index) in conversation_last_7_days" :key="`week-${index}`"
+                  class="doubao-history-item conversation-item p-2 mb-1 rounded-lg" style="font-size: 12px;"
+                  @click="loadConversationDetail(item)">
+                  <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
+                  <div class="conversation-actions" style="font-size: 10px;">
+                     <i class="fas fa-edit text-blue-500 mr-2" @click.stop="renameConversation(item)"
+                        title="重命名会话"></i>
+                     <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
+                        title="删除会话"></i>
+                  </div>
+               </div>
+            </div>
+            <!-- 最近30天的对话 -->
+            <div v-if="conversation_last_30_days.length > 0" class="history-group">
+               <h6 class="history-group-title" style="font-size: 12px;">
+                  <i class="fas fa-calendar-week mr-1"></i>
+                  最近30天 <span class="conversation-count">({{ conversation_last_30_days.length }})</span>
+               </h6>
+               <div v-for="(item, index) in conversation_last_30_days" :key="`month-${index}`"
+                  class="doubao-history-item conversation-item p-2 mb-1 rounded-lg" style="font-size: 12px;"
+                  @click="loadConversationDetail(item)">
+                  <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
+                  <div class="conversation-actions" style="font-size: 10px;">
+                     <i class="fas fa-edit text-blue-500 mr-2" @click.stop="renameConversation(item)"
+                        title="重命名会话"></i>
+                     <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
+                        title="删除会话"></i>
+                  </div>
+               </div>
+            </div>
+            <!-- 30天前的对话 -->
+            <div v-if="conversation_before_30_days.length > 0" class="history-group">
+               <h6 class="history-group-title" style="font-size: 12px;">
+                  <i class="fas fa-history mr-1"></i>
+                  30天前 <span class="conversation-count">({{ conversation_before_30_days.length }})</span>
+               </h6>
+               <div v-for="(item, index) in conversation_before_30_days" :key="`before-${index}`"
+                  class="doubao-history-item conversation-item p-2 mb-1 rounded-lg" style="font-size: 12px;"
+                  @click="loadConversationDetail(item)">
+                  <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
+                  <div class="conversation-actions" style="font-size: 10px;">
+                     <i class="fas fa-edit text-blue-500 mr-2" @click.stop="renameConversation(item)"
+                        title="重命名会话"></i>
+                     <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
+                        title="删除会话"></i>
+                  </div>
+               </div>
+            </div>
+            <!-- 暂无历史对话记录提示 -->
+            <div
+               v-if="!loadingConversation && conversation_today.length === 0 && conversation_last_7_days.length === 0 && conversation_last_30_days.length === 0 && conversation_before_30_days.length === 0"
+               class="text-center text-gray-500 py-3">
+               <i class="fas fa-comments-slash text-xl mb-1 text-gray-300"></i>
+               <p style="font-size: 11px;">暂无历史对话记录</p>
+               <p style="font-size: 10px; color: #999;">开始新的对话，与专家交流您的健康问题</p>
+            </div>
+         </div>
       </div>
    </div>
    <!-- 引入Font Awesome图标库 -->
@@ -112,101 +194,8 @@
       <!-- TOP Nav Bar END -->
       <div class="container-fluid">
          <div class="row">
-            <div class="col-lg-3 chat-data-left" style="min-height: calc(100vh - 150px);">
-               <!-- 历史对话区域 -->
-               <div class="chat-sidebar-channel h-100 bg-white border border-gray-200"
-                  style="scrollbar-width: thin; scrollbar-color: #089bab #f1f1f1; padding: 15px; overflow-y: auto; max-height: calc(100vh - 150px); border-radius: 32px;">
-                  <h5 class="text-center mb-3 p-2" style="color: #089bab; position: relative;">
-                     历史对话
-                     <i class="fas fa-sync-alt ml-2" @click="refreshConversations"
-                        style="cursor: pointer; font-size: 14px;" title="刷新会话列表"></i>
-                  </h5>
-                  <div v-loading="loadingConversation" class="doubao-history-container" element-loading-text="加载中..."
-                     element-loading-spinner="el-icon-loading">
-                     <!-- 今天的对话 -->
-                     <div v-if="conversation_today.length > 0" class="history-group">
-                        <h6 class="history-group-title">
-                           <i class="fas fa-clock mr-2"></i>
-                           今天 <span class="conversation-count">({{ conversation_today.length }})</span>
-                        </h6>
-                        <div v-for="(item, index) in conversation_today" :key="`today-${index}`"
-                           class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
-                           @click="loadConversationDetail(item)">
-                           <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
-                           <div class="conversation-actions">
-                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)"
-                                 title="重命名会话"></i>
-                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
-                                 title="删除会话"></i>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- 最近7天的对话 -->
-                     <div v-if="conversation_last_7_days.length > 0" class="history-group">
-                        <h6 class="history-group-title">
-                           <i class="fas fa-calendar-alt mr-2"></i>
-                           最近7天 <span class="conversation-count">({{ conversation_last_7_days.length }})</span>
-                        </h6>
-                        <div v-for="(item, index) in conversation_last_7_days" :key="`week-${index}`"
-                           class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
-                           @click="loadConversationDetail(item)">
-                           <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
-                           <div class="conversation-actions">
-                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)"
-                                 title="重命名会话"></i>
-                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
-                                 title="删除会话"></i>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- 最近30天的对话 -->
-                     <div v-if="conversation_last_30_days.length > 0" class="history-group">
-                        <h6 class="history-group-title">
-                           <i class="fas fa-calendar-check mr-2"></i>
-                           最近30天 <span class="conversation-count">({{ conversation_last_30_days.length }})</span>
-                        </h6>
-                        <div v-for="(item, index) in conversation_last_30_days" :key="`month-${index}`"
-                           class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
-                           @click="loadConversationDetail(item)">
-                           <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
-                           <div class="conversation-actions">
-                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)"
-                                 title="重命名会话"></i>
-                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
-                                 title="删除会话"></i>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- 30天前的对话 -->
-                     <div v-if="conversation_before_30_days.length > 0" class="history-group">
-                        <h6 class="history-group-title">
-                           <i class="fas fa-archive mr-2"></i>
-                           30天前 <span class="conversation-count">({{ conversation_before_30_days.length }})</span>
-                        </h6>
-                        <div v-for="(item, index) in conversation_before_30_days" :key="`older-${index}`"
-                           class="doubao-history-item conversation-item p-3 mb-2 rounded-lg"
-                           @click="loadConversationDetail(item)">
-                           <div class="conversation-content line-clamp-2">{{ item.overview }}</div>
-                           <div class="conversation-actions">
-                              <i class="fas fa-edit text-blue-500 mr-3" @click.stop="renameConversation(item)"
-                                 title="重命名会话"></i>
-                              <i class="fas fa-trash-alt text-red-500" @click.stop="deleteConversation(item.session_id)"
-                                 title="删除会话"></i>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div
-                     v-if="!loadingConversation && conversation_today.length === 0 && conversation_last_7_days.length === 0 && conversation_last_30_days.length === 0 && conversation_before_30_days.length === 0"
-                     class="text-center text-gray-500 py-10">
-                     <i class="fas fa-comments-slash text-4xl mb-3 text-gray-300"></i>
-                     <p>暂无历史对话记录</p>
-                     <p class="text-gray-400 text-sm mt-2">开始新的对话，与专家交流您的健康问题</p>
-                  </div>
-               </div>
-            </div>
             <!-- 初始状态下，聊天内容区域只占据聊天内容区域 -->
-            <div :class="['chat-data', 'p-0', 'd-flex', 'flex-column', 'col-lg-9']"
+            <div :class="['chat-data', 'p-0', 'd-flex', 'flex-column', 'col-12']"
                :style="conversationStarted ? { 'min-height': 'calc(100vh - 150px)', 'position': 'relative' } : { 'min-height': 'calc(100vh - 150px)' }">
                <div class="tab-content">
                   <div class="tab-pane fade active show" id="chatbox1" role="tabpanel"
