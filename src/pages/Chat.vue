@@ -1,23 +1,23 @@
 <template>
    <!-- Sidebar 左栏-->
-   <div class="iq-sidebar" style="display: flex; flex-direction: column; height: 100vh;background-color: #fafafa;">
+   <div class="iq-sidebar" style="display: flex; flex-direction: column; height: 100vh;background-color: white;">
       <!-- 最上面：Logo图片 -->
-      <div class="iq-sidebar-logo d-flex justify-content-center p-4">
+      <div class="iq-sidebar-logo d-flex justify-content-center ">
          <a href="#">
-            <img src="/assets/images/logo.png" class="img-fluid" alt="">
+            <img src="/assets/images/logo.png" class="img-fluid" alt="" style="width: 200px;height: 90px;">
          </a>
       </div>
       
       <!-- 中间：新对话按钮 -->
       <div class="p-3">
-         <button class="btn w-100 py-3 rounded-lg iq-waves-effect" style="background-color: white; color: #089bab; border: 1px solid #089bab;" @click="resetChatPage">
+         <button class="btn w-100 py-3 iq-waves-effect" style="border-radius: 50px !important;background-color: white; color: #089bab; border: 1px solid #089bab" @click="resetChatPage">
             <i class="ri-message-fill mr-2"></i>新对话
          </button>
       </div>
       
       <!-- 下面：历史对话（占据剩余空间） -->
-      <div class="chat-sidebar-channel flex-grow-1" style="scrollbar-width: thin; scrollbar-color: #089bab #f1f1f1; padding: 10px; overflow-y: auto;">
-         <h5 class="text-center mb-2 p-1" style="color: black; font-size: 14px;">
+      <div class="chat-sidebar-channel flex-grow-1" style="scrollbar-width: thin; scrollbar-color: #fafafa #f1f1f1; padding: 10px; overflow-y: auto;">
+         <h5 class=" mb-2 p-1" style="color: black; font-size: 14px;">
             历史对话
             <i class="fas fa-sync-alt ml-1" @click="refreshConversations"
                style="cursor: pointer; font-size: 12px;" title="刷新会话列表"></i>
@@ -99,7 +99,7 @@
             <!-- 暂无历史对话记录提示 -->
             <div
                v-if="!loadingConversation && conversation_today.length === 0 && conversation_last_7_days.length === 0 && conversation_last_30_days.length === 0 && conversation_before_30_days.length === 0"
-               class="text-center text-gray-500 py-3">
+               class=" text-gray-500 py-3">
                <i class="fas fa-comments-slash text-xl mb-1 text-gray-300"></i>
                <p style="font-size: 11px;">暂无历史对话记录</p>
                <p style="font-size: 10px; color: #999;">开始新的对话，与专家交流您的健康问题</p>
@@ -115,7 +115,7 @@
       <div class="iq-top-navbar header-top-sticky">
          <div class="iq-navbar-custom">
             <nav class="navbar navbar-expand-lg navbar-light p-0">
-               <!-- Step 1: 对话主题图标 -->
+               <!-- Step 1: 点击新对话 -->
                <span :style="{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -127,11 +127,11 @@
                   position: 'relative',
                   left: '1%',
                   cursor: 'default'
-               }" title="请填写对话主题">
+               }" title="点击新对话">
                   <i class="fas fa-comment-alt" style="color: white; font-size: 16px;"></i>
                </span>
                <span style="color: #089bab;position: relative;left:1.5%"> Step 1:</span>
-               <span style="position: relative;left:2%">填写对话主题</span>
+               <span style="position: relative;left:2%">点击新对话</span>
                <!-- Step 2: 填写图标 -->
                <span :style="{
                   display: 'inline-flex',
@@ -223,13 +223,15 @@
                         </header>
                      </div>
                      <!--聊天内容区域  聊天内容显示-->
-                     <div class="chat-content flex-grow-1 overflow-auto" style="height: 69vh;" v-if="conversationStarted">
+                     <div class="chat-content flex-grow-1 overflow-auto" v-if="conversationStarted">
                         <!-- 等待专家回答的动画 -->
                         <div v-if="showWaitingAnimation" class="waiting-animation-wrapper" style="display: flex; justify-content: center; align-items: center; padding: 20px;">
                           <div id="waiting-animation-container" style="width: 200px; height: 200px;"></div>
                         </div>
                         <div v-for="message in messages" :key="message.id"
-                           :class="['message-item', message.speaker === 'user' ? 'user-message' : 'expert-message']">
+                           :class="['message-item', 
+                                     message.speaker === 'user' ? 'user-message' : 
+                                     message.speaker === 'report' ? 'report-message' : 'expert-message']">
                            <!-- 用户消息 -->
                            <div v-if="message.speaker === 'user'" class="message-wrapper user-wrapper">
                               <img src="/assets/images/user/1.jpg" alt="用户头像" class="message-avatar user-avatar">
@@ -240,7 +242,7 @@
                               </div>
                            </div>
                            <!-- 专家消息 -->
-                           <div v-else class="message-wrapper expert-wrapper"> <img
+                           <div v-else-if="message.speaker !== 'report'" class="message-wrapper expert-wrapper"> <img
                                  :src="getExpertAvatar(message.speaker)" alt="专家头像"
                                  class="message-avatar expert-avatar">
                               <div class="message-content-container">
@@ -248,6 +250,19 @@
                                     getExpertName(message.speaker) }}</span>
                                  </div>
                                  <div class="message-body" v-html="message.content"></div>
+                              </div>
+                           </div>
+                           <!-- 会诊报告消息 -->
+                           <div v-else class="message-wrapper report-wrapper">
+                              
+                              <div class="message-content-container">
+                                
+                                 <div class="message-body report-body" 
+                                      style="background-color: #e6f7f8; cursor: pointer; border-color: #089bab;"
+                                      @click="fetchMdtReport">
+                                    <i class="fas fa-file-alt" style="color: #089bab; margin-right: 5px;"></i>
+                                    <span v-html="message.content"></span>
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -262,23 +277,20 @@
                      <!-- 底部：发送消息框架 -->
                   </div>
                </div>
-               <div class="chat-footer p-3 bg-white mb-0" v-if="conversationStarted"
-                  style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 100; margin-bottom: 0;">
-                  <form class="d-flex align-items-center" action="javascript:void(0);">
+               <div class="chat-footer  bg-white mb-0" v-if="conversationStarted" style="padding: 10px 10px 10px 10px;">
+                  <form class="d-flex align-items-center" action="javascript:void(0);"style="padding: 10px 10px 10px 10px;">
                      <div class="chat-attagement d-flex">
                         <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
                      </div>
                      <input type="text" class="form-control mr-3" placeholder="请添加补充信息" v-model="messageInput">
-                     <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-3"
-                        style="min-width: 48px; height: 48px; font-size: 18px;"
-                        @click="hasStarted ? handleButtonClick() : sendMessage()"
-                        :disabled="!messageInput && !hasStarted">
+                     <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-3 mr-2" style="min-width: 48px; height: 48px; font-size: 18px;" @click="hasStarted ? handleButtonClick() : sendMessage()" :disabled="!messageInput && !hasStarted">
                         <i :class="{
                            'fa fa-paper-plane-o': !hasStarted,
                            'fa fa-pause': hasStarted && !isPaused,
                            'fa fa-play': hasStarted && isPaused
                         }" style="font-size: 20px;" aria-hidden="true"></i>
                      </button>
+
                   </form>
                </div>
             </div>
@@ -321,12 +333,9 @@
          <el-form-item label="长期用药:">
             <el-input v-model="patient.long_term_drug" placeholder="例如:阿司匹林,阿司匹林类" type="textarea"></el-input>
          </el-form-item>
-         <el-form-item style="margin-top:4%">
+         <el-form-item style="margin-top:4%; display: flex; justify-content: flex-end;">
             <el-button type="primary"
-               style="position:relative;left:75%;background-color: #089bab; border-color: #089bab;"
-               @click="backToChat()">上一步</el-button>
-            <el-button type="primary"
-               style="position:relative;left:75%;background-color: #089bab; border-color: #089bab;"
+               style="background-color: #089bab; border-color: #089bab;"
                @click="savePatient()">下一步</el-button>
          </el-form-item>
       </el-form>
@@ -349,7 +358,8 @@
          <h3 style="margin-bottom: 20px; color: #089bab;">请选择您需要咨询的专家</h3>
          <div class="expert-grid">
             <div v-for="expert in experts" :key="expert.id" class="expert-card"
-               :class="{ 'selected': isExpertSelected(expert.id) }" @click="selectExpert(expert.id)">
+               :class="{ 'selected': isExpertSelected(expert.id), 'gold-border': expert.required, 'not-selectable': expert.required && isExpertSelected(expert.id) }" 
+               @click="selectExpert(expert.id)">
                <div class="expert-avatar">
                   <img :src="expert.avatar" :alt="expert.name" class="avatar-80 rounded">
                   <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
@@ -375,19 +385,7 @@
          </span>
       </template>
    </el-dialog>
-   <el-dialog v-model="dialogVisibleForChat" title="填写对话信息" :show-close="false" width="40%">
-      <el-form>
-         <el-form-item label="对话主题:">
-            <el-input v-model="patient.chat_content" placeholder="请输入对话主题" type="textarea"></el-input>
-         </el-form-item>
 
-         <el-form-item style="margin-top:4%">
-            <el-button type="primary"
-               style="position:relative;left:85%;background-color: #089bab; border-color: #089bab;"
-               @click="saveChat()">下一步</el-button>
-         </el-form-item>
-      </el-form>
-   </el-dialog>
 
    <!-- 重命名会话对话框 -->
    <el-dialog v-model="renameDialogVisible" title="重命名会话" width="40%">
@@ -399,9 +397,19 @@
       <template #footer>
          <span class="dialog-footer">
             <el-button @click="renameDialogVisible = false">取消</el-button>
-            <el-button type="primary" style="background-color: #089bab; border-color: #089bab;"
-               @click="saveRename">确认</el-button>
+            <el-button type="primary" style="background-color: #089bab; border-color: #089bab;" @click="saveRename">确认</el-button>
          </span>
+      </template>
+   </el-dialog>
+   
+   <!-- 会诊报告对话框 -->
+   <el-dialog v-model="dialogVisibleForReport" title="会诊报告" width="90%" fullscreen>
+      <div class="report-container" v-html="reportHtml"></div>
+      <template #footer>
+         <el-button @click="dialogVisibleForReport = false">关闭</el-button>
+         <el-button type="primary" @click="exportToPdf" style="background-color: #089bab; border-color: #089bab;">
+            导出PDF
+         </el-button>
       </template>
    </el-dialog>
 
@@ -451,6 +459,10 @@ const newOverview = ref('')
 // 会话加载状态
 const loadingConversation = ref(false)
 
+// 会诊报告相关
+const dialogVisibleForReport = ref(false)
+const reportHtml = ref('')
+
 // 合并所有对话记录为一个数组，按时间倒序排列（最新的在前）
 const allConversations = computed(() => {
    // 合并所有时间段的对话
@@ -469,12 +481,12 @@ let lottieInstance = null
 
 // 专家数据
 const experts = ref([
-   { id: 'attending_physician', name: '眼科专家', englishName: 'attending_physician', avatar: '/assets/images/user/05.jpg' },
+   { id: 'attending_physician', name: '眼科专家', englishName: 'attending_physician', avatar: '/assets/images/user/05.jpg', required: true },
    { id: 'radiologist', name: '放射科专家', englishName: 'radiologist', avatar: '/assets/images/user/06.jpg' },
    { id: 'infectiologist', name: '感染科专家', englishName: 'infectiologist', avatar: '/assets/images/user/07.jpg' },
    { id: 'neurologist', name: '神经科专家', englishName: 'neurologist', avatar: '/assets/images/user/08.jpg' },
-   { id: 'endocrinologist', name: '内分泌科专家', englishName: 'endocrinologist', avatar: '/assets/images/user/09.jpg' },
-   { id: 'supervisor', name: '总结医生', englishName: 'supervisor', avatar: '/assets/images/user/10.jpg' }
+   { id: 'endocrinologist', name: '内分泌科专家', englishName: 'endocrinologist', avatar: '/assets/images/user/09.jpg' }
+   // 总结医生已隐藏
 ])
 
 // 根据专家名称获取头像
@@ -505,6 +517,32 @@ const backToCase = () => {
 }
 // 存储选中的专家
 const selectedExperts = ref([])
+// 获取会诊报告
+const fetchMdtReport = () => {
+   if (!current_session_id.value) return;
+   
+   axios.get('/api/get_mdt_report_html', {
+      params: { session_id: current_session_id.value }
+   })
+   .then(response => {
+      reportHtml.value = response.data;
+      dialogVisibleForReport.value = true;
+   })
+   .catch(error => {
+      console.error('获取会诊报告失败:', error);
+      ElMessage.error('获取会诊报告失败');
+   });
+};
+
+// 导出为PDF
+const exportToPdf = () => {
+   if (!current_session_id.value) return;
+   
+   // 创建一个临时链接来下载PDF
+   const url = `/api/export_conversation_pdf?session_id=${current_session_id.value}`;
+   window.open(url, '_blank');
+};
+
 onMounted(() => {
    token.value = localStorage.getItem('token') || ''
    socket.on('response', (data) => {
@@ -515,9 +553,28 @@ onMounted(() => {
       refreshConversations() // 复用刷新会话列表函数
    }
 
-
-
-  
+   // 监听会话结束信号
+   socket.on('send_finish', () => {
+      // 重置按钮状态为初始发送按钮
+      hasStarted.value = false;
+      isPaused.value = false;
+      
+      // 添加会诊报告消息到聊天记录
+      messages.value.push({
+         speaker: 'report',
+         content: '会诊报告已生成，点击查看完整报告',
+         id: id.value
+      });
+      id.value++;
+      
+      // 滚动到底部
+      setTimeout(() => {
+         const chatContent = document.querySelector('.chat-content');
+         if (chatContent) {
+            chatContent.scrollTop = chatContent.scrollHeight;
+         }
+      }, 0);
+   });
 
    socket.on('mdt_response', (data) => {
       // 隐藏等待动画
@@ -817,9 +874,34 @@ const showExpertDialog = () => {
 // 选择专家函数
 
 const selectExpert = (expertId) => {
-   // 查找专家是否已经被选中
+   // 获取专家信息
+   const tempExpert = experts.value.find(e => e.id === expertId);
+   
+   // 如果是必选专家（眼科医生），不允许取消选择
+   if (tempExpert && tempExpert.required) {
+      // 检查是否已经选中
+      const existingIndex = selectedExperts.value.findIndex(expert => expert.id === expertId);
+      if (existingIndex === -1) {
+         // 如果未选中，则添加
+         selectedExperts.value.push(tempExpert);
+         axios.post(io_url + '/api/add_expert', {
+            username: token.value,
+            session_id: current_session_id.value,
+            name: tempExpert.id,
+            specialty: tempExpert.name
+         }).then(res => {
+            if (res.data.success === true) {
+               ElMessage.success('专家加入成功')
+            }
+         }).catch(err => {
+            ElMessage.error(err.message)
+         })
+      }
+      return; // 必选专家不允许取消，直接返回
+   }
+   
+   // 非必选专家的处理逻辑
    const existingIndex = selectedExperts.value.findIndex(expert => expert.id === expertId);
-   const tempExpert = experts.value.find(e => e.id === expertId)
    if (existingIndex > -1) {
       // 如果已选中，则移除（退出）
       selectedExperts.value.splice(existingIndex, 1);
@@ -895,18 +977,8 @@ const confirmExpertSelection = () => {
 }
 
 const startConversation = () => {
-   axios.get(io_url + '/api/create_session', { params: { username: token.value } }).then(res => {
-      if (res.data.success === true) {
-         current_session_id.value = res.data.session_id
-         ElMessage.success('对话开始成功')
-      }
-   })
-   // 设置对话已开始
-   conversationStarted.value = true;
-   // 重置暂停状态
-   isPaused.value = false;
-   // 直接显示Step 2的病人信息对话框`
-   dialogVisibleForChat.value = true
+   // 此函数已被禁用，用户应通过点击左侧新对话按钮开始对话
+   ElMessage.warning('请通过左侧新对话按钮开始对话')
 }
 
 // 初始化等待动画
@@ -946,7 +1018,7 @@ messageInput.value = '';
 // 清空当前会话ID
 current_session_id.value = '';
 
-// 清空选中的专家
+// 清空选中的专家，但保留眼科医生为必选
 selectedExperts.value = [];
 
 // 清空患者信息
@@ -963,7 +1035,20 @@ renameDialogVisible.value = false;
 // 刷新会话列表，确保显示最新数据
 refreshConversations();
 
-ElMessage.success('聊天页面已重置');
+// 创建新会话并显示病人信息对话框
+axios.get(io_url + '/api/create_session', { params: { username: token.value } }).then(res => {
+  if (res.data.success === true) {
+    current_session_id.value = res.data.session_id
+    ElMessage.success('对话开始成功')
+    // 设置对话已开始
+    conversationStarted.value = true;
+    // 重置暂停状态
+    isPaused.value = false;
+    // 直接显示Step 2的病人信息对话框
+    dialogVisible.value = true
+  }
+});
+
 }
 
 </script>
@@ -1385,6 +1470,44 @@ ElMessage.success('聊天页面已重置');
    margin-right: auto;
 }
 
+.report-wrapper {
+   margin-left: auto;
+   margin-right: auto;
+   justify-content: center;
+   max-width: 100%;
+}
+
+.report-wrapper .message-content-container {
+   text-align: center;
+}
+
+/* 报告消息特殊样式 */
+.report-body {
+   background-color: #e6f7f8 !important;
+   border: 1px solid #089bab !important;
+   cursor: pointer !important;
+   transition: all 0.3s ease !important;
+}
+
+.report-body:hover {
+   background-color: #d9f0f2 !important;
+   transform: translateY(-2px) !important;
+   box-shadow: 0 4px 8px rgba(8, 155, 171, 0.15) !important;
+}
+
+/* 报告头像样式 */
+.report-avatar {
+   width: 40px !important;
+   height: 40px !important;
+   border-radius: 50% !important;
+   background-color: #089bab !important;
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+   color: white !important;
+   font-size: 20px !important;
+}
+
 /* 头像样式 */
 .message-avatar {
    width: 40px;
@@ -1480,6 +1603,15 @@ ElMessage.success('聊天页面已重置');
    to {
       opacity: 1;
    }
+}
+
+/* 会诊报告样式 */
+.report-container {
+   width: 100%;
+   height: calc(100vh - 200px);
+   overflow-y: auto;
+   padding: 20px;
+   background-color: #fff;
 }
 
 /* 滚动条样式优化 */
