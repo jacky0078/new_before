@@ -223,7 +223,7 @@
                         </header>
                      </div>
                      <!--聊天内容区域  聊天内容显示-->
-                     <div class="chat-content flex-grow-1 overflow-auto" v-if="conversationStarted">
+                     <div class="chat-content flex-grow-1 overflow-auto" v-if="conversationStarted" style="height:70vh">
                         <!-- 等待专家回答的动画 -->
                         <div v-if="showWaitingAnimation" class="waiting-animation-wrapper" style="display: flex; justify-content: center; align-items: center; padding: 20px;">
                           <div id="waiting-animation-container" style="width: 200px; height: 200px;"></div>
@@ -300,6 +300,9 @@
    </div>
    <el-dialog v-model="dialogVisible" title="填写病人信息" :show-close="false">
       <el-form :model="patient" style="margin-top:3%">
+          <el-form-item label="患者姓名:">
+            <el-input v-model="patient.name" placeholder="请输入患者姓名" aria-required="true"></el-input>
+         </el-form-item>
          <el-form-item label="主诉症状:">
             <el-input v-model="patient.main_complaint" placeholder="例如:左眼红,眼痛,流泪3天" type="textarea"></el-input>
          </el-form-item>
@@ -335,7 +338,7 @@
          </el-form-item>
          <el-form-item style="margin-top:4%; display: flex; justify-content: flex-end;">
             <el-button type="primary"
-               style="background-color: #089bab; border-color: #089bab;"
+               style="background-color: #089bab; border-color: #089bab;position: relative;left: 85%;"
                @click="savePatient()">下一步</el-button>
          </el-form-item>
       </el-form>
