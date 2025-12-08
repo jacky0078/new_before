@@ -254,13 +254,12 @@
                            </div>
                            <!-- 会诊报告消息 -->
                            <div v-else class="message-wrapper report-wrapper">
-                              
+                               
                               <div class="message-content-container">
-                                
+                                 <div class="message-header" style="text-align: center; margin-bottom: 10px;"> <span class="message-role" style="color: #089bab; font-size: 18px; font-weight: bold;">会诊报告</span>
+                                 </div>
                                  <div class="message-body report-body" 
-                                      style="background-color: #e6f7f8; cursor: pointer; border-color: #089bab;"
-                                      @click="fetchMdtReport">
-                                    <i class="fas fa-file-alt" style="color: #089bab; margin-right: 5px;"></i>
+                                      style="background-color: #e6f7f8; border-color: #089bab;">
                                     <span v-html="message.content"></span>
                                  </div>
                               </div>
@@ -282,7 +281,7 @@
                      <div class="chat-attagement d-flex">
                         <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
                      </div>
-                     <input type="text" class="form-control mr-3" placeholder="请添加补充信息" v-model="messageInput">
+                     <textarea class="form-control mr-3" placeholder="请添加补充信息" v-model="messageInput" rows="1"></textarea>
                      <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-3 mr-2" style="min-width: 48px; height: 48px; font-size: 18px;" @click="hasStarted ? handleButtonClick() : sendMessage()" :disabled="!messageInput && !hasStarted">
                         <i :class="{
                            'fa fa-paper-plane-o': !hasStarted,
@@ -562,21 +561,39 @@ onMounted(() => {
       hasStarted.value = false;
       isPaused.value = false;
       
-      // 添加会诊报告消息到聊天记录
-      messages.value.push({
-         speaker: 'report',
-         content: '会诊报告已生成，点击查看完整报告',
-         id: id.value
-      });
-      id.value++;
-      
-      // 滚动到底部
-      setTimeout(() => {
-         const chatContent = document.querySelector('.chat-content');
-         if (chatContent) {
-            chatContent.scrollTop = chatContent.scrollHeight;
-         }
-      }, 0);
+      // 直接获取并显示完整会诊报告
+      if (current_session_id.value) {
+         axios.get('/api/get_mdt_report_html', {
+            params: { session_id: current_session_id.value }
+         })
+         .then(response => {
+            // 添加完整会诊报告到聊天记录
+            messages.value.push({
+               speaker: 'report',
+               content: response.data,
+               id: id.value
+            });
+            id.value++;
+            
+            // 滚动到底部
+            setTimeout(() => {
+               const chatContent = document.querySelector('.chat-content');
+               if (chatContent) {
+                  chatContent.scrollTop = chatContent.scrollHeight;
+               }
+            }, 0);
+         })
+         .catch(error => {
+            console.error('获取会诊报告失败:', error);
+            // 添加错误提示消息
+            messages.value.push({
+               speaker: 'report',
+               content: '会诊报告生成失败，请稍后重试',
+               id: id.value
+            });
+            id.value++;
+         });
+      }
    });
 
    socket.on('mdt_response', (data) => {
@@ -1477,25 +1494,37 @@ axios.get(io_url + '/api/create_session', { params: { username: token.value } })
    margin-left: auto;
    margin-right: auto;
    justify-content: center;
-   max-width: 100%;
+   max-width: 90%;
 }
 
 .report-wrapper .message-content-container {
-   text-align: center;
+   text-align: left;
 }
 
 /* 报告消息特殊样式 */
 .report-body {
    background-color: #e6f7f8 !important;
    border: 1px solid #089bab !important;
-   cursor: pointer !important;
    transition: all 0.3s ease !important;
+   padding: 15px;
+   border-radius: 8px;
 }
 
-.report-body:hover {
-   background-color: #d9f0f2 !important;
-   transform: translateY(-2px) !important;
-   box-shadow: 0 4px 8px rgba(8, 155, 171, 0.15) !important;
+/* 确保报告内容中的样式合理 */
+.report-body h1, .report-body h2, .report-body h3 {
+   color: #089bab !important;
+   margin-top: 15px !important;
+   margin-bottom: 10px !important;
+}
+
+.report-body p {
+   margin-bottom: 8px !important;
+   line-height: 1.5 !important;
+}
+
+.report-body ul, .report-body ol {
+   margin-left: 20px !important;
+   margin-bottom: 10px !important;
 }
 
 /* 报告头像样式 */
